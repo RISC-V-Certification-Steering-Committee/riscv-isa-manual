@@ -1,4 +1,4 @@
-[[risc-v-isa]][[manual:unpriv]]
+[[manual:unpriv]]
 = The RISC-V Instruction Set Manual Volume I: Unprivileged Architecture
 include::../docs-resources/global-config.adoc[]
 description: Unprivileged Architecture
