@@ -1,7 +1,6 @@
 [[mstandard]]
 == "M" Extension for Integer Multiplication and Division, Version 2.0
 
-Foo
 This chapter describes the standard integer multiplication and division
 instruction extension, which is named "M" and contains instructions
 that multiply or divide values held in two integer registers.
@@ -23,9 +22,9 @@ include::images/wavedrom/m-st-ext-for-int-mult.edn[]
 (((MUL, MULHU)))
 (((MUL, MULHSU)))
 
-[#manual:inst:mul:operation]#MUL performs an XLEN-bit×XLEN-bit multiplication of
+[#norm:inst:mul:operation]#MUL performs an XLEN-bit×XLEN-bit multiplication of
 _rs1_ by _rs2_ and places the lower XLEN bits in the destination
-register.# [#manual:insts:mulh-mulhu-mulhsu:operation]#MULH, MULHU, and MULHSU perform the same multiplication but
+register.# [#norm:insts:mulh-mulhu-mulhsu:operation]#MULH, MULHU, and MULHSU perform the same multiplication but
 return the upper XLEN bits of the full 2×XLEN-bit
 product, for signed×signed,
 unsigned×unsigned, and _rs1_×unsigned _rs2_ multiplication, respectively.#
@@ -38,7 +37,7 @@ most-significant word of the multiplicand (which contains the sign bit)
 with the less-significant words of the multiplier (which are unsigned).
 ====
 
-[#manual:inst:mulw:operation]#MULW is an RV64 instruction that multiplies the lower 32 bits of the
+[#norm:inst:mulw:operation]#MULW is an RV64 instruction that multiplies the lower 32 bits of the
 source registers, placing the sign extension of the lower 32 bits of the
 result into the destination register.#
 
@@ -59,9 +58,9 @@ include::images/wavedrom/division-op.edn[]
 (((MUL, DIV)))
 (((MUL, DIVU)))
 
-[#manual:insts:div-divu:operation]#DIV and DIVU perform an XLEN bits by XLEN bits signed and unsigned
-integer division of _rs1_ by _rs2_, rounding towards zero.# [#manual:insts:rem-remu:operation]#REM and REMU
-provide the remainder of the corresponding division operation.# [#manual:inst:rem:result_sign]#For REM,
+[#norm:insts:div-divu:operation]#DIV and DIVU perform an XLEN bits by XLEN bits signed and unsigned
+integer division of _rs1_ by _rs2_, rounding towards zero.# [#norm:insts:rem-remu:operation]#REM and REMU
+provide the remainder of the corresponding division operation.# [#norm:inst:rem:result_sign]#For REM,
 the sign of a nonzero result equals the sign of the dividend.#
 
 [NOTE]
@@ -77,19 +76,19 @@ rs1, rs2_ (_rdq_ cannot be the same as _rs1_ or _rs2_).
 Microarchitectures can then fuse these into a single divide operation
 instead of performing two separate divides.
 
-[#manual:insts:divw-divuw:operation]#DIVW and DIVUW are RV64 instructions that divide the lower 32 bits of
+[#norm:insts:divw-divuw:operation]#DIVW and DIVUW are RV64 instructions that divide the lower 32 bits of
 _rs1_ by the lower 32 bits of _rs2_, treating them as signed and
 unsigned integers respectively, placing the 32-bit quotient in _rd_,
-sign-extended to 64 bits.# [#manual:insts:remw-remuw:operation]#REMW and REMUW are RV64 instructions that
+sign-extended to 64 bits.# [#norm:insts:remw-remuw:operation]#REMW and REMUW are RV64 instructions that
 provide the corresponding signed and unsigned remainder operations
-respectively.# [#manual:insts:remw-remuw:result_sign]#Both REMW and REMUW always sign-extend the 32-bit result
+respectively.# [#norm:insts:remw-remuw:result_sign]#Both REMW and REMUW always sign-extend the 32-bit result
 to 64 bits, including on a divide by zero.#
 (((MUL, div by zero)))
 
 The semantics for division by zero and division overflow are summarized
-in <<divby0>>. [#manual:inst_group:division:div_by_zero]#The quotient of division by zero has all bits
-set#, and [#manual:inst_group:remainder:div_by_zero]#the remainder of division by zero equals the dividend.# 
-[#manual:inst_group:div_overflow]#Signed division overflow occurs only when the most-negative integer is divided
+in <<divby0>>. [#norm:inst_group:division:div_by_zero]#The quotient of division by zero has all bits
+set#, and [#norm:inst_group:remainder:div_by_zero]#the remainder of division by zero equals the dividend.# 
+[#norm:inst_group:div_overflow]#Signed division overflow occurs only when the most-negative integer is divided
 by latexmath:[$-1$]. The quotient of a signed division with overflow is
 equal to the dividend, and the remainder is zero.# Unsigned division
 overflow cannot occur.
