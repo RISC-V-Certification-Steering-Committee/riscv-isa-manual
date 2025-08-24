@@ -114,7 +114,7 @@ OPTIONS := --trace \
            -a docinfo=shared \
            $(XTRA_ADOC_OPTS) \
            -D build \
-           --failure-level=ERROR
+           --failure-level=WARN
 REQUIRES := --require=asciidoctor-bibtex \
             --require=asciidoctor-diagram \
             --require=asciidoctor-lists \
