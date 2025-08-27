@@ -1,0 +1,62 @@
+$schema: "normative_rules_schema.json#"
+
+name: rv64
+
+normative_rules:
+  - name: rv64_xregwidth
+    summary: RV64I XLEN
+    tags: ["norm:base:rv64i:xregwidth"]
+  - name: rv64i_other_xregs
+    summary: Registers x1 to x31
+    tags: ["norm:bases:rv32i_rv64i:other-xregs"]
+  - name: addiw_op
+    tags: ["norm:inst:addiw:operation"]
+  - names: [slliw_op,srliw_op,sraiw_op]
+    tags: ["norm:insts:slliw_srliw_sraiw:operation"]
+  - names: [slliw_imm5_rsv,srliw_imm5_rsv,sraiw_imm5_rsv]
+    summary: Bit 5 of imm reserved
+    tags: ["norm:insts:slliw_srliw_sraiw:imm5_rsv"]
+  - name: lui_rv64i_op
+    tags: ["norm:inst:lui:rv64i_operation"]
+  - name: auipc_rv64i_op
+    tags: ["norm:inst:auipc:rv64i_operation"]
+  - names: [addw_op,subw_op]
+    tags: ["norm:insts:addw_subw:operation"]
+  - name: [addw_overflow,subw_overflow]
+    tags: ["norm:insts:addw_subw:overflow"]
+  - names: [sll_rv64i_sh_amt,srl_rv64i_sh_amt,sra_rv64i_sh_amt]
+    tags: ["norm:insts:sll_srl_sra:rv64i_sh_amt"]
+  - names: [sllw_op,srlw_op,sraw_op]
+    tags: ["norm:insts:sllw_srlw_sraw:operation"]
+  - name: ld_rv64i_op
+    tags: ["norm:inst:ld:rv64i_operation"]
+  - name: lw_rv64i_op
+    tags: ["norm:inst:lw:rv64i_operation"]
+  - name: lwu_rv64i_op
+    tags: ["norm:inst:lwu:rv64i_operation"]
+  - name: lh_rv64i_op
+    summary: "lh RV64I operation"
+    tags:
+      - "norm:inst:ld:rv64i_operation" # Example where multiple tags required to create a complete self-contained rule
+      - "norm:inst:lw:rv64i_operation"
+      - "norm:insts:lh_lhu_lb_lbu:rv64i_operation"
+  - name: lhu_rv64i_op
+    summary: "lhu RV64I operation"
+    tags:
+      - "norm:inst:ld:rv64i_operation" # Example where multiple tags required to create a complete self-contained rule
+      - "norm:inst:lw:rv64i_operation"
+      - "norm:insts:lh_lhu_lb_lbu:rv64i_operation"
+  - name: lb_rv64i_op
+    summary: "lb RV64I operation"
+    tags:
+      - "norm:inst:ld:rv64i_operation" # Example where multiple tags required to create a complete self-contained rule
+      - "norm:inst:lw:rv64i_operation"
+      - "norm:insts:lh_lhu_lb_lbu:rv64i_operation"
+  - name: lbu_rv64i_op
+    summary: "lbu RV64I operation"
+    tags:
+      - "norm:inst:ld:rv64i_operation" # Example where multiple tags required to create a complete self-contained rule
+      - "norm:inst:lw:rv64i_operation"
+      - "norm:insts:lh_lhu_lb_lbu:rv64i_operation"
+  - names: [sd_rv64i_op,sw_rv64i_op,sh_rv64i_op,sb_rv64i_op]
+    tags: ["norm:insts:sd_sw_sh_sb:rv64i_operation"]
