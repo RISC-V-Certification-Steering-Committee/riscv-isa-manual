@@ -1,8 +1,6 @@
 $schema: "normative_rules_schema.json#"
 
-name: rv64
-
-normative_rules:
+normative_curations:
   - name: rv64_xregwidth
     summary: RV64I XLEN
     tags: ["norm:base:rv64i:xregwidth"]
@@ -22,7 +20,7 @@ normative_rules:
     tags: ["norm:inst:auipc:rv64i_operation"]
   - names: [addw_op,subw_op]
     tags: ["norm:insts:addw_subw:operation"]
-  - name: [addw_overflow,subw_overflow]
+  - names: [addw_overflow,subw_overflow]
     tags: ["norm:insts:addw_subw:overflow"]
   - names: [sll_rv64i_sh_amt,srl_rv64i_sh_amt,sra_rv64i_sh_amt]
     tags: ["norm:insts:sll_srl_sra:rv64i_sh_amt"]
@@ -33,7 +31,7 @@ normative_rules:
   - name: lw_rv64i_op
     tags: ["norm:inst:lw:rv64i_operation"]
   - name: lwu_rv64i_op
-    tags: ["norm:inst:lwu:rv64i_operation"]
+    tags: ["norm:inst:lwu:operation"]
   - name: lh_rv64i_op
     summary: "lh RV64I operation"
     tags:

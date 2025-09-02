@@ -1,8 +1,6 @@
 $schema: "normative_rules_schema.json#"
 
-name: rv32
-
-normative_rules:
+normative_curations:
   - name: rv32_xregwidth # Normative rule names are more compact than tag names
     type: base
     summary: RV32I XLEN # Few word summary of normative rule.
