@@ -92,12 +92,13 @@ endif
 SRC_DIR := src
 BUILD_DIR := build
 NORM_RULE_CURATION_DIR := $(SRC_DIR)/normative_rule_curation
+DOC_NORM_TAG_SUFFIX := -norm-tags.json
 
 DOCS_PDF := $(addprefix $(BUILD_DIR)/, $(addsuffix .pdf, $(DOCS)))
 DOCS_HTML := $(addprefix $(BUILD_DIR)/, $(addsuffix .html, $(DOCS)))
 DOCS_EPUB := $(addprefix $(BUILD_DIR)/, $(addsuffix .epub, $(DOCS)))
-DOCS_NORM_TAGS := $(addprefix $(BUILD_DIR)/, $(addsuffix -norm-tags.json, $(DOCS)))
-NORM_RULES_YAML := $(BUILD_DIR)/norm-rules.yaml
+DOCS_NORM_TAGS := $(addprefix $(BUILD_DIR)/, $(addsuffix $(DOC_NORM_TAG_SUFFIX), $(DOCS)))
+CURATED_NORM_RULES := $(BUILD_DIR)/norm-rules.json
 
 ENV := LANG=C.utf8
 XTRA_ADOC_OPTS :=
@@ -106,17 +107,17 @@ ASCIIDOCTOR_PDF := $(ENV) asciidoctor-pdf
 ASCIIDOCTOR_HTML := $(ENV) asciidoctor
 ASCIIDOCTOR_EPUB := $(ENV) asciidoctor-epub3
 ASCIIDOCTOR_TAGS := $(ENV) asciidoctor --backend tags --require=./docs-resources/converters/tags.rb
-#CREATE_NORM_RULE_TOOL := ruby docs-resources/tools/create_normative_rules.rb
-CREATE_NORM_RULE_TOOL := ruby src/create_normative_rules.rb
+CREATE_NORM_RULE_TOOL := ruby docs-resources/tools/create_normative_rules.rb
 
-# Add -t to each normative tag input filename
-NORM_TAG_FILE_ARGS := $(foreach fname,$(DOCS_NORM_TAGS),-t $(fname))
+# Add -t to each normative tag input filename and add prefix of "/" to make into absolute pathname.
+#NORM_TAG_FILE_ARGS := $(foreach doc_name,$(DOCS),-t $(doc_name)$(DOC_NORM_TAG_SUFFIX))
+NORM_TAG_FILE_ARGS := $(foreach relative_pname,$(DOCS_NORM_TAGS),-t /$(relative_pname))
 
 # All normative rule curation input YAML files
 NORM_RULE_CURATION_FILES := $(wildcard $(NORM_RULE_CURATION_DIR)/*.yaml)
 
 # Add -n to each normative rule curation filename
-NORM_RULE_CURATION_ARGS := $(foreach fname,$(NORM_RULE_CURATION_FILES),-c $(fname))
+NORM_RULE_CURATION_ARGS := $(foreach relative_pname,$(NORM_RULE_CURATION_FILES),-c $(relative_pname))
 
 OPTIONS := --trace \
            -a compress \
@@ -151,11 +152,10 @@ build-pdf: $(DOCS_PDF)
 build-html: $(DOCS_HTML)
 build-epub: $(DOCS_EPUB)
 build-tags: $(DOCS_NORM_TAGS)
-build-norm-rules: $(NORM_RULES_YAML)
+build-norm-rules: $(CURATED_NORM_RULES)
 build: build-pdf build-html build-epub build-tags build-norm-rules
 
 ALL_SRCS := $(shell git ls-files $(SRC_DIR))
-ALL_NORM_RULE_CURATION_FILES := 
 
 $(BUILD_DIR)/%.pdf: $(SRC_DIR)/%.adoc $(ALL_SRCS) $(BUILD_DIR)/%-norm-tags.json
 	$(WORKDIR_SETUP)
@@ -180,8 +180,10 @@ $(BUILD_DIR)/%-norm-tags.json: $(SRC_DIR)/%.adoc $(ALL_SRCS) docs-resources/conv
 	$(DOCKER_CMD) $(DOCKER_QUOTE) $(ASCIIDOCTOR_TAGS) $(OPTIONS) -a tags-match-prefix='norm:' -a tags-output-suffix='-norm-tags.json' $(REQUIRES) $< $(DOCKER_QUOTE)
 	$(WORKDIR_TEARDOWN)
 
-$(NORM_RULES_YAML): $(DOCS_NORM_TAGS) 
+$(CURATED_NORM_RULES): $(DOCS_NORM_TAGS) 
 	$(WORKDIR_SETUP)
+	cp -f $(DOCS_NORM_TAGS) $@.workdir
+	mkdir -p $@.workdir/build
 	$(DOCKER_CMD) $(DOCKER_QUOTE) $(CREATE_NORM_RULE_TOOL) $(NORM_TAG_FILE_ARGS) $(NORM_RULE_CURATION_ARGS) $@ $(DOCKER_QUOTE)
 	$(WORKDIR_TEARDOWN)
 
