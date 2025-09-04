@@ -1,0 +1,88 @@
+$schema: "normative_rules_schema.json#"
+
+normative_curations:
+  - name: M_highest_priv_mode
+    tags: ["norm:ext:Sm:highest_priv_mode"]
+  - name: M_mode_at_reset
+    tags: ["norm:ext:Sm:mode_at_reset"]
+  - name: M_access_all_lower_priv_CSRs
+    tags: ["norm:ext:Sm:access_all_lower_priv_CSRs"]
+  - name: misa_sw_rw
+    tags: ["norm:csr:misa:sw_rw"]
+  - name: misa_always_readable
+    tags: ["norm:csr:misa:always_readable"]
+  - name: MISA_CSR_IMPLEMENTED
+    tags: ["norm:param:MISA_CSR_IMPLEMENTED:can_be_zero"]
+  - name: misa_mxl_base_int_sz
+    tags: ["norm:csrfld:misa:mxl:base_int_width"]
+  - name: misa_mxl_ro
+    tags: ["norm:csrfld:misa:mxl:ro"]
+  - name: misa_mxl_mxlen_if_misa_nz
+    tags: ["norm:csrfld:misa:mxl:mxlen_if_misa_nz"]
+  - name: misa_sz
+    tags: ["norm:csr:misa:sz"]
+  - name: misa_extensions_enc
+    tags: ["norm:csrfld:misa:extensions:enc"]
+  - name: misa_i_set
+    tags: ["norm:csrfld:misa:i:set"]
+  - name: misa_e_set
+    tags: ["norm:csrfld:misa:e:set"]
+  - name: misa_extensions_can_be_writable
+    tags: ["norm:csrfld:misa:extensions:can_be_writable"]
+  - name: misa_extensions_reset
+    tags: ["norm:csrfld:misa:extensions:reset"]
+  - name: misa_extensions_disabling
+    description: What happens when you turn off bits
+    tags: ["norm:csrfld:misa:extensions:disabling"]
+  - name: misa_extensions_impl_def
+    tags: ["norm:csrfld:misa:extensions:impl_def"]
+  - name: misa_extensions_disabling_def
+    tags: ["norm:csrfld:misa:extensions:disabling_def"]
+  - name: misa_extensions_rsv_ret_0
+    tags: ["norm:csrfld:misa:extensions:rsv_ret_0"]
+  - name: misa_x_set
+    tags: ["norm:csrfld:misa:x:set"]
+  - name: misa_b_set
+    tags: ["norm:csrfld:misa:b:set"]
+  - name: misa_m_set
+    tags: ["norm:csrfld:misa:m:set"]
+  - name: Zmmul_misa_m
+    tags: ["norm:ext:Zmmul:misa_m"]
+  - name: misa_s_set
+    tags: ["norm:csrfld:misa:s:set"]
+  - name: misa_u_set
+    tags: ["norm:csrfld:misa:u:set"]
+  - name: misa_e_ro
+    tags: ["norm:csrfld:misa:e:ro"]
+  - name: misa_e_not_i
+    tags: ["norm:csrfld:misa:e:not_i"]
+  - name: misa_extensions_dependencies
+    tags: ["norm:csrfld:misa:extensions:dependencies"]
+  - name: misa_inc_ialign
+    tags: ["norm:csr:misa:inc_ialign"]
+  - names: [mvendorid_sz, mvendorid_ro, mvendorid_meaning]
+    tags: ["norm:csr:mvendorid:sz_ro_meaning"]
+  - name: mvendorid_always_readable
+    tags: ["norm:csr:mvendorid:always_readable"]
+  - name: mvendorid_enc
+    tags: ["norm:csr:mvendorid:encoding"]
+  - name: mvendorid_bank_1_less_JEDEC
+    tags: ["norm:csr:mvendorid:bank_1_less_than_JEDEC"]
+  - names: [marchid_sz, marchid_ro, marchid_meaning]
+    tags: ["norm:csr:marchid:sz_ro_meaning"]
+  - name: marchid_always_readable
+    tags: ["norm:csr:marchid:always_readable"]
+  - name: mimpid_meaning
+    tags: ["norm:csr:mimpid:meaning"]
+  - name: mimpid_always_readable
+    tags: ["norm:csr:mimpid:always_readable"]
+  - names: [mhartid_sz, mhartid_ro, mhartid_meaning]
+    tags: ["norm:csr:mhartid:sz_ro_meaning"]
+  - name: mhartid_always_readable
+    tags: ["norm:csr:mhartid:always_readable"]
+  - names: [mstatus_sz, mstatus_rw]
+    tags: ["norm:csr:mstatus:sz_rw"]
+  - names: [mstatush_sz, mstatush_rw, mstatush_rv32]
+    tags: ["norm:csr:mstatush:sz_rw_rv32"]
+  - name: mstatush_enc
+    tags: ["norm:csr:mstatush:encoding"]

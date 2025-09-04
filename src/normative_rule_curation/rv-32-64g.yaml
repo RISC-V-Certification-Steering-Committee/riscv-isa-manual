@@ -1,0 +1,141 @@
+$schema: "normative_rules_schema.json#"
+
+# All of these normative curations are to table cells in the ISA manual instruction
+# encoding tables and so there isn't any associated text with the normative rule.
+# These curations are still useful since there is still an AsciiDoc anchor in the table cell
+# and so it can be a hyperlink target in PDF/HTML files.
+normative_curations:
+  - name: lui_enc
+    tags_without_text: ["norm:enc:insttable:lui"]
+  - name: auipc_enc
+    tags_without_text: ["norm:enc:insttable:auipc"]
+  - name: jal_enc
+    tags_without_text: ["norm:enc:insttable:jal"]
+  - name: jalr_enc
+    tags_without_text: ["norm:enc:insttable:jalr"]
+  - name: beq_enc
+    tags_without_text: ["norm:enc:insttable:beq"]
+  - name: bne_enc
+    tags_without_text: ["norm:enc:insttable:bne"]
+  - name: blt_enc
+    tags_without_text: ["norm:enc:insttable:blt"]
+  - name: bge_enc
+    tags_without_text: ["norm:enc:insttable:bge"]
+  - name: bltu_enc
+    tags_without_text: ["norm:enc:insttable:bltu"]
+  - name: bgeu_enc
+    tags_without_text: ["norm:enc:insttable:bgeu"]
+  - name: lb_enc
+    tags_without_text: ["norm:enc:insttable:lb"]
+  - name: lh_enc
+    tags_without_text: ["norm:enc:insttable:lh"]
+  - name: lw_enc
+    tags_without_text: ["norm:enc:insttable:lw"]
+  - name: lbu_enc
+    tags_without_text: ["norm:enc:insttable:lbu"]
+  - name: lbhu_enc
+    tags_without_text: ["norm:enc:insttable:lbhu"]
+  - name: sb_enc
+    tags_without_text: ["norm:enc:insttable:sb"]
+  - name: sh_enc
+    tags_without_text: ["norm:enc:insttable:sh"]
+  - name: sw_enc
+    tags_without_text: ["norm:enc:insttable:sw"]
+  - name: addi_enc
+    tags_without_text: ["norm:enc:insttable:addi"]
+  - name: slti_enc
+    tags_without_text: ["norm:enc:insttable:slti"]
+  - name: sltiu_enc
+    tags_without_text: ["norm:enc:insttable:sltiu"]
+  - name: xori_enc
+    tags_without_text: ["norm:enc:insttable:xori"]
+  - name: ori_enc
+    tags_without_text: ["norm:enc:insttable:ori"]
+  - name: andi_enc
+    tags_without_text: ["norm:enc:insttable:andi"]
+  - name: slli_enc
+    tags_without_text: ["norm:enc:insttable:slli"]
+  - name: srli_enc
+    tags_without_text: ["norm:enc:insttable:srli"]
+  - name: srai_enc
+    tags_without_text: ["norm:enc:insttable:srai"]
+  - name: add_enc
+    tags_without_text: ["norm:enc:insttable:add"]
+  - name: sub_enc
+    tags_without_text: ["norm:enc:insttable:sub"]
+  - name: sll_enc
+    tags_without_text: ["norm:enc:insttable:sll"]
+  - name: slt_enc
+    tags_without_text: ["norm:enc:insttable:slt"]
+  - name: sltu_enc
+    tags_without_text: ["norm:enc:insttable:sltu"]
+  - name: xor_enc
+    tags_without_text: ["norm:enc:insttable:xor"]
+  - name: srl_enc
+    tags_without_text: ["norm:enc:insttable:srl"]
+  - name: sra_enc
+    tags_without_text: ["norm:enc:insttable:sra"]
+  - name: or_enc
+    tags_without_text: ["norm:enc:insttable:or"]
+  - name: and_enc
+    tags_without_text: ["norm:enc:insttable:and"]
+  - name: fence_enc
+    tags_without_text: ["norm:enc:insttable:fence"]
+  - name: fence-tso_enc
+    tags_without_text: ["norm:enc:insttable:fence-tso"]
+  - name: pause_enc
+    tags_without_text: ["norm:enc:insttable:pause"]
+  - name: ecall_enc
+    tags_without_text: ["norm:enc:insttable:ecall"]
+  - name: ebreak_enc
+    tags_without_text: ["norm:enc:insttable:ebreak"]
+  - name: lwu_enc
+    tags_without_text: ["norm:enc:insttable:lwu"]
+  - name: ld_enc
+    tags_without_text: ["norm:enc:insttable:ld"]
+  - name: sd_enc
+    tags_without_text: ["norm:enc:insttable:sd"]
+  - name: addiw_enc
+    tags_without_text: ["norm:enc:insttable:addiw"]
+  - name: slliw_enc
+    tags_without_text: ["norm:enc:insttable:slliw"]
+  - name: srliw_enc
+    tags_without_text: ["norm:enc:insttable:srliw"]
+  - name: sraiw_enc
+    tags_without_text: ["norm:enc:insttable:sraiw"]
+  - name: addw_enc
+    tags_without_text: ["norm:enc:insttable:addw"]
+  - name: subw_enc
+    tags_without_text: ["norm:enc:insttable:subw"]
+  - name: sllw_enc
+    tags_without_text: ["norm:enc:insttable:sllw"]
+  - name: srlw_enc
+    tags_without_text: ["norm:enc:insttable:srlw"]
+  - name: sraw_enc
+    tags_without_text: ["norm:enc:insttable:sraw"]
+  - name: mul_enc
+    tags_without_text: ["norm:enc:insttable:mul"]
+  - name: mulh_enc
+    tags_without_text: ["norm:enc:insttable:mulh"]
+  - name: mulhsu_enc
+    tags_without_text: ["norm:enc:insttable:mulhsu"]
+  - name: mulhu_enc
+    tags_without_text: ["norm:enc:insttable:mulhu"]
+  - name: div_enc
+    tags_without_text: ["norm:enc:insttable:div"]
+  - name: divu_enc
+    tags_without_text: ["norm:enc:insttable:divu"]
+  - name: rem_enc
+    tags_without_text: ["norm:enc:insttable:rem"]
+  - name: remu_enc
+    tags_without_text: ["norm:enc:insttable:remu"]
+  - name: mulw_enc
+    tags_without_text: ["norm:enc:insttable:mulw"]
+  - name: divw_enc
+    tags_without_text: ["norm:enc:insttable:divw"]
+  - name: divuw_enc
+    tags_without_text: ["norm:enc:insttable:divuw"]
+  - name: remw_enc
+    tags_without_text: ["norm:enc:insttable:remw"]
+  - name: remuw_enc
+    tags_without_text: ["norm:enc:insttable:remuw"]

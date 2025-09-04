@@ -138,6 +138,7 @@ from the interrupt handler.
 ==== ld
 
 Synopsis::
+[[norm:chubby]]
 Load doubleword to even/odd register pair, 32-bit encoding
 
 Mnemonic::
@@ -156,9 +157,10 @@ Encoding (RV32)::
 ....
 
 Description::
-[#norm:inst:ld:Zilsd_op]#Loads a 64-bit value into registers `rd` and `rd+1`.
+[[norm:inst:ld:Zilsd_operation]]
+Loads a 64-bit value into registers `rd` and `rd+1`.
 The effective address is obtained by adding register rs1 to the
-sign-extended 12-bit offset.#
+sign-extended 12-bit offset.
 
 Included in: <<zilsd>>
 
@@ -187,9 +189,10 @@ Encoding (RV32)::
 ....
 
 Description::
-[#norm:inst:sd:Zilsd_operation]#Stores a 64-bit value from registers `rs2` and `rs2+1`.
+[[norm:inst:sd:Zilsd_operation]]
+Stores a 64-bit value from registers `rs2` and `rs2+1`.
 The effective address is obtained by adding register rs1 to the
-sign-extended 12-bit offset.#
+sign-extended 12-bit offset.
 
 Included in: <<zilsd>>
 
@@ -217,7 +220,8 @@ Encoding (RV32)::
 ....
 
 Description::
-[#norm:inst:c-ldsp:operation]#Loads stack-pointer relative 64-bit value into registers `rd'` and `rd'+1`. It computes its effective address by adding the zero-extended offset, scaled by 8, to the stack pointer, `x2`. It expands to `ld rd, offset(x2)`. C.LDSP is only valid when _rd_&#x2260;x0; the code points with _rd_=x0 are reserved.#
+[[norm:inst:c-ldsp:operation]]
+Loads stack-pointer relative 64-bit value into registers `rd'` and `rd'+1`. It computes its effective address by adding the zero-extended offset, scaled by 8, to the stack pointer, `x2`. It expands to `ld rd, offset(x2)`. C.LDSP is only valid when _rd_&#x2260;x0; the code points with _rd_=x0 are reserved.
 
 Included in: <<zclsd>>
 
@@ -244,7 +248,8 @@ Encoding (RV32)::
 ....
 
 Description::
-[#norm:inst:c-sdsp:operation]#Stores a stack-pointer relative 64-bit value from registers `rs2'` and `rs2'+1`. It computes an effective address by adding the _zero_-extended offset, scaled by 8, to the stack pointer, `x2`. It expands to `sd rs2, offset(x2)`.#
+[[norm:inst:c-sdsp:operation]]
+Stores a stack-pointer relative 64-bit value from registers `rs2'` and `rs2'+1`. It computes an effective address by adding the _zero_-extended offset, scaled by 8, to the stack pointer, `x2`. It expands to `sd rs2, offset(x2)`.
 
 Included in: <<zclsd>>
 
@@ -273,8 +278,9 @@ Encoding (RV32)::
 ....
 
 Description::
-[#norm:inst:c-ld:operation]#Loads a 64-bit value into registers `rd'` and `rd'+1`.
-It computes an effective address by adding the zero-extended offset, scaled by 8, to the base address in register rs1'.#
+[[norm:inst:c-ld:operation]]
+Loads a 64-bit value into registers `rd'` and `rd'+1`.
+It computes an effective address by adding the zero-extended offset, scaled by 8, to the base address in register rs1'.
 
 Included in: <<zclsd>>
 
@@ -303,8 +309,9 @@ Encoding (RV32)::
 ....
 
 Description::
-[#norm:inst:c-sd:operation]#Stores a 64-bit value from registers `rs2'` and `rs2'+1`.
+[[norm:inst:c-sd:operation]]
+Stores a 64-bit value from registers `rs2'` and `rs2'+1`.
 It computes an effective address by adding the zero-extended offset, scaled by 8, to the base address in register rs1'.
-It expands to `sd rs2', offset(rs1')`.#
+It expands to `sd rs2', offset(rs1')`.
 
 Included in: <<zclsd>>

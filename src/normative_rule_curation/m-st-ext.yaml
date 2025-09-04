@@ -1,0 +1,27 @@
+$schema: "normative_rules_schema.json#"
+
+normative_curations:
+  - name: mul_op
+    tags: ["norm:inst:mul:operation"]
+  - names: [mulh_op, mulhu_op, mulhsu_op]
+    tags: ["norm:insts:mulh-mulhu-mulhsu:operation"]
+  - names: [div_op, divu_op]
+    tags: ["norm:insts:div-divu:operation"]
+  - names: [divw_op, divuw_op]
+    tags: ["norm:insts:divw-divuw:operation"]
+  - names: [rem_op, remu_op]
+    tags: ["norm:insts:rem-remu:operation"]
+  - names: [remw_op, remuw_op]
+    tags: ["norm:insts:remw-remuw:operation"]
+  - name: div_by_zero
+    tags: ["norm:instgrp:division:div_by_zero"]
+  - name: rem_by_zero
+    tags: ["norm:instgrp:remainder:div_by_zero"]
+  - name: sign_div_overflow
+    tags: ["norm:instgrp:sign-division:overflow"]
+  - name: rem_result_sign
+    tags: ["norm:inst:rem:result_sign"]
+  - names: [remw_result_sign, remuw_result_sign]
+    tags: ["norm:insts:remw-remuw:result_sign"]
+  - name: mulw_op
+    tags: ["norm:inst:mulw:operation"]

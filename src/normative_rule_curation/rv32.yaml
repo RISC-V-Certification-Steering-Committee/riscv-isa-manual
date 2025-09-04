@@ -1,7 +1,7 @@
 $schema: "normative_rules_schema.json#"
 
 normative_curations:
-  - name: rv32_xregwidth # Normative rule names are more compact than tag names
+  - name: rv32_xreg_sz # Normative rule names are more compact than tag names
     summary: RV32I XLEN # Few word summary of normative rule.
     tags: ["norm:base:rv32i:xregwidth"]
   - name: rv32i_other_xregs
@@ -43,7 +43,7 @@ normative_curations:
     tags: ["norm:inst:lui:operation"]
   - name: auipc_op
     tags: ["norm:inst:auipc:operation"]
-  - name: R-type_operands
+  - name: R-type_ops
     tags: ["norm:basegrp:all:R-type_operands"]
   - name: add_op
     tags: ["norm:inst:add:operation"]
@@ -77,7 +77,7 @@ normative_curations:
     tags: ["norm:insts:blt_bltu:operation"]
   - names: [bge_op, bgeu_op]
     tags: ["norm:insts:bge_bgeu:operation"]
-  - name: ld_exc_x0
+  - name: load_exc_x0
     tags: ["norm:instgrp:load:exc_x0"]
   - name: endianness_little_or_big
     tags: ["norm:param:endianness:little_or_big"]

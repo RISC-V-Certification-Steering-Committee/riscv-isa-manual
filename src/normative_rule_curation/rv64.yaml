@@ -1,9 +1,11 @@
 $schema: "normative_rules_schema.json#"
 
 normative_curations:
-  - name: rv64_xregwidth
+  - name: rv64_xreg_sz
     summary: RV64I XLEN
     tags: ["norm:base:rv64i:xregwidth"]
+  - name: rv64_w_sex
+    tags: ["norm:base:rv64i:w_sex_to_64"]
   - name: rv64i_other_xregs
     summary: Registers x1 to x31
     tags: ["norm:bases:rv32i_rv64i:other-xregs"]
