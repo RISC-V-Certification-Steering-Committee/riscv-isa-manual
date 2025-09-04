@@ -91,6 +91,8 @@ normative_curations:
     tags: ["norm:instgrp:load_store:big_endian_operation"]
   - name: ldst_effective_addr
     tags: ["norm:instgrp:load_store:ea"]
+  - name: ldst_no_exc_aligned
+    tags: ["norm:instgrp:load_store:no_exc_aligned"]
   - name: load_op
     tags: ["norm:instgrp:load:operation"]
   - name: store_op

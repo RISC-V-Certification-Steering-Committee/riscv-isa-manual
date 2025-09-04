@@ -24,6 +24,8 @@ normative_curations:
     tags: ["norm:insts:addw_subw:operation"]
   - names: [addw_overflow,subw_overflow]
     tags: ["norm:insts:addw_subw:overflow"]
+  - name: addiw_overflow
+    tags: ["norm:inst:addiw:overflow"]
   - names: [sll_rv64i_sh_amt,srl_rv64i_sh_amt,sra_rv64i_sh_amt]
     tags: ["norm:insts:sll_srl_sra:rv64i_sh_amt"]
   - names: [sllw_op,srlw_op,sraw_op]
