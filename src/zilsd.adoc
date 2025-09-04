@@ -138,7 +138,6 @@ from the interrupt handler.
 ==== ld
 
 Synopsis::
-[[norm:chubby]]
 Load doubleword to even/odd register pair, 32-bit encoding
 
 Mnemonic::
