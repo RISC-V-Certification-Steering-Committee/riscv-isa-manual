@@ -2,99 +2,138 @@ $schema: "normative_rules_schema.json#"
 
 normative_curations:
   - name: rv32_xregwidth # Normative rule names are more compact than tag names
-    type: base
     summary: RV32I XLEN # Few word summary of normative rule.
     tags: ["norm:base:rv32i:xregwidth"]
   - name: rv32i_other_xregs
-    type: base
     summary: Registers x1 to x31
     tags: ["norm:bases:rv32i_rv64i:other-xregs"] # Same tag used in rv64.yaml (that chapter is written as deltas from this chapter)
   - name: pcreg
-    type: base
     description: | # Example where augmenting information in tags helps better define a normative rule
         The `pc` contains a byte address so is incremented by 4 for 32-bit instructions and 
         2 for 16-bit instructions.
     tags: ["norm:basegrp:all:pcreg"]
   - names: [slti_op,sltiu_op] # Example of multiple normative rules using the same tag
-    type: instruction
     tags: ["norm:insts:slti_sltiu:operation"]
   - name: x0eq0
-    type: base
     summary: Register x0 always zero
     tags: ["norm:basegrp:all:x0eq0"]
   - name: taken_cti_misaligned_exc
-    type: instruction
     summary: CTI misaligned execution
     tags: ["norm:instgrp:taken_cti:ia_misaligned_exc"]
   - name: cond_br_no_ia_misaligned_exc_not_taken
-    type: instruction
     summary: No IA misaligned exc on not taken
     tags: ["norm:instgrp:cond_branch:no_ia_misaligned_exc_not_taken"]
   - name: imm_always_sex
-    type: instruction
     summary: Immediates always sign-extended
     tags: ["norm:basegrp:all:imm_always_sex"]
   - name: addi_op
-    type: instruction
     tags: ["norm:inst:addi:operation"]
   - name: addi_overflow
-    type: instruction
     summary: Treatment of overflow
     tags: ["norm:inst:addi:overflow"]
   - names: [andi_op,ori_op,xori_op]
-    type: instruction
     tags: ["norm:insts:andi_ori_xori:operation"]
-
-# TODO
-# norm:inst:slli:operation
-# norm:inst:srli:operation
-# norm:inst:srai:operation
-# norm:inst:lui:operation
-# norm:inst:auipc:operation
-# norm:basegrp:all:R-type_operands
-# norm:inst:add:operation
-# norm:inst:sub:operation
-# norm:insts:add_sub:overflow
-# norm:insts:slt_sltu:operation
-# norm:insts:and_or_xor:operation
-# norm:insts:sll_srl_sra:operation
-# norm:instgrp:cti:no_cti_delay_slots
-# norm:instgrp:cti:ia_fault_exc_on_target
-# norm:inst:jal:target
-# norm:inst:jal:operation
-# norm:inst:jalr:target
-# norm:inst:jalr:operation
-# norm:instgrp:branch:target
-# norm:insts:beq_bne:operation
-# norm:insts:blt_bltu:operation
-# norm:insts:bge_bgeu:operation
-# norm:instgrp:load:exc_x0
-# norm:param:endianness:little_or_big
-# norm:instgrp:load_store:endian_byte_invariant
-# norm:instgrp:load_store:endian_byte_operation
-# norm:instgrp:load_store:little_endian_operation
-# norm:instgrp:load_store:big_endian_operation
-# norm:instgrp:load_store:ea
-# norm:instgrp:load:operation
-# norm:instgrp:store:operation
-# norm:inst:lw:operation
-# norm:inst:lh:operation
-# norm:inst:lhu:operation
-# norm:insts:lb_lbu:operation
-# norm:insts:sw_sh_sb:operation
-# norm:param:misaligned_ldst:eei_dependent_behavior
-# norm:param:misaligned_ldst:fully_hw_supported
-# norm:param:misaligned_ldst:invisible_trap
-# norm:param:misaligned_ldst:hw_or_invisible_trap_func_of_addr
-# norm:param:misaligned_ldst:fully_hw_supported_or_visible_trap
-# norm:instgrp:load_store:addr_misaligned_or_access_fault_exc
-# norm:param:misaligned_ldst:contained_or_fatal_trap
-# norm:instgrp:load_store:atomicity_for_aligned
-# norm:inst:fence:operation
-# norm:inst:fence-tso:operation
-# norm:inst:fence-tso:ordering_rw_rw_allowed
-# norm:inst:fence:unused_fields_reserved
-# norm:inst:fence:conservative_allowed
-# norm:inst:ecall:operation
-# norm:inst:ebreak:operation
-# norm:inst:fence:null_pred_succ_intersection
+  - name: slli_op
+    tags: ["norm:inst:slli:operation"]
+  - name: srli_op
+    tags: ["norm:inst:srli:operation"]
+  - name: srai_op
+    tags: ["norm:inst:srai:operation"]
+  - name: lui_op
+    tags: ["norm:inst:lui:operation"]
+  - name: auipc_op
+    tags: ["norm:inst:auipc:operation"]
+  - name: R-type_operands
+    tags: ["norm:basegrp:all:R-type_operands"]
+  - name: add_op
+    tags: ["norm:inst:add:operation"]
+  - name: sub_op
+    tags: ["norm:inst:sub:operation"]
+  - names: [add_overflow, sub_overflow]
+    tags: ["norm:insts:add_sub:overflow"]
+  - names: [slt_op, sltu_op]
+    tags: ["norm:insts:slt_sltu:operation"]
+  - names: [and_op, or_op, xor_op]
+    tags: ["norm:insts:and_or_xor:operation"]
+  - names: [sll_op, srl_op, sra_op]
+    tags: ["norm:insts:sll_srl_sra:operation"]
+  - name: no_cti_delay_slots
+    tags: ["norm:instgrp:cti:no_cti_delay_slots"]
+  - name: cti_ia_fault_exc_on_target
+    tags: ["norm:instgrp:cti:ia_fault_exc_on_target"]
+  - name: jal_target
+    tags: ["norm:inst:jal:target"]
+  - name: jal_op
+    tags: ["norm:inst:jal:operation"]
+  - name: jalr_target
+    tags: ["norm:inst:jalr:target"]
+  - name: jalr_op
+    tags: ["norm:inst:jalr:operation"]
+  - name: br_target
+    tags: ["norm:instgrp:branch:target"]
+  - names: [beq_op, bne_op]
+    tags: ["norm:insts:beq_bne:operation"]
+  - names: [blt_op, bltu_op]
+    tags: ["norm:insts:blt_bltu:operation"]
+  - names: [bge_op, bgeu_op]
+    tags: ["norm:insts:bge_bgeu:operation"]
+  - name: ld_exc_x0
+    tags: ["norm:instgrp:load:exc_x0"]
+  - name: endianness_little_or_big
+    tags: ["norm:param:endianness:little_or_big"]
+  - name: endian_byte_invariant
+    tags: ["norm:instgrp:load_store:endian_byte_invariant"]
+  - name: endian_byte_op
+    tags: ["norm:instgrp:load_store:endian_byte_operation"]
+  - name: little_endian_op
+    tags: ["norm:instgrp:load_store:little_endian_operation"]
+  - name: big_endian_op
+    tags: ["norm:instgrp:load_store:big_endian_operation"]
+  - name: ldst_effective_addr
+    tags: ["norm:instgrp:load_store:ea"]
+  - name: load_op
+    tags: ["norm:instgrp:load:operation"]
+  - name: store_op
+    tags: ["norm:instgrp:store:operation"]
+  - name: lw_op
+    tags: ["norm:inst:lw:operation"]
+  - name: lh_op
+    tags: ["norm:inst:lh:operation"]
+  - name: lhu_op
+    tags: ["norm:inst:lhu:operation"]
+  - names: [lb_op, lbu_op]
+    tags: ["norm:insts:lb_lbu:operation"]
+  - names: [sw_op, sh_op, sb_op]
+    tags: ["norm:insts:sw_sh_sb:operation"]
+  - name: misaligned_ldst_eei_dependent_behavior
+    tags: ["norm:param:misaligned_ldst:eei_dependent_behavior"]
+  - name: misaligned_ldst_fully_hw_supported
+    tags: ["norm:param:misaligned_ldst:fully_hw_supported"]
+  - name: misaligned_ldst_invisible_trap
+    tags: ["norm:param:misaligned_ldst:invisible_trap"]
+  - name: misaligned_ldst_hw_or_invisible_trap_func_of_addr
+    tags: ["norm:param:misaligned_ldst:hw_or_invisible_trap_func_of_addr"]
+  - name: misaligned_ldst_fully_hw_supported_or_visible_trap
+    tags: ["norm:param:misaligned_ldst:fully_hw_supported_or_visible_trap"]
+  - name: ldst_addr_misaligned_or_access_fault_exc
+    tags: ["norm:instgrp:load_store:addr_misaligned_or_access_fault_exc"]
+  - name: misaligned_ldst_contained_or_fatal_trap
+    tags: ["norm:param:misaligned_ldst:contained_or_fatal_trap"]
+  - name: ldst_atomicity_for_aligned
+    tags: ["norm:instgrp:load_store:atomicity_for_aligned"]
+  - name: fence_op
+    tags: ["norm:inst:fence:operation"]
+  - name: fence-tso_op
+    tags: ["norm:inst:fence-tso:operation"]
+  - name: fence-tso_ordering_rw_rw_allowed
+    tags: ["norm:inst:fence-tso:ordering_rw_rw_allowed"]
+  - name: fence_unused_fields_rsv
+    tags: ["norm:inst:fence:unused_fields_reserved"]
+  - name: fence_conservative_allowed
+    tags: ["norm:inst:fence:conservative_allowed"]
+  - name: ecall_op
+    tags: ["norm:inst:ecall:operation"]
+  - name: ebreak_op
+    tags: ["norm:inst:ebreak:operation"]
+  - name: fence_null_pred_succ_intersection
+    tags: ["norm:inst:fence:null_pred_succ_intersection"]
