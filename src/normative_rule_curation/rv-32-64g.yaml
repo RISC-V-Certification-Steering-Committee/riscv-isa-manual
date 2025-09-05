@@ -33,8 +33,8 @@ normative_curations:
     tags_without_text: ["norm:enc:insttable:lw"]
   - name: lbu_enc
     tags_without_text: ["norm:enc:insttable:lbu"]
-  - name: lbhu_enc
-    tags_without_text: ["norm:enc:insttable:lbhu"]
+  - name: lhu_enc
+    tags_without_text: ["norm:enc:insttable:lhu"]
   - name: sb_enc
     tags_without_text: ["norm:enc:insttable:sb"]
   - name: sh_enc

@@ -131,7 +131,7 @@ normative_curations:
     tags: ["norm:inst:fence-tso:ordering_rw_rw_allowed"]
   - name: fence_unused_flds_rsv
     tags: ["norm:inst:fence:unused_fields_reserved"]
-  - name: fence_cons_allowed
+  - name: fence_cons_ok
     tags: ["norm:inst:fence:conservative_allowed"]
   - name: ecall_op
     tags: ["norm:inst:ecall:operation"]
