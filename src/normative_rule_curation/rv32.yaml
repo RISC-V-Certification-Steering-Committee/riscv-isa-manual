@@ -129,13 +129,13 @@ normative_curations:
     tags: ["norm:inst:fence-tso:operation"]
   - name: fence-tso_ordering_rw_rw_allowed
     tags: ["norm:inst:fence-tso:ordering_rw_rw_allowed"]
-  - name: fence_unused_fields_rsv
+  - name: fence_unused_flds_rsv
     tags: ["norm:inst:fence:unused_fields_reserved"]
-  - name: fence_conservative_allowed
+  - name: fence_cons_allowed
     tags: ["norm:inst:fence:conservative_allowed"]
   - name: ecall_op
     tags: ["norm:inst:ecall:operation"]
   - name: ebreak_op
     tags: ["norm:inst:ebreak:operation"]
-  - name: fence_null_pred_succ_intersection
+  - name: fence_null_pred_succ_inter
     tags: ["norm:inst:fence:null_pred_succ_intersection"]

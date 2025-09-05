@@ -73,7 +73,7 @@ these more specialized additions.
  6+^|imm[11:0]                2+^|rs1   2+^|001    2+^|rd           2+^|0000011 <|[[norm:enc:insttable:lh]]LH
  6+^|imm[11:0]                2+^|rs1   2+^|010    2+^|rd           2+^|0000011 <|[[norm:enc:insttable:lw]]LW
  6+^|imm[11:0]                2+^|rs1   2+^|100    2+^|rd           2+^|0000011 <|[[norm:enc:insttable:lbu]]LBU
- 6+^|imm[11:0]                2+^|rs1   2+^|101    2+^|rd           2+^|0000011 <|[[norm:enc:insttable:lbhu]]LHU
+ 6+^|imm[11:0]                2+^|rs1   2+^|101    2+^|rd           2+^|0000011 <|[[norm:enc:insttable:lhu]]LHU
  4+^|imm[11:5]      2+^|rs2   2+^|rs1   2+^|000    2+^|imm[4:0]     2+^|0100011 <|[[norm:enc:insttable:sb]]SB
  4+^|imm[11:5]      2+^|rs2   2+^|rs1   2+^|001    2+^|imm[4:0]     2+^|0100011 <|[[norm:enc:insttable:sh]]SH
  4+^|imm[11:5]      2+^|rs2   2+^|rs1   2+^|010    2+^|imm[4:0]     2+^|0100011 <|[[norm:enc:insttable:sw]]SW

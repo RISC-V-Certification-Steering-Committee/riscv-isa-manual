@@ -34,7 +34,7 @@ normative_curations:
     tags: ["norm:inst:ld:rv64i_operation"]
   - name: lw_rv64i_op
     tags: ["norm:inst:lw:rv64i_operation"]
-  - name: lwu_rv64i_op
+  - name: lwu_op
     tags: ["norm:inst:lwu:operation"]
   - name: lh_rv64i_op
     summary: "lh RV64I operation"

@@ -25,3 +25,8 @@ normative_curations:
     tags: ["norm:insts:remw-remuw:result_sign"]
   - name: mulw_op
     tags: ["norm:inst:mulw:operation"]
+  - name: mul_misa_M_dis
+    description: |
+      An illegal instruction exception is raised when the instruction is executed
+      and `misa.M` is 0.
+    tags: ["norm:csrfld:misa:extensions:disabling"]
