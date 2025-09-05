@@ -1,0 +1,38 @@
+$schema: "normative_rule_creation_schema.json#"
+
+# Used to create normative rules for zilsd.adoc file.
+# Tags refer to anchors in any adoc file for any ISA manual.
+
+normative_rule_creations:
+  - name: Zilsd_reg_pairs
+    tags: ["norm:ext:Zilsd:reg_pairs"]
+  - name: Zilsd_bits_to_pair
+    tags: ["norm:ext:Zilsd:bits_to_pair"]
+  - name: Zilsd_align8_no_exc
+    tags: ["norm:ext:Zilsd:align8_no_exc"]
+  - name: Zilsd_align8_atomic_unknown
+    tags: ["norm:ext:Zilsd:align8_atomic_unknown"]
+  - name: Zilsd_align4_atomic
+    tags: ["norm:ext:Zilsd:align4_atomic"]
+  - name: Zilsd_ld_resume_trap
+    tags: ["norm:ext:Zilsd:ld_resume_trap"]
+  - name: Zilsd_ld_x0
+    tags: ["norm:ext:Zilsd:ld_x0"]
+  - name: Zilsd_sd_x0
+    tags: ["norm:ext:Zilsd:sd_x0"]
+  - name: Zilsd_RVWMO_exc_misaligned
+    tags: ["norm:ext:Zilsd:RVWMO_exc_misaligned"]
+  - name: Zilsd_align_two_4byte
+    tags: ["norm:ext:Zilsd:align4_two_4byte"]
+  - name: Zilsd_ld_op
+    tags: ["norm:inst:ld:Zilsd_operation"]
+  - name: Zilsd_sd_op
+    tags: ["norm:inst:sd:Zilsd_operation"]
+  - name: c-ldsp_op
+    tags: ["norm:inst:c-ldsp:operation"]
+  - name: c-sdsp_op
+    tags: ["norm:inst:c-sdsp:operation"]
+  - name: c-ld_op
+    tags: ["norm:inst:c-ld:operation"]
+  - name: c-sd_op
+    tags: ["norm:inst:c-sd:operation"]
