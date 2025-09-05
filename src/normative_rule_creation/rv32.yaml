@@ -12,7 +12,7 @@ normative_rule_creations:
     tags: ["norm:bases:rv32i_rv64i:other-xregs"] # Same tag used in rv64.yaml (that chapter is written as deltas from this chapter)
   - name: pcreg
     description: | # Example where augmenting information in tags helps better define a normative rule
-        The `pc` contains a byte address so is incremented by 4 for 32-bit instructions and 
+        The `pc` contains a byte address so is incremented by 4 for 32-bit instructions and
         2 for 16-bit instructions.
     tags: ["norm:basegrp:all:pcreg"]
   - names: [slti_op,sltiu_op] # Example of multiple normative rules using the same tag
@@ -107,7 +107,7 @@ normative_rule_creations:
   - name: lhu_op
     tags: ["norm:inst:lhu:operation"]
   - names: [lb_op]
-    tags: 
+    tags:
       - "norm:insts:lb_lbu:operation"
       - "norm:inst:lh:operation"
   - names: [lbu_op]
