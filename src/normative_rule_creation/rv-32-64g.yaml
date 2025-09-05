@@ -1,10 +1,11 @@
-$schema: "normative_rules_schema.json#"
+$schema: "normative_rule_creation_schema.json#"
 
-# All of these normative curations are to table cells in the ISA manual instruction
+# All of these normative rule creations are to table cells in the ISA manual instruction
 # encoding tables and so there isn't any associated text with the normative rule.
-# These curations are still useful since there is still an AsciiDoc anchor in the table cell
-# and so it can be a hyperlink target in PDF/HTML files.
-normative_curations:
+# These creations are still useful since there is still an AsciiDoc anchor in the table cell
+# and so it can be used as a hyperlink target in PDF/HTML files.
+
+normative_rule_creations:
   - name: lui_enc
     tags_without_text: ["norm:enc:insttable:lui"]
   - name: auipc_enc
