@@ -2525,7 +2525,7 @@ Encoding (RV64)::
 ....
 
 Description::
-[#norm:rev8_op]#This instruction reverses the order of the bytes in _rs_.#
+[#norm:rev8_behav]#This instruction reverses the order of the bytes in _rs_.#
 
 Operation::
 [source,sail]
