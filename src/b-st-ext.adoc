@@ -1063,10 +1063,9 @@ Encoding::
     { bits:  5, name: 'rs2' },
     { bits:  7, name: 0x20, attr: ['ANDN'] },
 ]}
-.... 
+....
 
 Description::
-
 [#norm:andn_op]#This instruction performs the bitwise logical AND operation between _rs1_ and the bitwise inversion of _rs2_.#
 
 Operation::
@@ -1494,7 +1493,7 @@ Encoding (RV64)::
 
 Description::
 [#norm:bseti_op]#This instruction returns _rs1_ with a single bit set at the index specified in _shamt_.
-The index is read from the lower log2(XLEN) bits of _shamt_.
+The index is read from the lower log2(XLEN) bits of _shamt_.#
 For RV32, the encodings corresponding to shamt[5]=1 are reserved.
 
 Operation::
@@ -2205,7 +2204,7 @@ Encoding::
 ....
 
 Description::
-[norm:minu_op]#This instruction returns the smaller of two unsigned integers.#
+[#norm:minu_op]#This instruction returns the smaller of two unsigned integers.#
 
 Operation::
 [source,sail]
@@ -2255,7 +2254,7 @@ Encoding::
 ....
 
 Description::
-[#norm:orc-b_op]#Combines the bits within each byte using bitwise logical OR.
+[#norm:orc-b_behav]#Combines the bits within each byte using bitwise logical OR.
 This sets the bits of each byte in the result _rd_ to all zeros if no bit within the respective byte of _rs_ is set, or to all ones if any bit within the respective byte of _rs_ is set.#
 
 Operation::
@@ -2526,7 +2525,7 @@ Encoding (RV64)::
 ....
 
 Description::
-[norm:rev8_op]#This instruction reverses the order of the bytes in _rs_.#
+[#norm:rev8_op]#This instruction reverses the order of the bytes in _rs_.#
 
 Operation::
 [source,sail]
@@ -2553,7 +2552,7 @@ The *rev8* mnemonic corresponds to different instruction encodings in RV32 and R
 [NOTE, caption="SH" ]
 ===============================================================
 [#norm:rev8_avail]#The byte-reverse operation is only available for the full register
-width#.  To emulate word-sized and halfword-sized byte-reversal,
+width.#  To emulate word-sized and halfword-sized byte-reversal,
 perform a `rev8 rd,rs` followed by a `srai rd,rd,K`, where K is
 XLEN-32 and XLEN-16, respectively.
 ===============================================================
@@ -2645,7 +2644,7 @@ Encoding::
 ....
 
 Description::
-[norm:rol_op]#This instruction performs a rotate left of _rs1_ by the amount in least-significant log2(XLEN) bits of _rs2_.#
+[#norm:rol_op]#This instruction performs a rotate left of _rs1_ by the amount in least-significant log2(XLEN) bits of _rs2_.#
 
 Operation::
 [source,sail]
@@ -2750,8 +2749,7 @@ Encoding::
 ....
 
 Description::
-[[norm:ror_op]]
-This instruction performs a rotate right of _rs1_ by the amount in least-significant log2(XLEN) bits of _rs2_.
+[#norm:ror_op]#This instruction performs a rotate right of _rs1_ by the amount in least-significant log2(XLEN) bits of _rs2_.#
 
 Operation::
 [source,sail]
@@ -2817,8 +2815,8 @@ Encoding (RV64)::
 ....
 
 Description::
-[#norm:rori_op]#This instruction performs a rotate right of _rs1_ by the amount in the least-significant log2(XLEN) bits of _shamt_.
-For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
+[#norm:rori_op]#This instruction performs a rotate right of _rs1_ by the amount in the least-significant log2(XLEN) bits of _shamt_.#
+For RV32, the encodings corresponding to shamt[5]=1 are reserved.
 
 Operation::
 [source,sail]
@@ -3067,7 +3065,7 @@ Encoding::
 ....
 
 Description::
-[norm:sh1add_op]#This instruction shifts _rs1_ to the left by 1 bit and adds it to _rs2_.#
+[#norm:sh1add_op]#This instruction shifts _rs1_ to the left by 1 bit and adds it to _rs2_.#
 
 Operation::
 [source,sail]
@@ -3455,8 +3453,7 @@ Encoding::
 ....
 
 Description::
-[[norm:xnor_op]]
-This instruction performs the bit-wise exclusive-NOR operation on _rs1_ and _rs2_.
+[#norm:xnor_op]#This instruction performs the bit-wise exclusive-NOR operation on _rs1_ and _rs2_.#
 
 Operation::
 [source,sail]
