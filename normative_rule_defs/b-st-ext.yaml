@@ -30,7 +30,7 @@ normative_rule_definitions:
   - name: bitrot_op
     tags: ["norm:bitrot_op"]
 
-  - name: orc_b_op
+  - name: orc-b_op
     tags: ["norm:orc_b_op"]
 
   - name: rev8_op
@@ -66,8 +66,8 @@ normative_rule_definitions:
    
 
   #instructions
-  - name: add_uw_op
-    tags: ["norm:add_uw_op"]
+  - name: add-uw_op
+    tags: ["norm:add-uw_op"]
 
   - name: andn_op
     tags: ["norm:andn_op"]
@@ -183,32 +183,32 @@ normative_rule_definitions:
   - name: rorw_op
     tags: ["norm:rorw_op"]
 
-  - name: sext_b_op
-    tags: ["norm:sext_b_op"]
+  - name: sext-b_op
+    tags: ["norm:sext-b_op"]
 
-  - name: sext_h_op
-    tags: ["norm:sext_h_op"]
+  - name: sext-h_op
+    tags: ["norm:sext-h_op"]
 
   - name: sh1add_op
     tags: ["norm:sh1add_op"]
 
-  - name: sh1add_uw_op
-    tags: ["norm:sh1add_uw_op"]
+  - name: sh1add-uw_op
+    tags: ["norm:sh1add-uw_op"]
 
   - name: sh2add_op
     tags: ["norm:sh2add_op"]
 
-  - name: sh2add_uw_op
-    tags: ["norm:sh2add_uw_op"]
+  - name: sh2add-uw_op
+    tags: ["norm:sh2add-uw_op"]
 
   - name: sh3add_op
     tags: ["norm:sh3add_op"]
 
-  - name: sh3add_uw_op
-    tags: ["norm:sh3add_uw_op"]
+  - name: sh3add-uw_op
+    tags: ["norm:sh3add-uw_op"]
 
-  - name: slli_uw_op
-    tags: ["norm:slli_uw_op"]
+  - name: slli-uw_op
+    tags: ["norm:slli-uw_op"]
 
   - name: unzip_op
     tags: ["norm:unzip_op"]
@@ -225,8 +225,8 @@ normative_rule_definitions:
   - name: xperm4_op
     tags: ["norm:xperm4_op"]
 
-  - name: zext_h_op
-    tags: ["norm:zext_h_op"]
+  - name: zext-h_op
+    tags: ["norm:zext-h_op"]
 
   - name: zip_op
     tags: ["norm:zip_op"]
