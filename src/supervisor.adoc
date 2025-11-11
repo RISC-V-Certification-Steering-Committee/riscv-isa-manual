@@ -1344,14 +1344,13 @@ illegal-instruction exception.
 
 [[sv32]]
 === Sv32: Page-Based 32-bit Virtual-Memory Systems
-[[norm:satp_mode_field]]
-When Sv32 is written to the MODE field in the `satp` register (see
+[#norm:sv32_mode]#When Sv32 is written to the MODE field in the `satp` register (see
 <<satp>>), the supervisor operates in a 32-bit paged
-virtual-memory system. In this mode, supervisor and user virtual
+virtual-memory system.# In this mode, supervisor and user virtual
 addresses are translated into supervisor physical addresses by
-traversing a radix-tree page table. Sv32 is supported when SXLEN=32 and
+traversing a radix-tree page table. [#norm:sv32_support]#Sv32 is supported when SXLEN=32 and
 is designed to include mechanisms sufficient for supporting modern
-Unix-based operating systems.
+Unix-based operating systems.#
 
 [NOTE]
 ====
@@ -1376,16 +1375,16 @@ permit such behavior to be architecturally exposed.
 [[translation]]
 ==== Addressing and Memory Protection
 
-Sv32 implementations support a 32-bit virtual address space, divided
-into pages. An Sv32 virtual address is partitioned into a virtual page
+[#norm:sv32_va_sz]#Sv32 implementations support a 32-bit virtual address space, divided
+into pages.# An Sv32 virtual address is partitioned into a virtual page
 number (VPN) and page offset, as shown in <<sv32va>>.
-When Sv32 virtual memory mode is selected in the MODE field of the
+[#norm:sv32_translation]#When Sv32 virtual memory mode is selected in the MODE field of the
 `satp` register, supervisor virtual addresses are translated into
-supervisor physical addresses via a two-level page table. The 20-bit VPN
-is translated into a [#norm:satp-ppn_sv32_sz]#22-bit physical page number (PPN)#,
-while the 12-bit page offset is untranslated. The resulting supervisor-level physical
+supervisor physical addresses via a two-level page table.# [#norm:sv32-vpn_ppn_sz]#The 20-bit VPN
+is translated into a 22-bit physical page number (PPN)#,
+while [#norm:sv32_page_offset]#the 12-bit page offset is untranslated.# [#norm:sv32_pmp_check]#The resulting supervisor-level physical
 addresses are then checked using any physical memory protection
-structures (<<pmp>>), before being directly
+structures (<<pmp>>)#, before being directly
 converted to machine-level physical addresses. If necessary,
 supervisor-level physical addresses are zero-extended to the number of
 physical address bits found in the implementation.
@@ -1405,10 +1404,10 @@ address.
 include::images/bytefield/sv32va.edn[]
 
 
-Sv32 page tables consist of 2^10^ page-table entries
-(PTEs), each of four bytes. A page table is exactly the size of a page
-and must always be aligned to a page boundary. The physical page number
-of the root page table is stored in the `satp` register.
+[#norm:sv32_pte_count]#Sv32 page tables consist of 2^10^ page-table entries
+(PTEs)#, [#norm:sv32_pte_sz]#each of four bytes.# [#norm:sv32_pt_alignment]#A page table is exactly the size of a page
+and must always be aligned to a page boundary.# [#norm:sv32_satp_root]#The physical page number
+of the root page table is stored in the `satp` register.#
 
 [[sv32pa]]
 .SV32 physical address.
@@ -1420,13 +1419,13 @@ include::images/bytefield/sv32pte.edn[]
 
 The PTE format for Sv32 is shown in <<sv32pte>>.
 
-[#norm:pte_valid_bit_behavior]#The V bit indicates whether the PTE is valid; if it is 0, all other bits
-in the PTE are don’t-cares and may be used freely by software.# [#norm:pte_permission_bits]#The
+[#norm:sv32_pte-v_op]#The V bit indicates whether the PTE is valid; if it is 0, all other bits
+in the PTE are don’t-cares and may be used freely by software.# [#norm:sv32_pte-rwx_op]#The
 permission bits, R, W, and X, indicate whether the page is readable,
 writable, and executable, respectively.# 
-[#norm:pte_leaf_vs_pointer]#When all three are zero, the PTE
+[#norm:sv32_pte_leaf_pointer]#When all three are zero, the PTE
 is a pointer to the next level of the page table; otherwise, it is a
-leaf PTE.# [#norm:pte_writable_requires_readable]#Writable pages must also be marked readable; the contrary
+leaf PTE.# [#norm:sv32_pte_w_requires_r]#Writable pages must also be marked readable; the contrary
 combinations are reserved for future use. <<pteperm>>
 summarizes the encoding of the permission bits.#
 
@@ -1469,11 +1468,11 @@ _Reserved for future use._ +
 Read-write-execute page.
 |===
 
-[#norm:page_fault_fetch_no_exec]#Attempting to fetch an instruction from a page that does not have
-execute permissions raises a fetch page-fault exception.# [#norm:page_fault_load_no_read]#Attempting to
+[#norm:sv32_page_fault_fetch]#Attempting to fetch an instruction from a page that does not have
+execute permissions raises a fetch page-fault exception.# [#norm:sv32_page_fault_load]#Attempting to
 execute a load or load-reserved instruction whose effective address lies
 within a page without read permissions raises a load page-fault
-exception.# [norm:page_fault_store_no_write]#Attempting to execute a store, store-conditional, or AMO
+exception.# [norm:sv32_page_fault_store]#Attempting to execute a store, store-conditional, or AMO
 instruction whose effective address lies within a page without write
 permissions raises a store page-fault exception.#
 
@@ -1484,13 +1483,13 @@ is also unwritable, attempting to perform an AMO on an unreadable page
 always raises a store page-fault exception.#
 ====
 
-[#norm:sstatus-u-bit]#The U bit indicates whether the page is accessible to user mode. U-mode
-software may only access the page when U=1.# [#norm:sstatus-sum-bit]#If the SUM bit in the
+[#norm:sv32_pte-u_op]#The U bit indicates whether the page is accessible to user mode. U-mode
+software may only access the page when U=1.# [#norm:sstatus-sum_op]#If the SUM bit in the
 `sstatus` register is set, supervisor mode software may also access
-pages with U=1.# [#norm:sstatus-sum-clear]#However, supervisor code normally operates with the SUM
+pages with U=1.# However, supervisor code normally operates with the SUM
 bit clear, in which case, supervisor code will fault on accesses to
-user-mode pages.# Irrespective of SUM,[#norm:s_mode_exec_restriction_u_bit]#the supervisor may not execute
-code on pages with U=1.#
+user-mode pages. Irrespective of SUM, the supervisor may not execute
+code on pages with U=1.
 
 [NOTE]
 ====
@@ -1499,10 +1498,10 @@ supervisor and user. We omitted this feature because it would be largely
 redundant with the SUM mechanism (see <<sum>>) and would require more encoding space in the PTE.
 ====
 
-The G bit designates a _global_ mapping. Global mappings are those that
-exist in all address spaces. For non-leaf PTEs, the global setting
+[#norm:sv32_pte-g_op]#The G bit designates a _global_ mapping. Global mappings are those that
+exist in all address spaces.# [#norm:sv32_pte-g_nonleaf]#For non-leaf PTEs, the global setting
 implies that all mappings in the subsequent levels of the page table are
-global. Note that failing to mark a global mapping as global merely
+global.# Note that failing to mark a global mapping as global merely
 reduces performance, whereas marking a non-global mapping as global is a
 software bug that, after switching to an address space with a different
 non-global mapping for that address range, can unpredictably result in
@@ -1510,83 +1509,76 @@ either mapping being used.
 
 [NOTE]
 ====
-[[norm:global_mapping_cache_behavior]]
 Global mappings need not be stored redundantly in address-translation
 caches for multiple ASIDs. Additionally, they need not be flushed from
 local address-translation caches when an SFENCE.VMA instruction is
 executed with __rs2__&#8800;``x0``.
 ====
 
-[[norm:rsw_bit_behavior]]
-The RSW field is reserved for use by supervisor software; the
-implementation shall ignore this field.
+[#norm:sv32_pte-rsw_op]#The RSW field is reserved for use by supervisor software; the
+implementation shall ignore this field.#
 
-Each leaf PTE contains an accessed (A) and dirty (D) bit. [#norm:pte_a_bit]#The A bit
+Each leaf PTE contains an accessed (A) and dirty (D) bit. [#norm:sv32_pte-a_op]#The A bit
 indicates the virtual page has been read, written, or fetched from since
-the last time the A bit was cleared.# [norm:pte_d_bit]#The D bit indicates the virtual
+the last time the A bit was cleared.# [#norm:sv32_pte-d_op]#The D bit indicates the virtual
 page has been written since the last time the D bit was cleared.#
 
 
 Two schemes to manage the A and D bits are defined:
 
-[[norm:svade_extension_page_fault]]
-* The _Svade_ extension: when a virtual page is accessed and the A bit is
+* [#norm:pte_ad_svade_param]#The _Svade_ extension: when a virtual page is accessed and the A bit is
   clear, or is written and the D bit is clear, a page-fault exception is
-  raised.
+  raised.#
 
 * When the Svade extension is not implemented, the following scheme applies. +
                                                                              +
-  [#norm:pte_a_bit_update]#When a virtual page is accessed and the A bit is clear, the PTE is
-  updated to set the A bit.# [#norm:pte_d_bit_update]#When the virtual page is written and the D
-  bit is clear, the PTE is updated to set the D bit.# [#norm:gstage_implicit_access_behavior]#When G-stage address
+  [#norm:pte-ad_update_nosvade_param]#When a virtual page is accessed and the A bit is clear, the PTE is
+  updated to set the A bit. When the virtual page is written and the D
+  bit is clear, the PTE is updated to set the D bit.# [#norm:gstage_implicit_access]#When G-stage address
   translation is in use and is not Bare, the G-stage virtual pages may be
   accessed or written by implicit accesses to VS-level memory management
   data structures, such as page tables.#                                  +
                                                                         +
-  [[norm:vs_stage_g_stage_pte_update]]
-  When two-stage address translation is in use, an explicit access may
-  cause both VS-stage and G-stage PTEs to be updated. The following rules
+  [#norm:gstage_vs_pte_update]#When two-stage address translation is in use, an explicit access may
+  cause both VS-stage and G-stage PTEs to be updated.# The following rules
   apply to all PTE updates caused by an explicit or an implicit memory
   accesses.                                                             +
                                                                         +
-  [#norm:pte_update_atomicity]#The PTE update must be atomic with respect to other accesses to the
+  [#norm:sv32_pte_update_atomic]#The PTE update must be atomic with respect to other accesses to the
   PTE, and must atomically perform all page-table walk checks for that leaf
-  PTE as part of, and before, conditionally updating the PTE value.# [#norm:pte_a_bit_speculative_update]#Updates of the A bit may be performed as a result of speculation, even
+  PTE as part of, and before, conditionally updating the PTE value.# [#norm:sv32_pte-a_speculative]#Updates of the A bit may be performed as a result of speculation, even
   if the associated memory access ultimately is not performed
-  architecturally.# [#norm:pte_d_bit_exact_update]#However, updates to the D bit, resulting from an
+  architecturally.# [#norm:sv32_pte-d_exact]#However, updates to the D bit, resulting from an
   explicit store, must be exact (i.e., non-speculative), and observed in
-  program order by the local hart.# [norm:gstage_d_bit_update_from_vs_access]#When two-stage address translation is
+  program order by the local hart.# [#norm:gstage_pte-d_vs_access]#When two-stage address translation is
   active, updates to the D bit in G-stage PTEs may be performed by an
   implicit access to a VS-stage PTE, if the G-stage PTE provides write
   permission, before any speculative access to the VS-stage PTE.#        +
                                                                         +
-  [[norm:pte_update_ordering]]
-  The PTE update must appear in the global memory order before the
+
+  [#norm:sv32_pte_update_order]#The PTE update must appear in the global memory order before the
   memory access that caused the PTE update and before any subsequent
-  explicit memory access to that virtual page by the local hart. The
+  explicit memory access to that virtual page by the local hart.# [#norm:sv32_pte_update_fence]#The
   ordering on loads and stores provided by FENCE instructions and the
   acquire/release bits on atomic instructions also orders the PTE updates
-  associated with those loads and stores as observed by remote harts.   +
+  associated with those loads and stores as observed by remote harts.#   +
                                                                         +
-  [#norm:pte_update_atomicity_memory]#The PTE update is not required to be atomic with respect to the memory
+  [#norm:sv32_pte_update_not_atomic_access]#The PTE update is not required to be atomic with respect to the memory
   access that caused the update and a trap may occur between the PTE
-  update and the memory access that caused the PTE update.# [norm:pte_a_d_bit_trap_update]#If a trap
+  update and the memory access that caused the PTE update.# [#norm:sv32_pte_ad_trap]#If a trap
   occurs then the A and/or D bit may be updated but the memory access
-  that caused the PTE update might not occur.# [#norm:hart_memory_access_pte_update]#The hart must not perform
+  that caused the PTE update might not occur.# [#norm:sv32_pte_update_before_access]#The hart must not perform
   the memory access that caused the PTE update before the PTE update is
   globally visible.#                                                     +
                                                                         +
-  [[norm:hardware_access_page_table]]
-  The page tables must be located in memory with hardware page-table
-  write access and _RsrvEventual_ PMA.
+[#norm:sv32_pt_location]#The page tables must be located in memory with hardware page-table
+  write access and _RsrvEventual_ PMA.#
 
-[[norm:pte_same_hart_update]]
-All harts in a system must employ the same PTE-update scheme as each
-other.
+[#norm:sv32_multihart_pte_update_scheme]#All harts in a system must employ the same PTE-update scheme as each
+other.#
 
 [NOTE]
 ====
-[[norm:pte_update_not_fence_ordered]]
 The PTE updates due to memory accesses ordered-after a FENCE are not
 themselves ordered by the FENCE.
 
@@ -1599,10 +1591,10 @@ Prior versions of this specification required PTE A bit updates to be
 exact, but allowing the A bit to be updated as a result of speculation
 simplifies the implementation of address translation prefetchers. System
 software typically uses the A bit as a page replacement policy hint, but
-does not require exactness for functional correctness. [#norm:pte_d_bit_update_order]#On the other
+does not require exactness for functional correctness. On the other
 hand, D bit updates are still required to be exact and performed in
 program order, as the D bit affects the functional correctness of page
-eviction.#
+eviction.
 
 Implementations are of course still permitted to perform both A and D
 bit updates only in an exact manner.
@@ -1614,29 +1606,27 @@ reused for other purposes, on memory that has been reclaimed for other
 purposes, and so on. Simple implementations may instead generate
 page-fault exceptions.
 
-[#norm:pte_ad_bits_not_clear]#The A and D bits are never cleared by the implementation.# If the
+The A and D bits are never cleared by the implementation. If the
 supervisor software does not rely on accessed and/or dirty bits, e.g. if
 it does not swap memory pages to secondary storage or if the pages are
 being used to map I/O space, it should always set them to 1 in the PTE
 to improve performance.
 ====
 
-Any level of PTE may be a leaf PTE, so in addition to 4 KiB pages, Sv32
-supports 4 MiB _megapages_. [#norm:megapage_alignment]#A megapage must be virtually and physically
-aligned to a 4 MiB boundary;# [#norm:page_fault_misaligned_pa]#a page-fault exception is raised if the
+[#norm:sv32_megapage_support]#Any level of PTE may be a leaf PTE, so in addition to 4 KiB pages, Sv32
+supports 4 MiB _megapages_.# [#norm:sv32_megapage_alignment]#A megapage must be virtually and physically
+aligned to a 4 MiB boundary;# [#norm:sv32_page_fault_misaligned]#a page-fault exception is raised if the
 physical address is insufficiently aligned.#
 
-For non-leaf PTEs, the D, A, and U bits are reserved for future standard
-use. Until their use is defined by a standard extension, they must be
-cleared by software for forward compatibility.
+[#norm:sv32_pte_nonleaf_rsv]#For non-leaf PTEs, the D, A, and U bits are reserved for future standard
+use.# [#norm:sv32_pte_nonleaf_dauclear]#Until their use is defined by a standard extension, they must be
+cleared by software for forward compatibility.#
 
-[[norm:lrsc_reservation_within_page]]
-For implementations with both page-based virtual memory and the "A"
+[#norm:sv32_lrsc_reservation]#For implementations with both page-based virtual memory and the "A"
 standard extension, the LR/SC reservation set must lie completely within
 a single base physical page (i.e., a naturally aligned 4 KiB physical-memory
-region).
+region).#
 
-[[norm:misaligned_load_store_succeed]]
 On some implementations, misaligned loads, stores, and instruction
 fetches may also be decomposed into multiple accesses, some of which may
 succeed before a page-fault exception occurs.# In particular, a
