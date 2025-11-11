@@ -557,5 +557,3 @@ normative_rule_definitions:
   - name: sv57_sign_extension_violation
     summary: Bits 57 to 63 must be equal to bit 56.
     tags: ["norm:sv57_sign_extension_violation"]
-
-    
