@@ -406,8 +406,14 @@ normative_rule_definitions:
   - name: vector_ff_past_trap_param
     tags: ["norm:vector_ff_past_trap_param"]
 
-  - name: vector_ff_no_exception
-    tags: ["norm:vector_ff_no_exception"]
+  - name: vector_ff_no_exception_trim_param
+    tags: ["norm:vector_ff_no_exception_trim_param"]
+
+  - name: vfredosum_nan_param
+    tags: ["norm:vfredosum_nan_param"]
+  
+  - name: vector_ls_index_max_eew_param
+    tags: ["norm:vector_ls_index_max_eew_param"]
 
   - name: vector_ff_interrupt_behavior
     tags: ["norm:vector_ff_interrupt_behavior"]
