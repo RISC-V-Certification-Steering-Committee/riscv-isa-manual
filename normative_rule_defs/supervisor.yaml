@@ -470,41 +470,50 @@ normative_rule_definitions:
     summary: LR/SC reservation must lie within single 4 KiB physical page
     tags: ["norm:sv32_lrsc_reservation"]
   
-  - name: pte_violate_pma_pmp_check
+  - name: sv32_pte_access_fault_pma_pmp
     summary: Access fault exception on violation of pma/pmp check.
-    tags: ["norm:pte_violate_pma_pmp_check"]
+    tags: ["norm:sv32_pte_access_fault_pma_pmp"]
 
   - name: pte_reserved_encoding_pagefault
     summary: If any of the reserved bit encodings are set, page fault exception will occur.
     tags: ["norm:pte_reserved_encoding_pagefault"]
 
-  - name: smallest_pagetable_level
+  - name: sv32_pte_leaf_check
+    summary: If pte.r=1 or pte.x=1, it is a leaf pte, otherwise, this PTE is a pointer to the next level of the page table.
+    tags: ["norm:sv32_pte_leaf_check"]
+
+
+  - name: sv32_pte_depth_limit
     summary: For sv32, smallest value of i(LEVELS-1) is 0.
-    tags: ["norm:smallest_pagetable_level"]
+    tags: ["norm:sv32_pte_depth_limit"]
 
-  - name: misaligned_superpage_pagefault
+  - name: misaligned_superpage
     summary: If i is greater than 0 at a leaf pte, raise a pagefault exception.
-    tags: ["norm:misaligned_superpage_pagefault"]
+    tags: ["norm:misaligned_superpage"]
 
-  - name: memory_access_by_pte_u_bit
+  - name: pte_u_check
     summary: If memory access is not allowed by pte u bit, a page fault is raised.
-    tags: ["norm:memory_access_by_pte_u_bit"]
+    tags: ["norm:pte_u_check"]
 
-  - name: pte_rwx_shadowstack_check
+  - name: pte_shadowstack_check
     summary: Memory access permissions must respect PTE R/W/X bits under Shadow Stack Protection rules.
-    tags: ["norm:pte_rwx_shadowstack_check"]
+    tags: ["norm:pte_shadowstack_check"]
 
-  - name: pte_rwx_access_check
+  - name: pte_rwx_check
     summary: Memory access permissions must respect PTE R/W/X bits.
-    tags: ["norm:pte_rwx_access_check"]
+    tags: ["norm:pte_rwx_check"]
 
   - name: pte_ad_svade_fault
     summary: For pte.a and pte.d bits cleared, we get a page fault exception if svade is implemented.
     tags: ["norm:pte_ad_svade_fault"]
 
-  - name: pte_store_pma_pmp_check
+  - name: pte_ad_store_pma_pmp_fault
     summary: If a store to a pte violates pmp/pma check, raise access-fault.
-    tags: ["norm:pte_store_pma_pmp_check"]
+    tags: ["norm:pte_ad_store_pma_pmp_fault"]
+
+  - name: pte_ad_set
+    summary: et A and D bits if comparison succeeds.
+    tags: ["norm:pte_ad_set"]
 
   - name: address_translation_cache_behavior
     summary: Describes how implicit address-translation reads may be cached locally and the requirement of SFENCE.VMA to maintain coherence.
@@ -514,9 +523,62 @@ normative_rule_definitions:
     summary: A/D bits are directly updated in the memory.
     tags: ["norm:pte_ad_memory_update"]
 
-  - name: speculative_translation_execution
-    summary: Restricts speculative address translation from setting D-bit, triggering exceptions, or caching invalid entries.
-    tags: ["norm:speculative_translation_execution"]
+  # Translation success
+  - name: sv32_translation_success
+    summary: Translation successful after all checks pass
+    tags: ["norm:sv32_translation_success"]
+  
+  # Page offset translation
+  - name: sv32_pa_pgoff
+    summary: Physical page offset equals virtual page offset
+    tags: ["norm:sv32_pa_pgoff"]
+  
+  # Superpage address construction
+  - name: sv32_pa_superpage
+    summary: Superpage lower PPN bits come from VPN
+    tags: ["norm:sv32_pa_superpage"]
+  
+  # PPN translation
+  - name: sv32_pa_ppn
+    summary: Physical PPN comes from PTE PPN
+    tags: ["norm:sv32_pa_ppn"]
+  
+  # Implicit access width
+  - name: sv32_implicit_access_width
+    summary: Implicit accesses to page tables use width PTESIZE
+    tags: ["norm:sv32_implicit_access_width"]
+
+  # Address-translation cache behavior
+  - name: sv32_atc_holds_reads
+    summary: Address-translation cache may hold step 2 implicit reads
+    tags: ["norm:sv32_atc_holds_reads"]
+    description: "Cache is read-only and incoherent"
+
+  - name: sv32_atc_sfence_flush
+    summary: SFENCE.VMA must be executed after writes to flush cached translations
+    tags: ["norm:sv32_atc_sfence_flush"]
+
+  # Speculative translation execution
+  - name: sv32_speculative_translation
+    summary: Translation algorithm may execute speculatively when satp active
+    tags: ["norm:sv32_speculative_translation"]
+
+  # Speculative execution restrictions
+  - name: sv32_speculative_behavior
+    summary: Speculative executions behave like non-speculative with exceptions
+    tags: ["norm:sv32_speculative_behavior"]
+  
+  - name: sv32_speculative_no_d
+    summary: Speculative execution must not set dirty bit
+    tags: ["norm:sv32_speculative_no_d"]
+  
+  - name: sv32_speculative_no_exception
+    summary: Speculative execution must not trigger exception
+    tags: ["norm:sv32_speculative_no_exception"]
+  
+  - name: sv32_speculative_no_invalid_cache
+    summary: Speculative execution must not create cache entries that would be invalidated by prior SFENCE.VMA
+    tags: ["norm:sv32_speculative_no_invalid_cache"]
 
   - name: addr_sign_extension_violation
     summary: Instruction fetch and memory access addresses must have bits 63–39 equal to bit 38 or cause a page-fault exception.
