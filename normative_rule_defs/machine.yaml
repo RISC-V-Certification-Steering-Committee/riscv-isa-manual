@@ -93,3 +93,85 @@ normative_rule_definitions:
     tags: ["norm:mstatush_sz_acc"]
   - name: mstatush_enc
     tags: ["norm:mstatush_enc"]
+  - name: pmp_granularity
+    tags: ["norm:pmp_granularity"]
+  - name: pmp_M_mode_low_priv_param
+    tags: ["norm:pmp_M_mode_low_priv_param"]
+  - name: mstatus_MPRV_behaviour
+    tags: ["norm:mstatus_MPRV_behaviour"]
+  - name: pmp_entry_addr_config
+    tags: ["norm:pmp_entry_addr_config"]
+  - name: pmp_precede_entry
+    tags: ["norm:pmp_precede_entry"]
+  - name: pmp_64_entry
+    tags: ["norm:pmp_64_entry"]
+  - name: pmp_lowest_entry_implement
+    tags: ["norm:pmp_lowest_entry_implement"]
+  - name: pmp_CSR_r_only_param
+    tags: ["norm:pmp_CSR_r_only_param"]
+  - name: pmp_CSR_M_mode
+    tags: ["norm:pmp_CSR_M_mode"]
+  - name: pmp_addr_encode_RV32
+    tags: ["norm:pmp_addr_encode_RV32"]
+  - name: pmp_addr_encode_RV64
+    tags: ["norm:pmp_addr_encode_RV64"]
+  - name: pmp_addr_bits_implement_param
+    tags: ["norm:pmp_addr_bits_implement_param"]  
+  - name: pmp_addr_RV32
+    tags: ["norm:pmp_addr_RV32"]
+  - name: pmp_addr_RV64
+    tags: ["norm:pmp_addr_RV64"]
+  - name: pmp_x_instr_fault
+    tags: ["norm:pmp_x_instr_fault"]  
+  - name: pmp_r_load_fault
+    tags: ["norm:pmp_r_load_fault"]
+  - name: pmp_w_store_fault
+    tags: ["norm:pmp_w_store_fault"]
+  - name: pmp_A_encoding
+    tags: ["norm:pmp_A_encoding"]
+  - name: pmp_A_NAPOT
+    tags: ["norm:pmp_A_NAPOT"]
+  - name: pmp_A_TOR
+    name: ["norm:pmp_A_TOR"]
+  - name: pmp_A_disabled
+    tags: ["norm:pmp_A_disabled"]
+  - name: pmp_TOR_addr_match
+    tags: ["norm:pmp_TOR_addr_match"]
+  - name: pmp_no_addr_match
+    tags: ["norm:pmp_no_addr_match"]
+  - name: pmp_grain_byte_length
+    tags: ["norm:pmp_grain_byte_length"]
+  - name: pmp_TOR_region_clear
+    tags: ["norm:pmp_TOR_region_clear"]
+  - name: pmp_A_stored_value
+    tags: ["pmp_A_stored_value"]
+  - name: pmp_A_region_change
+    tags: ["norm:pmp_A_region_change"]
+  - name: pmp_NA4_disabled
+    tags: ["norm:pmp_NA4_disabled"]
+  - name: pmp_NAPOT_region_sz
+    tags: ["norm:pmp_NAPOT_region_sz"]
+  - name: pmp_csr_L_bit_lock
+    tags: ["norm:pmp_csr_L_bit_lock"]
+  - name: pmp_csr_Lbit_Mmode_access
+    tags: ["norm:pmp_csr_Lbit_Mmode_access"]
+  - name: pmp_entry_match_all
+    tags: ["norm:pmp_entry_match_all"]
+  - name: pmp_entry_l_r_w_x_mode_check
+    tags: ["norm:pmp_entry_l_r_w_x_mode_check"]
+  - name: pmp_entry_M_U_S_mode
+    tags: ["norm:pmp_entry_M_U_S_mode"]
+  - name: pmp_access_fail_load_store_fault
+    tags: ["norm:pmp_access_fail_load_store_fault"]
+  - name: pmp_access_fault_instr_fail
+    tags: ["norm:pmp_access_fault_instr_fail"]
+  - name: pmp_misaligned_implementation
+    tags: ["norm:pmp_misaligned_implementation"]
+  - name: pmp_vmem_all_access
+    tags: ["pmp_vmem_all_access"]
+  - name: pmp_vmem_speculative_check
+    tags: ["norm:pmp_vmem_speculative_check"]
+  - name: pmp_vmem_sync
+    tags: ["norm:pmp_vmem_sync"]
+  - name: pmp_vmem_sfence
+    tags: ["norm:pmp_vmem_sfence"]
