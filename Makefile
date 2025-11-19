@@ -165,12 +165,6 @@ NORM_TAG_FILE_ARGS := $(foreach relative_pname,$(DOCS_NORM_TAGS),-t /$(relative_
 # Add -d to each normative rule definition filename
 NORM_RULE_DEF_ARGS := $(foreach relative_pname,$(NORM_RULE_DEF_FILES),-d $(relative_pname))
 
-# Provide mapping from an ISA manual's norm tags JSON file to a URL that one can link to. Used to create links into ISA manual.
-NORM_RULE_DOC2URL_ARGS := $(foreach doc_name,$(DOCS),-tag2url /$(BUILD_DIR)/$(doc_name)$(DOC_NORM_TAG_SUFFIX) $(doc_name).html)
-
-# Temporarily make errors warnings. Don't check this in uncommented.
-# NORM_RULE_DEF_ARGS := $(NORM_RULE_DEF_ARGS) -w
-
 $(BUILD_DIR)/%.pdf: $(SRC_DIR)/%.adoc $(ALL_SRCS)
 	$(WORKDIR_SETUP)
 	$(DOCKER_CMD) $(DOCKER_QUOTE) $(ASCIIDOCTOR_PDF) $(OPTIONS) $(REQUIRES) $< $(DOCKER_QUOTE)
