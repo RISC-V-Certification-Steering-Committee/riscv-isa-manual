@@ -93,3 +93,126 @@ normative_rule_definitions:
     tags: ["norm:mstatush_sz_acc"]
   - name: mstatush_enc
     tags: ["norm:mstatush_enc"]
+    
+  - name: pmp_granularity
+    tags: ["norm:pmp_granularity"]
+
+  - name: pmp_M_mode_low_priv_param
+    tags: ["norm:pmp_M_mode_low_priv_param"]
+
+  - name: pmp_app
+    tags: ["norm:pmp_app"]
+
+  - name: pmp_trap_precise
+    tags: ["norm:pmp_trap_precise"]
+
+  - name: pmp_csr_size
+    tags: ["norm:pmp_csr_sz"]
+
+  - name: pmp_entries
+    tags: ["norm:pmp_entries"]
+
+  - name: pmp_csr_WARL
+    tags: ["norm:pmp_csr_WARL"]
+
+  - name: pmp_csr_mode
+    tags: ["norm:pmp_csr_mode"]
+
+  - name: pmp_addr_encode_RV32
+    tags: ["norm:pmp_addr_encode_RV32"]
+
+  - name: pmp_addr_encode_RV64
+    tags: ["norm:pmp_addr_encode_RV64"]
+
+  - name: pmp_addr_bits_implement
+    tags: ["norm:pmp_addr_bits_implement"]  
+
+  - name: pmp_addr_RV32
+    tags: ["norm:pmp_addr_RV32"]
+
+  - name: pmp_addr_RV64
+    tags: ["norm:pmp_addr_RV64"]
+
+  - name: pmpcfg-rwx_op
+    tags: ["norm:pmpcfg-rwx_op"]
+
+  - name: pmpcfg-x_op
+    tags: ["norm:pmpcfg-x_op"]  
+
+  - name: pmpcfg-r_op
+    tags: ["norm:pmpcfg-r_op"]
+
+  - name: pmpcfg-w_op
+    tags: ["norm:pmpcfg-w_op"]
+
+  - name: pmpcfg-A_encoding
+    tags: ["norm:pmpcfg-A_encoding"]
+
+  - name: pmp_NAPOT_range_sz
+    tags: ["norm:pmp_NAPOT_range_sz"]
+
+  - name: pmpcfg_TOR_bounds
+    tags: ["norm:pmpcfg_TOR_bounds"]
+
+  - name: pmpcfg_TOR_addr_match
+    tags: ["norm:pmpcfg_TOR_addr_match"]
+
+  - name: pmpcfg_TOR_entry0
+    tags: ["norm:pmpcfg_TOR_entry0"]
+
+  - name: pmp_TOR_invalid_range
+    tags: ["norm:pmp_TOR_invalid_range"]
+
+  - name: pmp_grain_byte_length
+    tags: ["norm:pmp_grain_byte_length"]
+
+  - name: pmpaddr_TOR_OFF_readback
+    tags: ["norm:pmpaddr_TOR_OFF_readback"]
+    
+  - name: pmp_A_stored_value
+    tags: ["pmp_A_stored_value"]
+
+  - name: pmp_A_region_change
+    tags: ["norm:pmp_A_region_change"]
+
+  - name: pmp_no_NA4
+    tags: ["norm:pmp_no_NA4"]
+
+  - name: pmpaddr_NAPOT_readback
+    tags: ["norm:pmpaddr_NAPOT_readback"]
+
+  - name: pmpcfg-L_op
+    tags: ["norm:pmpcfg-L_op"]
+
+  - name: pmpcfg-L_acc
+    tags: ["norm:pmpcfg-L_acc"]
+
+  - name: pmp_entry_priority
+    tags: ["norm:pmp_entry_priority"]
+
+  - name: pmp_entry_match_all
+    tags: ["norm:pmp_entry_match_all"]
+
+  - name: pmp_entry_lrwx_mode_check
+    tags: ["norm:pmp_entry_lrwx_mode_check"]
+    
+  - name: pmp_entry_mode_acc
+    tags: ["norm:pmp_entry_mode_acc"]
+
+  - name: pmp_multiple_access_fault
+    tags: ["norm:pmp_multiple_access_fault"]
+
+  - name: pmp_misaligned_fault
+    tags: ["norm:pmp_misaligned_fault"]
+
+  - name: pmp_vmem_access_check
+    tags: ["pmp_vmem_access_check"]
+
+  - name: pmp_vmem_speculative_check
+    tags: ["norm:pmp_vmem_speculative_check"]
+
+  - name: pmp_vmem_sync
+    tags: ["norm:pmp_vmem_sync"]
+
+  - name: pmp_vmem_no_sfence
+    tags: ["norm:pmp_vmem_no_sfence"]
