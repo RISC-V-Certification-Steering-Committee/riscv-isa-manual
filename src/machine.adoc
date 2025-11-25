@@ -3056,8 +3056,8 @@ PMP violations are always trapped precisely at the processor.
 [#norm:pmp_csr_sz]#PMP entries are described by an 8-bit configuration register and one
 MXLEN-bit address register.# Some PMP settings additionally use the
 address register associated with the preceding PMP entry. Up to 64 PMP
-entries are supported. [#norm:pmp_entries_params]#Implementations may implement zero, 16, or 64 PMP
-entries; the lowest-numbered PMP entries must be implemented first.# [#norm:pmp_WARL_params]#All
+entries are supported. [#norm:pmp_entries]#Implementations may implement zero, 16, or 64 PMP
+entries; the lowest-numbered PMP entries must be implemented first.# [#norm:pmp_csr_WARL]#All
 PMP CSR fields are *WARL* and may be read-only zero.# [#norm:pmp_csr_mode]#PMP CSRs are only
 accessible to M-mode.#
 
@@ -3084,12 +3084,12 @@ include::images/bytefield/pmp-rv32.edn[]
 include::images/bytefield/pmp-rv64.edn[]
 
 
-[norm:pmp_addr_encode_RV32]#The PMP address registers are CSRs named `pmpaddr0`-`pmpaddr63`. Each PMP address register encodes bits 33-2 of a 34-bit physical address for RV32, as shown in <<pmpaddr-rv32>>.# [norm:pmp_addr_encode_RV64]#For RV64, each PMP address register encodes bits 55-2 of a 56-bit physical address, as shown in <<pmpaddr-rv64>>.# [norm:pmp_addr_bits_implement_param]#Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*.#
+[#norm:pmp_addr_encode_RV32]#The PMP address registers are CSRs named `pmpaddr0`-`pmpaddr63`. Each PMP address register encodes bits 33-2 of a 34-bit physical address for RV32, as shown in <<pmpaddr-rv32>>.# [#norm:pmp_addr_encode_RV64]#For RV64, each PMP address register encodes bits 55-2 of a 56-bit physical address, as shown in <<pmpaddr-rv64>>.# [#norm:pmp_addr_bits_implement]#Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*.#
 
 [NOTE]
 ====
-[norm:pmp_addr_RV32]#The Sv32 page-based virtual-memory scheme described in
-<<sv32>> supports 34-bit physical addresses for RV32, so the PMP scheme must support addresses wider than XLEN for RV32.# [norm:pmp_addr_RV64]#The Sv39 and Sv48 page-based virtual-memory schemes described in <<sv39>> and <<sv48>> support a
+[#norm:pmp_addr_RV32]#The Sv32 page-based virtual-memory scheme described in
+<<sv32>> supports 34-bit physical addresses for RV32, so the PMP scheme must support addresses wider than XLEN for RV32.# [#norm:pmp_addr_RV64]#The Sv39 and Sv48 page-based virtual-memory schemes described in <<sv39>> and <<sv48>> support a
 56-bit physical address space, so the RV64 PMP address registers impose
 the same limit.#
 ====
@@ -3102,7 +3102,7 @@ include::images/bytefield/pmpaddr-rv32.edn[]
 .PMP address register format, RV64.
 include::images/bytefield/pmpaddr-rv64.edn[]
 
-[[norm:pmp_csr_R_W_X_permission]]
+[[norm:pmpcfg-rwx_op]]
 <<pmpcfg>> shows the layout of a PMP configuration
 register. The R, W, and X bits, when set, indicate that the PMP entry
 permits read, write, and instruction execution, respectively. When one
@@ -3114,14 +3114,15 @@ W, and X fields form a collective *WARL* field for which the combinations with R
 include::images/bytefield/pmpcfg.edn[]
 
 
-[#norm:pmp_x_instr_fault]#Attempting to fetch an instruction from a PMP region that does not have execute permissions raises an instruction access-fault exception.#
-[#norm:pmp_r_load_fault]#Attempting to execute a load or load-reserved instruction which accesses a physical address within a PMP region without read permissions raises a load access-fault exception.# [#norm:pmp_w_store_fault]#Attempting to execute a store, store-conditional, or AMO instruction which accesses a physical address within a PMP region without write permissions raises a store
+[#norm:pmpcfg-x_op]#Attempting to fetch an instruction from a PMP region that does not have execute permissions raises an instruction access-fault exception.#
+[#norm:pmpcfg-r_op]#Attempting to execute a load or load-reserved instruction which accesses a physical address within a PMP region without read permissions raises a load access-fault exception.# [#norm:pmpcfg-w_op]#Attempting to execute a store, store-conditional, or AMO instruction which accesses a physical address within a PMP region without write permissions raises a store
 access-fault exception.#
 
 ===== Address Matching
 
-[#norm:pmp_A_encoding]#The A field in a PMP entry's configuration register encodes the address-matching mode of the associated PMP address register. The encoding of this field is shown in <<pmpcfg-a>>.#
-[#norm:pmp_A_disabled]#When A=0, this PMP entry is disabled and matches no addresses.# [#norm:pmp_A_NAPOT]#Two other address-matching modes are supported: naturally aligned power-of-2 regions (NAPOT), including the special case of naturally aligned four-byte regions (NA4)#; [#norm:pmp_A_TOR]#and the top boundary of an arbitrary range (TOR).# These modes support four-byte granularity.
+[[norm:pmpcfg-A_encoding]]
+The A field in a PMP entry's configuration register encodes the address-matching mode of the associated PMP address register. The encoding of this field is shown in <<pmpcfg-a>>.
+When A=0, this PMP entry is disabled and matches no addresses.Two other address-matching modes are supported: naturally aligned power-of-2 regions (NAPOT), including the special case of naturally aligned four-byte regions (NA4);and the top boundary of an arbitrary range (TOR).These modes support four-byte granularity.
 
 [[pmpcfg-a]]
 .Encoding of A field in PMP configuration registers.
@@ -3181,10 +3182,10 @@ NAPOT
 2^XLEN+3^-byte NAPOT range
 |===
 
-[#norm:pmp_TOR_bounds]#If TOR is selected, the associated address register forms the top of the
+[#norm:pmpcfg_TOR_bounds]#If TOR is selected, the associated address register forms the top of the
 address range, and the preceding PMP address register forms the bottom
-of the address range.# [#norm:pmp_TOR_addr_matching]#If PMP entry __i__'s A field is set to
-TOR, the entry matches any address _y_ such that `pmpaddr~i-1~`&#8804;__y__<``pmpaddr~i~`` (irrespective of the value of `pmpcfg~i-1~`).# [#norm:pmp_TOR_entry0]#If PMP entry 0's A field is set to TOR, zero is used for the lower bound, and so it matches
+of the address range.# [#norm:pmpcfg_TOR_addr_match]#If PMP entry __i__'s A field is set to
+TOR, the entry matches any address _y_ such that `pmpaddr~i-1~`&#8804;__y__<``pmpaddr~i~`` (irrespective of the value of `pmpcfg~i-1~`).# [#norm:pmpcfg_TOR_entry0]#If PMP entry 0's A field is set to TOR, zero is used for the lower bound, and so it matches
 any address `y<pmpaddr~0~`.#
 
 [NOTE]
@@ -3193,10 +3194,10 @@ any address `y<pmpaddr~0~`.#
 If  `pmpaddr~i-1~&#8805;``pmpaddr~i~``` and `pmpcfg~i~.A`=TOR, then PMP entry _i_ matches no addresses.
 ====
 
-[norm:pmp_grain_byte_length]#Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is latexmath:[$2^{G+2}$] bytes and must be the same across all PMP regions.#
-[norm:pmp_NA4_disabled]#When latexmath:[$G \geq 1$], the NA4 mode is not selectable.# [norm:pmp_NAPOT_region_sz]#When latexmath:[$G \geq 2$] and latexmath:[${\tt pmpcfg}_i$].A[1] is set, i.e. the mode is NAPOT, then bits latexmath:[${\tt pmpaddr}_i$][G-2:0] read as all ones.# [norm:pmp_TOR_region_clear]#When latexmath:[$G \geq 1$] and latexmath:[${\tt pmpcfg}_i$].A[1] is clear, i.e. the mode is OFF or TOR, then bits latexmath:[${\tt pmpaddr}_i$][G-1:0] read as all zeros. Bits latexmath:[${\tt pmpaddr}_i$][G-1:0] do not affect the TOR address-matching logic.#
-[norm:pmp_A_stored_value]#Although changing latexmath:[${\tt pmpcfg}_i$].A[1] affects the value read from latexmath:[${\tt pmpaddr}_i$], it does not affect the
-underlying value stored in that register—in particular,# [norm:pmp_A_region_change]#latexmath:[${\tt pmpaddr}_i$][G-1] retains its original value when latexmath:[${\tt pmpcfg}_i$].A is changed from NAPOT to TOR/OFF then back to NAPOT.#
+[#norm:pmp_grain_byte_length]#Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is latexmath:[$2^{G+2}$] bytes and must be the same across all PMP regions.#
+[#norm:pmp_no_NA4]#When latexmath:[$G \geq 1$], the NA4 mode is not selectable.# [#norm:pmpaddr_NAPOT_readback]#When latexmath:[$G \geq 2$] and latexmath:[${\tt pmpcfg}_i$].A[1] is set, i.e. the mode is NAPOT, then bits latexmath:[${\tt pmpaddr}_i$][G-2:0] read as all ones.# [#norm:pmpaddr_TOR_OFF_readback]#When latexmath:[$G \geq 1$] and latexmath:[${\tt pmpcfg}_i$].A[1] is clear, i.e. the mode is OFF or TOR, then bits latexmath:[${\tt pmpaddr}_i$][G-1:0] read as all zeros. Bits latexmath:[${\tt pmpaddr}_i$][G-1:0] do not affect the TOR address-matching logic.#
+[#norm:pmp_A_stored_value]#Although changing latexmath:[${\tt pmpcfg}_i$].A[1] affects the value read from latexmath:[${\tt pmpaddr}_i$], it does not affect the
+underlying value stored in that register—in particular,# [#norm:pmp_A_region_change]#latexmath:[${\tt pmpaddr}_i$][G-1] retains its original value when latexmath:[${\tt pmpcfg}_i$].A is changed from NAPOT to TOR/OFF then back to NAPOT.#
 
 [NOTE]
 ====
@@ -3204,7 +3205,7 @@ Software may determine the PMP granularity by writing zero to `pmp0cfg`, then wr
 ====
 
 ===== Locking and Privilege Mode
-[[norm:pmp_csr_L_bit_lock]]
+[[norm:pmpcfg-L_op]]
 The L bit indicates that the PMP entry is locked, i.e., writes to the
 configuration register and associated address registers are ignored.
 Locked PMP entries remain locked until the hart is reset. If PMP entry
@@ -3217,7 +3218,7 @@ to TOR, writes to ``pmpaddr``__i__-1 are ignored.
 Setting the L bit locks the PMP entry even when the A field is set to
 OFF.
 ====
-[[norm:pmp_csr_Lbit_Mmode_access]]
+[[norm:pmpcfg-L_acc]]
 In addition to locking the PMP entry, the L bit indicates whether the
 R/W/X permissions are enforced on M-mode accesses. When the L bit is
 set, these permissions are enforced for all privilege modes. When the L
@@ -3226,17 +3227,16 @@ R/W/X permissions apply only to S and U modes.
 
 ===== Priority and Matching Logic
 
-[[norm:pmp_entry_match_all]]
-PMP entries are statically prioritized. The lowest-numbered PMP entry
+PMP entries are statically prioritized. [#norm:pmp_entry_priority]#The lowest-numbered PMP entry
 that matches any byte of an access determines whether that access
-succeeds or fails. The matching PMP entry must match all bytes of an
-access, or the access fails, irrespective of the L, R, W, and X bits.
+succeeds or fails.# [#norm:pmp_entry_match_all]#The matching PMP entry must match all bytes of an
+access, or the access fails, irrespective of the L, R, W, and X bits.#
 For example, if a PMP entry is configured to match the four-byte range
 `0xC`–`0xF`, then an 8-byte access to the range `0x8`–`0xF` will fail,
 assuming that PMP entry is the highest-priority entry that matches those
 addresses.
 
-[[norm:pmp_entry_l_r_w_x_mode_check]]
+[[norm:pmp_entry_lrwx_mode_check]]
 If a PMP entry matches all bytes of an access, then the L, R, W, and X
 bits determine whether the access succeeds or fails. If the L bit is
 clear and the privilege mode of the access is M, the access succeeds.
@@ -3244,7 +3244,7 @@ Otherwise, if the L bit is set or the privilege mode of the access is S
 or U, then the access succeeds only if the R, W, or X bit corresponding
 to the access type is set.
 
-[[norm:pmp_entry_M_U_S_mode]]
+[[norm:pmp_entry_mode_acc]]
 If no PMP entry matches an M-mode access, the access succeeds. If no PMP
 entry matches an S-mode or U-mode access, but at least one PMP entry is
 implemented, the access fails.
@@ -3255,9 +3255,10 @@ If at least one PMP entry is implemented, but all PMP entries’ A fields
 are set to OFF, then all S-mode and U-mode memory accesses will fail.
 ====
 
-[norm:pmp_access_fail_load_store_fault]#Failed accesses generate an instruction, load, or store access-fault exception. Note that a single instruction may generate multiple accesses, which may not be mutually atomic.# [norm:pmp_access_fault_instr_fail]#An access-fault exception is generated if at least one access generated by an instruction fails, though other accesses generated by that instruction may succeed with visible side effects.# Notably, instructions that reference virtual memory are decomposed into multiple accesses.
+[[norm:pmp_multiple_access_fault]]
+Failed accesses generate an instruction, load, or store access-fault exception. Note that a single instruction may generate multiple accesses, which may not be mutually atomic. An access-fault exception is generated if at least one access generated by an instruction fails, though other accesses generated by that instruction may succeed with visible side effects. Notably, instructions that reference virtual memory are decomposed into multiple accesses.
 
-[[norm:pmp_misaligned_implementation]]
+[[norm:pmp_misaligned_fault]]
 On some implementations, misaligned loads, stores, and instruction
 fetches may also be decomposed into multiple accesses, some of which may
 succeed before an access-fault exception occurs. In particular, a
@@ -3269,7 +3270,7 @@ in RV32D), even when the store address is naturally aligned.
 [[pmp-vmem]]
 ==== Physical Memory Protection and Paging
 
-[[norm:pmp_vmem_all_access]]
+[[norm:pmp_vmem_access_check]]
 The Physical Memory Protection mechanism is designed to compose with the
 page-based virtual memory systems described in
 <<supervisor>>. When paging is enabled,
@@ -3278,8 +3279,8 @@ physical-memory accesses, including implicit references to the page
 tables. The PMP checks apply to all of these accesses. The effective
 privilege mode for implicit page-table accesses is S.
 
-[norm:pmp_vmem_speculative_check]#Implementations with virtual memory are permitted to perform address translations speculatively and earlier than required by an explicit memory access, and are permitted to cache them in address translation cache structures—including possibly caching the identity mappings from effective address to physical address used in Bare translation modes and M-mode. The PMP settings for the resulting physical address may be checked (and possibly cached) at any point between the address translation and the explicit memory access.# [norm:pmp_vmem_sync]#Hence, when the PMP settings are modified, M-mode software must synchronize the PMP settings with the virtual memory system and any PMP or address-translation caches. This is accomplished by executing an SFENCE.VMA instruction with _rs1_=`x0` and _rs2_=`x0`, after the PMP CSRs are written.# See <<hyp-mm-fences>> for additional synchronization requirements when the hypervisor extension is implemented.
+[#norm:pmp_vmem_speculative_check]#Implementations with virtual memory are permitted to perform address translations speculatively and earlier than required by an explicit memory access, and are permitted to cache them in address translation cache structures—including possibly caching the identity mappings from effective address to physical address used in Bare translation modes and M-mode. The PMP settings for the resulting physical address may be checked (and possibly cached) at any point between the address translation and the explicit memory access.# [#norm:pmp_vmem_sync]#Hence, when the PMP settings are modified, M-mode software must synchronize the PMP settings with the virtual memory system and any PMP or address-translation caches. This is accomplished by executing an SFENCE.VMA instruction with _rs1_=`x0` and _rs2_=`x0`, after the PMP CSRs are written.# See <<hyp-mm-fences>> for additional synchronization requirements when the hypervisor extension is implemented.
 
-[[norm:pmp_vmem_sfence]]
+[[norm:pmp_vmem_no_sfence]]
 If page-based virtual memory is not implemented, memory accesses check
 the PMP settings synchronously, so no SFENCE.VMA is needed.
