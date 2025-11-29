@@ -31,9 +31,12 @@ include::images/wavedrom/csr-instr.edn[]
 The CSRRW (Atomic Read/Write CSR) instruction atomically swaps values in
 the CSRs and integer registers. CSRRW reads the old value of the CSR,
 zero-extends the value to XLEN bits, then writes it to integer register
-_rd_. The initial value in _rs1_ is written to the CSR. If _rd_=`x0`,
+_rd_. The initial value in _rs1_ is written to the CSR. [#norm:csrrw_rd_x0_miket]#If _rd_=`x0`,
 then the instruction shall not read the CSR and shall not cause any of
-the side effects that might occur on a CSR read.
+the side effects that might occur on a CSR read.#
+////
+Are there any side effects on any CSR reads?
+////
 
 [[norm:csrrs_op]]
 The CSRRS (Atomic Read and Set Bits in CSR) instruction reads the value
@@ -41,7 +44,12 @@ of the CSR, zero-extends the value to XLEN bits, and writes it to
 integer register _rd_. The initial value in integer register _rs1_ is
 treated as a bit mask that specifies bit positions to be set in the CSR.
 Any bit that is high in _rs1_ will cause the corresponding bit to be set
-in the CSR, if that CSR bit is writable.
+in the CSR, [#norm:csrrs_set_if_wr_miket]#if that CSR bit is writable.#
+////
+The [#norm:csrrs_set_if_wr_miket]# statement (set if writable) is an example
+of a normative rule that implies cross coverage.  It is not clear to me how
+to capture this in a normative rule.
+////
 
 [[norm:csrrc_op]]
 The CSRRC (Atomic Read and Clear Bits in CSR) instruction reads the
@@ -49,7 +57,7 @@ value of the CSR, zero-extends the value to XLEN bits, and writes it to
 integer register _rd_. The initial value in integer register _rs1_ is
 treated as a bit mask that specifies bit positions to be cleared in the
 CSR. Any bit that is high in _rs1_ will cause the corresponding bit to
-be cleared in the CSR, if that CSR bit is writable.
+be cleared in the CSR, [#norm:csrrs_clr_if_wr_miket]#if that CSR bit is writable.
 
 [[norm:csrrs_csrrc_rs1_x0]]
 For both CSRRS and CSRRC, if _rs1_=`x0`, then the instruction will not
@@ -58,10 +66,15 @@ that might otherwise occur on a CSR write, nor raise illegal-instruction
 exceptions on accesses to read-only CSRs. Both CSRRS and CSRRC always
 read the addressed CSR and cause any read side effects regardless of
 _rs1_ and _rd_ fields.
+
+[[norm:csrrs_csrrc_rs1_eq0]]
 Note that if _rs1_ specifies a register other than `x0`, and that register
 holds a zero value, the instruction will not action any attendant per-field
 side effects, but will action any side effects caused by writing to the entire
 CSR.
+////
+See NOTE below: As of this writing, no standard CSRs have side effects on field writes.
+////
 
 [[norm:csrrw_rs1_x0]]
 A CSRRW with _rs1_=`x0` will attempt to write zero to the destination CSR.
@@ -212,6 +225,11 @@ other cases, software should execute a FENCE instruction between the
 relevant accesses. For the purposes of the FENCE instruction, CSR read
 accesses are classified as device input (I), and CSR write accesses are
 classified as device output (O).#
+////
+Are the normative rules in the above three paragraphs testable by a program
+running on a core with only one hart?
+////
+
 [NOTE]
 ====
 Informally, the CSR space acts as a weakly ordered memory-mapped I/O
@@ -237,6 +255,10 @@ strongly ordered, as defined by the Memory-Ordering PMAs section in
 Volume II of this manual. Accesses to strongly ordered CSRs have
 stronger ordering constraints with respect to accesses to both weakly
 ordered CSRs and accesses to memory-mapped I/O regions.#
+////
+Again, is this normative rule testable by a program
+running on a core with only one hart?
+////
 
 [NOTE]
 ====
