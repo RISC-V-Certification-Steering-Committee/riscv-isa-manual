@@ -53,16 +53,40 @@ We required the counters be 64 bits wide, even when XLEN=32, as
 otherwise it is very difficult for software to determine if values have
 overflowed. For a low-end implementation, the upper 32 bits of each
 counter can be implemented using software counters incremented by a trap
-handler triggered by overflow of the lower 32 bits. The sample code
+handler triggered by overflow of the lower 32 bits.
+////
+This is an interesting option.  This needs to be captured in the DUT Config
+e.g. https://github.com/riscv-non-isa/riscv-arch-test/blob/d3546b5a430a6a9abddc1eeeae1b3a01d8c1bcdb/configs/duts/cvw/cvw-rv32imc/cvw-rv32imc.yaml#L1
+////
+The sample code
 given below shows how the full 64-bit width value can be safely read
 using the individual 32-bit width pseudoinstructions.
 ====
 
-[#norm:zicntr_rdcycle_op]#The RDCYCLE pseudoinstruction reads the low XLEN bits of the `cycle`
+[[#norm:zicntr_rdcycle_pseudo-op]]
+The RDCYCLE pseudoinstruction reads the low XLEN bits of the `cycle`
 CSR which holds a count of the number of clock cycles executed by the
 processor core on which the hart is running from an arbitrary start time
-in the past. RDCYCLEH is only present when XLEN=32 and reads bits 63-32
-of the same cycle counter.# The underlying 64-bit counter should never
+in the past.
+
+[[#norm:zicntr_rdcycleh_pseudo-op]]
+RDCYCLEH is only present when XLEN=32 and reads bits 63-32
+of the same cycle counter.
+
+////
+Three comments here:
+1. Specifying normative rules for pseudoinstructions is dangerous as the hardware never sees them,
+   and for that reason pseudoinstructions should *never* be used in a test-program. There are four
+   ways to implement this pseudoinstruction: `[crsrs|csrrc|csrrsi|csrrci] rd, counter, x0` and we
+   must test them all because we cannot predict how the compiler/assembler will implement a given
+   pseudoinstruction.
+2. It would be safer to use a specific post-fix for pseudoinstructions.  How about:
+   `[#norm:zicntr_rdcycle_pseudo-op]#`
+3. The sentence about RDCYCLEH is a seperate normative statement.
+
+The above applies to all the pseudoinstructions that follow.
+////
+The underlying 64-bit counter should never
 overflow in practice. The rate at which the cycle counter advances will
 depend on the implementation and operating environment. The execution
 environment should provide a means to determine the current rate
@@ -70,7 +94,14 @@ environment should provide a means to determine the current rate
 [NOTE]
 ====
 RDCYCLE is intended to return the number of cycles executed by the
-processor core, not the hart. Precisely defining what is a "core" is
+processor core, not the hart.
+////
+Is this a normative rule?  It _looks_ like one, but I am not at all certain how
+to develop a test-program that can detect the number of harts per core and then
+demonstrate that there is only one value of CYCLE. Also, it is my understanding
+that anything captured as a Note in the ISA is not to be considered normative.
+////
+Precisely defining what is a "core" is
 difficult given some implementation choices (e.g., AMD Bulldozer).
 Precisely defining what is a "clock cycle" is also difficult given the
 range of implementations (including software emulations), but the intent
@@ -116,10 +147,16 @@ common, "usually correct" standard here is better than no standard.
 The intent of RDCYCLE was primarily performance monitoring/tuning, and
 the specification was written with that goal in mind.
 ====
-[#norm:zicntr_rdtime_op]#The RDTIME pseudoinstruction reads the low XLEN bits of the "time" CSR,
+[[#norm:zicntr_rdtime_pseudo-op]]
+The RDTIME pseudoinstruction reads the low XLEN bits of the "time" CSR,
 which counts wall-clock real time that has passed from an arbitrary
-start time in the past. RDTIMEH is only present when XLEN=32 and reads
-bits 63-32 of the same real-time counter.# The underlying 64-bit counter
+start time in the past.
+
+[[#norm:zicntr_rdtimeh_pseudo-op]]
+RDTIMEH is only present when XLEN=32 and reads
+bits 63-32 of the same real-time counter.
+
+The underlying 64-bit counter
 increments by one with each tick of the real-time clock, and, for
 realistic real-time clock frequencies, should never overflow in
 practice. The execution environment should provide a means of
@@ -139,8 +176,13 @@ wide variety of possible implementation platforms. The maximum error
 bound should be set based on the requirements of the platform.
 ====
 
+////
+This is a normative rule, but only for multi-hart DUTs.
+////
+[[#norm:zicntr_multihart]]
 The real-time clocks of all harts must be synchronized to within one
 tick of the real-time clock.
+
 [NOTE]
 ====
 As with other architectural mandates, it suffices to appear "as if"
@@ -164,17 +206,28 @@ monotonically nondecreasing values and it should observe a new value at least
 once every 10 ns (corresponding to the 100 MHz update frequency in this
 example).
 ====
-[#norm:zicntr_rdinstret_op]#The RDINSTRET pseudoinstruction reads the low XLEN bits of the
+[[#norm:zicntr_rdinstret_pseudo-op]]
+The RDINSTRET pseudoinstruction reads the low XLEN bits of the
 `instret` CSR, which counts the number of instructions retired by this
-hart from some arbitrary start point in the past. RDINSTRETH is only
+hart from some arbitrary start point in the past.
+
+[[#norm:zicntr_rdinstret_pseudo-op]]
+RDINSTRETH is only
 present when XLEN=32 and reads bits 63-32 of the same instruction
-counter.# The underlying 64-bit counter should never overflow in
+counter.
+
+The underlying 64-bit counter should never overflow in
 practice.
 [NOTE]
 ====
 Instructions that cause synchronous exceptions, including ECALL and
 EBREAK, are not considered to retire and hence do not increment the
 `instret` CSR.
+////
+This _should_ be a normative statement!
+It is absolutely worth testing for certification.
+Why is it a Note?
+////
 ====
 The following code sequence will read a valid 64-bit cycle counter value
 into `x3:x2`, even if the counter overflows its lower half between
@@ -188,9 +241,16 @@ reading its upper and lower halves.
         rdcycleh     x4
         bne          x3, x4, again
 
+////
+Question: for certification, do we need to test that the high-order counters
+(e.g. cycleh) increment when low-order counters (e.g. cycle) roll-over?
+////
 
 === "Zihpm" Extension for Hardware Performance Counters
 
+////
+Is this a normative rule? How would a test-program running on the core test this?
+////
 [#norm:hpmcounter_op_sz_mode]#The Zihpm extension comprises up to 29 additional unprivileged 64-bit
 hardware performance counters, `hpmcounter3-hpmcounter31`. When
 XLEN=32, the upper 32 bits of these performance counters are accessible
