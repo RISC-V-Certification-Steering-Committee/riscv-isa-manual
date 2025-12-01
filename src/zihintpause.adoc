@@ -6,6 +6,7 @@ duration of its effect must be bounded and may be zero.#
 (((PAUSE, HINT)))
 (((HINT, PAUSE)))
 
+
 [NOTE]
 ====
 Software can use the PAUSE instruction to reduce energy consumption
