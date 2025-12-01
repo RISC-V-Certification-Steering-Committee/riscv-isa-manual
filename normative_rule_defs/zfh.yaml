@@ -10,6 +10,7 @@ normative_rule_definitions:
   - names: [fsh_op, flh_op]
     tags: ["norm:fsh_flh_op"]
 
+
   - names: [fsh_atomic_align, flh_atomic_align]
     tags: ["norm:fsh_flh_atomic_align"]
 
