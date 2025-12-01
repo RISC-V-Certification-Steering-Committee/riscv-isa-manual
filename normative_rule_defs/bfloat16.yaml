@@ -5,6 +5,7 @@ $schema: ../docs-resources/schemas/defs-schema.json#
 
 chapter_name: Bfloat16
 
+
 normative_rule_definitions:
 
   - name: fcvt-bf16-s_op

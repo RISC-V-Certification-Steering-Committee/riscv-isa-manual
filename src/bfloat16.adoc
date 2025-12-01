@@ -4,6 +4,7 @@
 [[BF16_introduction]]
 === Introduction
 
+
 When FP16 (officially called binary16) was first introduced by the IEEE-754 standard,
 it was just an interchange format. It was intended as a space/bandwidth efficient
 encoding that would be used to transfer information. This is in line with the Zfhmin
