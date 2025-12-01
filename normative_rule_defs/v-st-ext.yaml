@@ -12,6 +12,7 @@ $schema: "../docs-resources/schemas/defs-schema.json#"
 
 chapter_name: V Extension
 
+
 normative_rule_definitions:
   - name: ELEN
     kind: parameter
