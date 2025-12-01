@@ -12,6 +12,7 @@ extension.
 
 === Load-Immediate Instructions
 
+
 [[norm:fli-s_op]]
 The FLI.S instruction loads one of 32 single-precision floating-point
 constants, encoded in the _rs1_ field, into floating-point register
