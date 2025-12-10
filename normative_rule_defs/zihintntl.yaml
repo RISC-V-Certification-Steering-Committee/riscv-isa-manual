@@ -8,6 +8,7 @@ $schema: "../docs-resources/schemas/defs-schema.json#"
 
 chapter_name: Zihintntl (Non-tmp Hint)
 
+
 normative_rule_definitions:
   # NTL.P1
   - name: NTL-P1_op
