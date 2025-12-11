@@ -12,6 +12,7 @@ $schema: "../docs-resources/schemas/defs-schema.json#"
 
 chapter_name: Vector Crypto
 
+
 normative_rule_definitions:
   - name: veccrypto_eeweqsew
     tags: ["norm:veccrypto_eeweqsew"]
