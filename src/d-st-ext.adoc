@@ -175,7 +175,8 @@ include::images/wavedrom/fsjgnjnx-d.edn[]
 //.Double-precision sign-injection
 
 For XLEN{ge}64 only, instructions are provided to move bit
-patterns between the floating-point and integer registers. FMV.X.D moves
+patterns between the floating-point and integer registers.
+[#norm:fmv-x-d_op]#FMV.X.D moves
 the double-precision value in floating-point register _rs1_ to a
 representation in IEEE 754-2008 standard encoding in integer register
 _rd_#. [#norm:fmv-d-x_op]#FMV.D.X moves the double-precision value encoded in IEEE 754-2008

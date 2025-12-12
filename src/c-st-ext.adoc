@@ -475,7 +475,7 @@ These instructions use the CJ format.
 
 [#norm:c-j_op]#C.J performs an unconditional control transfer. The offset is
 sign-extended and added to the `pc` to form the jump target address. C.J
-can therefore target a &#177;2 KiB range. C.J expands to
+can therefore target a {pm}2 KiB range. C.J expands to
 `jal x0, offset`.#
 
 [#norm:c-jal_op]#C.JAL is an RV32C-only instruction that performs the same operation as
