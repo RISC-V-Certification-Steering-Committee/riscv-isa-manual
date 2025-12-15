@@ -22,6 +22,7 @@ In addition to the machine-level CSRs described in this section,
 [#norm:misa_always_rd]#This register must be readable in any implementation#,
 but [#norm:misa_csr_implemented]#a value of zero can be returned to indicate the `misa` register has not been implemented#, requiring that CPU capabilities be determined through a separate non-standard mechanism.
 
+[[norm:misa_enc_img]]
 .Machine ISA register (misa)
 include::images/bytefield/misareg.edn[]
 
@@ -67,10 +68,9 @@ extension "A" , bit 1 encodes presence of extension "B", through to
 bit 25 which encodes "Z").#
 [#norm:misa_i_op]#The "I" bit will be set for the RV32I and RV64I base ISAs#,
 and [#norm:misa_e_op]#the "E" bit will be set for RV32E and RV64E.#
-[#norm:misa_extensions_op]#The Extensions field is a *WARL* field that can contain writable bits where the
+[#norm:misa_extensions_warl_op]#The Extensions field is a *WARL* field that can contain writable bits where the
 implementation allows the supported ISA to be modified.#
-[#norm:misa_extensions_rst]#At reset,
-the Extensions field shall contain the maximal set of supported extensions,
+[#norm:misa_extensions_rst]#At reset, the Extensions field shall contain the maximal set of supported extensions,
 and "I" shall be selected over "E" if both are available.#
 
 [[norm:misa_extensions_disabling]]
@@ -627,8 +627,9 @@ privilege mode.
 ===== Memory Privilege in `mstatus` Register
 
 The MPRV (Modify PRiVilege) bit modifies the _effective privilege mode_,
-i.e., the privilege level at which loads and stores execute.
-[#norm:mstatus_mprv_ldst_op]#When MPRV=0, loads and stores behave as normal, using the translation and
+i.e., the privilege level at which explicit memory accesses execute.
+[#norm:mstatus_mprv_ldst_op]#When MPRV=0, explicity memory accesses
+behave as normal, using the translation and
 protection mechanisms of the current privilege mode. When MPRV=1, load
 and store memory addresses are translated and protected, and endianness
 is applied, as though the current privilege mode were set to MPP.#
@@ -848,7 +849,7 @@ floating-point unit state, including the floating-point registers
 [#norm:mstatus_vs_op]#The VS field encodes the status of the
 vector extension state, including the vector
 registers `v0`–`v31` and the CSRs `vcsr`, `vxrm`, `vxsat`, `vstart`,
-`vl`, `vtype`, and `vlenb`.
+`vl`, `vtype`, and `vlenb`.#
 [#norm:mstatus_xs_op]#The XS field encodes the status of
 additional user-mode extensions and associated state.#
 These fields can be checked by a context switch routine to quickly determine whether a
@@ -912,8 +913,9 @@ VS may optionally be read-only zero.#
 
 [#norm:mstatus_xs_acc]#In harts without additional user extensions requiring new state, the
 XS field is read-only zero.#
-[#norm:mstatus_xs_op]#Every additional extension with state
-provides a CSR field that encodes the equivalent of the XS states. The
+[#norm:mstatus_xs_equiv]#Every additional extension with state
+provides a CSR field that encodes the equivalent of the XS states.#
+The
 XS field represents a summary of all extensions' status as shown in
 <<norm:mstatus_fs_vs_xs_enc>>.#
 
@@ -924,19 +926,22 @@ user-extension status fields, though individual extensions can use a
 different encoding than XS.
 ====
 
-The SD bit is a read-only bit that summarizes whether either the FS, VS,
+[#norm:mstatus_sd_acc]#The SD bit is a read-only bit# that
+[#norm:mstatus_sd_op]#summarizes whether either the FS, VS,
 or XS fields signal the presence of some dirty state that will require
-saving extended user context to memory. If FS, XS, and VS are all
-read-only zero, then SD is also always zero.
+saving extended user context to memory.#
+[#norm:mstatus_sd_rdonly0]#If FS, XS, and VS are all read-only zero, then SD is also always zero.#
 
-When an extension's status is set to Off, any instruction that attempts
+[#norm:mstatus_fs_vs_xs_off_op]#When an extension's status is set to Off, any instruction that attempts
 to read or write the corresponding state will cause an
-illegal-instruction exception. When the status is Initial, the corresponding
-state should have an initial constant value. When the status is Clean,
+illegal-instruction exception.#
+[#norm:mstatus_fs_vs_xs_initial_op]#When the status is Initial, the corresponding
+state should have an initial constant value.#
+[#norm:mstatus_fs_vs_xs_clean_op]#When the status is Clean,
 the corresponding state is potentially different from the initial value,
-but matches the last value stored on a context swap. When the status is
-Dirty, the corresponding state has potentially been modified since the
-last context save.
+but matches the last value stored on a context swap.#
+[#norm:mstatus_fs_vs_xs_dirty_op]#When the status is Dirty,
+the corresponding state has potentially been modified since the last context save.#
 
 During a context save, the responsible privileged code need only write
 out the corresponding state if its status is Dirty, and can then reset
@@ -951,9 +956,9 @@ floating-point registers can all be initialized to the immediate value
 The FS and XS fields are read by the privileged code before saving the
 context. The FS field is set directly by privileged code when resuming a
 user context, while the XS field is set indirectly by writing to the
-status register of the individual extensions. The status fields will
-also be updated during execution of instructions, regardless of
-privilege mode.
+status register of the individual extensions.
+[#norm:mstatus_fs_vs_xs_update_indep_priv]#The status fields will
+also be updated during execution of instructions, regardless of privilege mode.#
 
 Extensions to the user-mode ISA often include additional user-mode
 state, and this state can be considerably larger than the base integer
@@ -980,21 +985,23 @@ back on. A user-mode instruction to turn a unit on must also ensure the
 unit's state is properly initialized, as the unit might have been used
 by another context meantime.
 
-Changing the setting of FS has no effect on the contents of the
+[#norm:mstatus_fs_wr]#Changing the setting of FS has no effect on the contents of the
 floating-point register state. In particular, setting FS=Off does not
-destroy the state, nor does setting FS=Initial clear the contents.
-Similarly, the setting of VS has no effect on the contents of the vector
-register state. Other extensions, however, might not preserve state when
-set to Off.
+destroy the state, nor does setting FS=Initial clear the contents.# Similarly,
+[#norm:mstatus_vs_wr]#the setting of VS has no effect on the contents of the vector
+register state.#
+Other extensions, however, might not preserve state when set to Off.
 
-Implementations may choose to track the dirtiness of the floating-point
+[#norm:mstatus_fs_imprecise]#Implementations may choose to track the dirtiness of the floating-point
 register state imprecisely by reporting the state to be dirty even when
-it has not been modified. On some implementations, some instructions
+it has not been modified.
+On some implementations, some instructions
 that do not mutate the floating-point state may cause the state to
-transition from Initial or Clean to Dirty. On other implementations,
-dirtiness might not be tracked at all, in which case the valid FS states
+transition from Initial or Clean to Dirty.#
+On other implementations,
+[#norm:mstatus_fs_no_dirty_track]#dirtiness might not be tracked at all, in which case the valid FS states
 are Off and Dirty, and an attempt to set FS to Initial or Clean causes
-it to be set to Dirty.
+it to be set to Dirty.#
 
 [NOTE]
 ====
@@ -1003,17 +1010,17 @@ of errant speculation. Some platforms may choose to disallow
 speculatively writing FS to close a potential side channel.
 ====
 
-If an instruction explicitly or implicitly writes a floating-point
+[#norm:mstatus_fs_no_change_dirty]#If an instruction explicitly or implicitly writes a floating-point
 register or the `fcsr` but does not alter its contents, and FS=Initial
 or FS=Clean, it is implementation-defined whether FS transitions to
-Dirty.
+Dirty.#
 
-Implementations may choose to track the dirtiness of the vector register
+[#norm:mstatus_vs_imprecise]#Implementations may choose to track the dirtiness of the vector register
 state in an analogous imprecise fashion, including possibly setting VS
-to Dirty when software attempts to set VS=Initial or VS=Clean. When
-VS=Initial or VS=Clean, it is implementation-defined whether an
+to Dirty when software attempts to set VS=Initial or VS=Clean.#
+[#norm:mstatus_vs_no_change_dirty]#When VS=Initial or VS=Clean, it is implementation-defined whether an
 instruction that writes a vector register or vector CSR but does not
-alter its contents causes VS to transition to Dirty.
+alter its contents causes VS to transition to Dirty.#
 
 <<fsxsstates>> shows all the possible state
 transitions for the FS, VS, or XS status bits. Note that the standard
@@ -1190,12 +1197,13 @@ interrupts, unless the interrupt results in a user-level context swap.
 
 ===== Previous Expected Landing Pad (ELP) State in `mstatus` Register
 
-The Zicfilp extension adds the `SPELP` and `MPELP` fields that hold the previous
-`ELP`, and are updated as specified in <<ZICFILP_FORWARD_TRAPS>>. The
-*__x__*`PELP` fields are encoded as follows:
+[#norm:mstatus_spelp_mpelp_op]#The Zicfilp extension adds the `SPELP` and `MPELP` fields that hold the previous
+`ELP`, and are updated as specified in <<ZICFILP_FORWARD_TRAPS>>.#
+[#norm:mstatus_spelp_mpelp_enc_lead-in]#The *__x__*`PELP` fields are encoded as follows:#
 
-* 0 - `NO_LP_EXPECTED` - no landing pad instruction expected.
-* 1 - `LP_EXPECTED` - a landing pad instruction is expected.
+[[norm:mstatus_spelp_mpelp_enc_list]]
+* `NO_LP_EXPECTED` - no landing pad instruction expected.
+* `LP_EXPECTED` - a landing pad instruction is expected.
 
 ==== Machine Trap-Vector Base-Address (`mtvec`) Register
 
@@ -1231,12 +1239,12 @@ hand, we wish to allow flexibility for larger systems.
 |Value |Name |Description
 |0 +
 1 +
-&#8805;2
+{ge}2
 |Direct +
 Vectored +
 ---
 |All traps set `pc` to BASE. +
-Asynchronous interrupts set `pc` to BASE+4&#215;cause. +
+Asynchronous interrupts set `pc` to BASE+4{times}cause. +
 _Reserved_
 |===
 
@@ -1445,9 +1453,13 @@ compare register.
 Bits `mip`.MSIP and `mie`.MSIE are the interrupt-pending and
 interrupt-enable bits for machine-level software interrupts. MSIP is
 read-only in `mip`, and is written by accesses to memory-mapped control
-registers, which are used by remote harts to provide machine-level
-interprocessor interrupts. A hart can write its own MSIP bit using the
-same memory-mapped control register. If a system has only one hart, or
+registers, which are used to provide machine-level
+interprocessor interrupts.
+A hart's memory-mapped `msip` register is a 32-bit read/write register,
+where bits 31--1 read as zero and bit 0 contains the MSIP bit.
+When the memory-mapped `msip` register changes, it is guaranteed to be
+reflected in `mip`.MSIP eventually, but not necessarily immediately.
+If a system has only one hart, or
 if a platform standard supports the delivery of machine-level
 interprocessor interrupts through external interrupts (MEI) instead,
 then `mip`.MSIP and `mie`.MSIE may both be read-only zeros.
@@ -1825,7 +1837,7 @@ Machine external interrupt
 |12 +
 13 +
 14-15 +
-&#8805;16
+{ge}16
 |_Reserved_ +
 Counter-overflow interrupt +
 _Reserved_ +
@@ -1879,7 +1891,7 @@ _Designated for platform use_
 24-31 +
 32-47 +
 48-63 +
-&#8805;64
+{ge}64
 |Instruction address misaligned +
 Instruction access fault +
 Illegal instruction +
@@ -2838,7 +2850,7 @@ MAG16 indicates the misaligned atomicity granule is at least 16 bytes.
 
 The misaligned atomicity granule PMA applies only to AMOs, loads and stores
 defined in the base ISAs, and loads and stores of no more than XLEN bits
-defined in the F, D, and Q extensions.
+defined in the F, D, and Q extensions, and compressed encodings thereof.
 For an instruction in that set, if all accessed bytes lie within the same
 misaligned atomicity granule, the instruction will not raise an exception for
 reasons of address alignment, and the instruction will give rise to only one
@@ -3034,7 +3046,7 @@ implicit read. Furthermore, when a non-speculative instruction fetch is
 performed, an implementation is permitted to additionally read any of
 the bytes within the _next_ naturally aligned power-of-2 region of the
 same size (with the address of the region taken modulo
-2^XLEN^. The results of these additional reads
+2^XLEN^). The results of these additional reads
 may be used to satisfy subsequent early or speculative implicit reads.
 The size of these naturally aligned power-of-2 regions is
 implementation-defined, but, for systems with page-based virtual memory,
@@ -3155,10 +3167,10 @@ include::images/bytefield/pmpcfg.edn[]
 
 Attempting to fetch an instruction from a PMP region that does not have
 execute permissions raises an instruction access-fault exception.
-Attempting to execute a load or load-reserved instruction which accesses
+Attempting to execute a load, load-reserved, or cache-block management instruction which accesses
 a physical address within a PMP region without read permissions raises a
 load access-fault exception. Attempting to execute a store,
-store-conditional, or AMO instruction which accesses a physical address
+store-conditional, AMO, or cache-block zero instruction which accesses a physical address
 within a PMP region without write permissions raises a store
 access-fault exception.
 
@@ -3189,7 +3201,7 @@ NAPOT
 |Null region (disabled) +
 Top of range +
 Naturally aligned four-byte region +
-Naturally aligned power-of-two region, &#8805;8
+Naturally aligned power-of-two region, {ge}8
 bytes
 |===
 
@@ -3234,12 +3246,24 @@ NAPOT
 If TOR is selected, the associated address register forms the top of the
 address range, and the preceding PMP address register forms the bottom
 of the address range. If PMP entry __i__'s A field is set to
-TOR, the entry matches any address _y_ such that `pmpaddr~i-1~`&#8804;__y__<``pmpaddr~i~`` (irrespective of the value of `pmpcfg~i-1~`). If PMP entry 0's A field is set to TOR, zero is used for the lower bound, and so it matches
+TOR, the entry matches any address _y_ such that `pmpaddr~i-1~`{le}__y__<``pmpaddr~i~`` (irrespective of the value of `pmpcfg~i-1~`). If PMP entry 0's A field is set to TOR, zero is used for the lower bound, and so it matches
 any address `y<pmpaddr~0~`.
 
 [NOTE]
 ====
-If  `pmpaddr~i-1~&#8805;``pmpaddr~i~``` and `pmpcfg~i~.A`=TOR, then PMP entry _i_ matches no addresses.
+If  `pmpaddr~i-1~{ge}``pmpaddr~i~``` and `pmpcfg~i~.A`=TOR, then PMP entry _i_ matches no addresses.
+====
+
+[NOTE]
+====
+It is not possible to represent the address 2^XLEN+2^ as the top of a range,
+so, for example, in an RV32 system with 34-bit physical addresses, a TOR PMP
+cannot be used to give less-privileged modes access to the uppermost word of
+memory.
+Either a NAPOT PMP can be used, or that memory can be left inaccessible to
+less-privileged modes.
+If the supervisor manages memory at base-page granularity, just 0.00002% of
+the 16{nbsp}GiB address space is lost.
 ====
 
 Although the PMP mechanism supports regions as small as four bytes,
@@ -3288,25 +3312,34 @@ R/W/X permissions apply only to S and U modes.
 
 ===== Priority and Matching Logic
 
+On some implementations, misaligned loads, stores, and instruction
+fetches may be decomposed into multiple memory operations, some of which may
+succeed before an access-fault exception occurs, as described in the RVWMO
+specification. PMP checking is performed on each memory operation independently.
+In particular, a portion of a misaligned store that passes
+the PMP check may become visible, even if another portion fails the PMP check.
+The same behavior may manifest for stores wider than XLEN bits (e.g., the
+FSD instruction in RV32D), even when the store address is naturally aligned.
+
 PMP entries are statically prioritized. The lowest-numbered PMP entry
-that matches any byte of an access determines whether that access
-succeeds or fails. The matching PMP entry must match all bytes of an
-access, or the access fails, irrespective of the L, R, W, and X bits.
+that matches any byte of a memory operation determines whether that operation
+succeeds or fails. The matching PMP entry must match all bytes of a memory
+operation, or the operation fails, irrespective of the L, R, W, and X bits.
 For example, if a PMP entry is configured to match the four-byte range
 `0xC`–`0xF`, then an 8-byte access to the range `0x8`–`0xF` will fail,
 assuming that PMP entry is the highest-priority entry that matches those
 addresses.
 
-If a PMP entry matches all bytes of an access, then the L, R, W, and X
-bits determine whether the access succeeds or fails. If the L bit is
-clear and the privilege mode of the access is M, the access succeeds.
+If a PMP entry matches all bytes of a memory operation, then the L, R, W, and X
+bits determine whether the operation succeeds or fails. If the L bit is
+clear and the privilege mode of the access is M, the operation succeeds.
 Otherwise, if the L bit is set or the privilege mode of the access is S
-or U, then the access succeeds only if the R, W, or X bit corresponding
+or U, then the operation succeeds only if the R, W, or X bit corresponding
 to the access type is set.
 
-If no PMP entry matches an M-mode access, the access succeeds. If no PMP
-entry matches an S-mode or U-mode access, but at least one PMP entry is
-implemented, the access fails.
+If no PMP entry matches an M-mode memory operation, the operation succeeds.
+If no PMP entry matches an S-mode or U-mode memory operation, but at least
+one PMP entry is implemented, the operation fails.
 
 [NOTE]
 ====
@@ -3314,21 +3347,14 @@ If at least one PMP entry is implemented, but all PMP entries’ A fields
 are set to OFF, then all S-mode and U-mode memory accesses will fail.
 ====
 
-Failed accesses generate an instruction, load, or store access-fault
+Failed memory operations generate an instruction, load, or store access-fault
 exception. Note that a single instruction may generate multiple
-accesses, which may not be mutually atomic. An access-fault exception is
-generated if at least one access generated by an instruction fails,
-though other accesses generated by that instruction may succeed with
+memory operations, which may not be mutually atomic. An access-fault exception
+is generated if at least one memory operation generated by an instruction fails,
+though other memory operations generated by that instruction may succeed with
 visible side effects. Notably, instructions that reference virtual
-memory are decomposed into multiple accesses.
+memory are decomposed into multiple memory operations.
 
-On some implementations, misaligned loads, stores, and instruction
-fetches may also be decomposed into multiple accesses, some of which may
-succeed before an access-fault exception occurs. In particular, a
-portion of a misaligned store that passes the PMP check may become
-visible, even if another portion fails the PMP check. The same behavior
-may manifest for stores wider than XLEN bits (e.g., the FSD instruction
-in RV32D), even when the store address is naturally aligned.
 
 [[pmp-vmem]]
 ==== Physical Memory Protection and Paging
