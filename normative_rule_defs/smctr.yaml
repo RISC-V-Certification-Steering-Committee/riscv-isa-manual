@@ -201,6 +201,9 @@ normative_rule_definitions:
     summary: ctrtarget holds destination PC of recorded transfer.
     tags: ["norm:ctrtarget_op"]
 
+  - name: ctrtarget_pc_next_br
+    tags: ["norm:ctrtarget_pc_next_br"]
+
   - name: ctrtarget_misp
     summary: Optional MISP bit shows branch misprediction; read-only 0 if unimplemented.
     tags: ["norm:ctrtarget_misp"]
@@ -213,7 +216,8 @@ normative_rule_definitions:
     summary: ctrdata holds metadata; mandatory register, fields optional, 64-bit.
     tags: ["norm:ctrdata_sz_acc"]
 
-  - name: ctrdata_cc_supported_param
+  - name: ctrdata_cc_supported
+    kind: parameter
     summary: ctrdata register may optionally include a count of CPU cycles
     tags: ["norm:ctrdata_cc_supported_param"]
 
