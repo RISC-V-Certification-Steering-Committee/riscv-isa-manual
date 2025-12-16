@@ -10,6 +10,11 @@ chapter_name: Zihintntl (Non-tmp Hint)
 
 
 normative_rule_definitions:
+  # Target definition
+    - name: NTL-target_definition
+      summary: The target instruction of an NTL instruction SHALL be the instruction immediately following it in program order, and only the immediately preceding NTL instruction applies to any given memory-access instruction
+      tags: ["norm:NTL-target_definition"]
+        
   # NTL.P1
   - name: NTL-P1_op
     summary: NTL.P1 indicates the target instruction does not exhibit temporal locality within the innermost level of private cache
@@ -88,3 +93,5 @@ normative_rule_definitions:
   - name: NTL_Zicob_prefetch_outer
     summary: When an NTL is applied to a Zicbop prefetch hint, the cache line is prefetched into a cache outer from the level specified by the NTL
     tags: ["norm:NTL_Zicob_prefetch_outer"]
+
+ 
