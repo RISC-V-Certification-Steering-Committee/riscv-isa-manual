@@ -137,7 +137,7 @@ In a straightforward implementation, reading or writing any field in
 The UXL field controls the value of XLEN for U-mode, termed _UXLEN_,
 which may differ from the value of XLEN for S-mode, termed _SXLEN_. The
 encoding of UXL is the same as that of the MXL field of `misa`, shown in
-<<misabase>>.
+<<norm:misa_mxl_enc>>.
 
 [[norm:sstatus-uxl_sz]]
 When SXLEN=32, the UXL field does not exist, and UXLEN=32. When
@@ -151,9 +151,9 @@ mode must ignore source register operand bits above the configured XLEN,
 and must sign-extend results to fill the widest supported XLEN in the
 destination register.
 
-If UXLEN latexmath:[$<$] SXLEN, user-mode instruction-fetch addresses
+If UXLEN < SXLEN, user-mode instruction-fetch addresses
 and load and store effective addresses are taken modulo
-latexmath:[$2^{\text{UXLEN}}$]. For example, when UXLEN=32 and SXLEN=64,
+2^UXLEN^. For example, when UXLEN=32 and SXLEN=64,
 user-mode memory accesses reference the lowest 4 GiB of the address space.
 
 [[norm:hint_sxlen_param]]
@@ -343,11 +343,11 @@ an XLEN-bit address that is always aligned on a 4-byte boundary.
 |Value |Name |Description
 |0 +
 1 +
-&#8805;2
+{ge}2
 |Direct +
 Vectored
 |All exceptions set `pc` to BASE. +
-Asynchronous interrupts set `pc` to BASE+4&#215;cause. +
+Asynchronous interrupts set `pc` to BASE+4{times}cause. +
 _Reserved_
 |===
 
@@ -615,7 +615,7 @@ include::images/bytefield/scausereg.edn[]
 10-12 +
 13 +
 14-15 +
-&#8805;16
+{ge}16
 |_Reserved_ +
 Supervisor software interrupt +
 _Reserved_ +
@@ -672,7 +672,7 @@ _Designated for platform use_
 24-31 +
 32-47 +
 48-63 +
-&#8805;64
+{ge}64
 |Instruction address misaligned +
 Instruction access fault +
 Illegal instruction +
@@ -774,7 +774,7 @@ possible invalid addresses. Prior to writing `stval`, implementations
 may convert an invalid address into some other invalid address that
 `stval` is capable of holding. If the feature to return the faulting
 instruction bits is implemented, `stval` must also be able to hold all
-values less than latexmath:[$2^N$], where latexmath:[$N$] is the smaller
+values less than 2^_N_^, where _N_ is the smaller
 of SXLEN and ILEN.
 
 [[sec:senvcfg]]
@@ -894,7 +894,23 @@ The definitions of the CBCFE and CBIE fields are furnished by the Zicbom
 extension.
 
 [[norm:senvcfg-pmm_Ssnpm]]
-The definition of the PMM field is furnished by the Ssnpm extension.
+If the Ssnpm extension is implemented, the `PMM` field enables or disables
+pointer masking (see <<Zpm>>) for the next-lower privilege mode (U/VU),
+according to the values in <<senvcfg-pmm-values>>. If Ssnpm is not
+implemented, `PMM` is read-only zero. The `PMM` field is read-only zero for
+RV32.
+
+[[senvcfg-pmm-values]]
+
+[%header, cols="25%,75%", options="header"]
+.Legal values of `PMM` WARL field
+|===
+|Value|Description
+|00|Pointer masking is disabled (PMLEN = 0)
+|01|Reserved
+|10|Pointer masking is enabled with PMLEN = XLEN - 57 (PMLEN = 7 on RV64)
+|11|Pointer masking is enabled with PMLEN = XLEN - 48 (PMLEN = 16 on RV64)
+|===
 
 [[norm:senvcfg-lpe_Zicfilp]]
 The Zicfilp extension adds the `LPE` field in `senvcfg`. When the `LPE` field is
@@ -1009,7 +1025,7 @@ ASID bits, termed _ASIDLEN_, may be determined by writing one to every
 bit position in the ASID field, then reading back the value in `satp` to
 see which bit positions in the ASID field hold a one. The
 least-significant bits of ASID are implemented first: that is, if
-ASIDLEN latexmath:[$>$] 0, ASID[ASIDLEN-1:0] is writable. The maximal
+ASIDLEN > 0, ASID[ASIDLEN-1:0] is writable. The maximal
 value of ASIDLEN, termed ASIDMAX, is 9 for Sv32 or 16 for Sv39, Sv48,
 and Sv57.
 
@@ -1166,7 +1182,7 @@ made to any level of the page tables, for all address spaces. The fence
 also invalidates all address-translation cache entries, for all address
 spaces.#
 
-* [#norm:sfence-vma_asid_only]#If __rs1__=`x0` and __rs2__&#8800;``x0``, the fence orders all
+* [#norm:sfence-vma_asid_only]#If __rs1__=`x0` and __rs2__{ne}``x0``, the fence orders all
 reads and writes made to any level of the page tables, but only for the
 address space identified by integer register _rs2_. Accesses to _global_
 mappings (see <<translation>>) are not ordered. The
@@ -1174,14 +1190,14 @@ fence also invalidates all address-translation cache entries matching
 the address space identified by integer register _rs2_, except for
 entries containing global mappings.#
 
-* [#norm:sfence-vma_va_all_asid]#If __rs1__&#8800;``x0`` and __rs2__=`x0`, the fence orders only
+* [#norm:sfence-vma_va_all_asid]#If __rs1__{ne}``x0`` and __rs2__=`x0`, the fence orders only
 reads and writes made to leaf page table entries corresponding to the
 virtual address in __rs1__, for all address spaces. The fence also
 invalidates all address-translation cache entries that contain leaf page
 table entries corresponding to the virtual address in _rs1_, for all
 address spaces.#
 
-* [#norm:sfence-vma_va_asid]#If __rs1__&#8800;``x0`` and __rs2__&#8800;``x0``, the
+* [#norm:sfence-vma_va_asid]#If __rs1__{ne}``x0`` and __rs2__{ne}``x0``, the
 fence orders only reads and writes made to leaf page table entries
 corresponding to the virtual address in _rs1_, for the address space
 identified by integer register _rs2_. Accesses to global mappings are
@@ -1207,7 +1223,7 @@ in _rs1_ facilitates this type of simplification.
 ====
 
 [[norm:sfence-vma_rs2_bits]]
-When __rs2__&#8800;``x0``, bits SXLEN-1:ASIDMAX of the value held
+When __rs2__{ne}``x0``, bits SXLEN-1:ASIDMAX of the value held
 in _rs2_ are reserved for future standard use. Until their use is
 defined by a standard extension, they should be zeroed by software and
 ignored by current implementations. Furthermore, if
@@ -1342,6 +1358,10 @@ For implementations that make `satp`.MODE read-only zero (always Bare),
 attempts to execute an SFENCE.VMA instruction might raise an
 illegal-instruction exception.
 
+No SFENCE.VMA is required after enabling or disabling pointer masking
+(see <<Zpm>>), as pointer masking applies to the effective address only and
+does not affect any memory-management data structures.
+
 [[sv32]]
 === Sv32: Page-Based 32-bit Virtual-Memory Systems
 
@@ -1468,13 +1488,14 @@ Read-write-execute page.
 |===
 
 [#norm:fetch_page_fault_no_x]#Attempting to fetch an instruction from a page that does not have
-execute permissions raises a fetch page-fault exception.# [#norm:load_page_fault_no_r]#Attempting to
-execute a load or load-reserved instruction whose effective address lies
-within a page without read permissions raises a load page-fault
-exception.# [#norm:store_page_fault_no_w]#Attempting to execute a store, store-conditional, or AMO
+execute permissions raises a fetch page-fault exception.#
+[#norm:load_page_fault_no_r]#Attempting to execute a load, load-reserved, or cache-block management
+instruction whose effective address lies
+within a page without read permissions raises a load page-fault exception.#
+[#norm:store_page_fault_no_w]#Attempting to execute a store, store-conditional, AMO, or cache-block zero instruction
 instruction whose effective address lies within a page without write
 permissions raises a store page-fault exception.#
-m
+
 [NOTE]
 ====
 AMOs never raise load page-fault exceptions. Since any unreadable page
@@ -1511,7 +1532,7 @@ either mapping being used.
 Global mappings need not be stored redundantly in address-translation
 caches for multiple ASIDs. Additionally, they need not be flushed from
 local address-translation caches when an SFENCE.VMA instruction is
-executed with __rs2__&#8800;``x0``.
+executed with __rs2__{ne}``x0``.
 ====
 
 The RSW field is reserved for use by supervisor software; the
@@ -1984,7 +2005,7 @@ The Svnapot extension depends on the Sv39 extension.
 0 +
 0 +
 0 +
-&#8805;1
+{ge}1
 |`x xxxx xxx1` +
 `x xxxx xx1x` +
 `x xxxx x1xx` +
