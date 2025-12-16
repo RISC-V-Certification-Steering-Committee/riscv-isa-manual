@@ -91,7 +91,7 @@ system should use NTL.P1 to indicate a lack of temporal locality
 exploitable by the L1, or should use NTL.ALL indicate a lack of temporal
 locality exploitable by the L2.
 
-[#norm:NTL-compressed_variants]#If the C or Zca extension is provided, compressed variants of these HINTs are
+[#norm:C-NTL-availability]#If the C or Zca extension is provided,# [#norm:NTL-compressed_variants]# compressed variants of these HINTs are
 also provided: C.NTL.P1 is encoded as C.ADD _x0, x2_; C.NTL.PALL is
 encoded as C.ADD _x0, x3_; C.NTL.S1 is encoded as C.ADD _x0, x4_; and
 C.NTL.ALL is encoded as C.ADD _x0, x5_.#
@@ -161,10 +161,10 @@ instruction that does not explicitly access memory. Nonadherence to this
 recommendation might reduce performance but otherwise has no
 architecturally visible effect.
 
-In the event that a trap is taken on the target instruction,
+[#norm:NTL-trap_behavior]#In the event that a trap is taken on the target instruction,
 implementations are discouraged from applying the NTL to the first
 instruction in the trap handler. Instead, implementations are
-recommended to ignore the HINT in this case.
+recommended to ignore the HINT in this case.#
 
 [NOTE]
 ====
@@ -179,11 +179,12 @@ with the memory access it modifies). Such implementations might
 preferentially take the interrupt before the NTL, rather than between
 the NTL and the memory access.
 ====
+[norm:NTL-LR_SC_exception]#Since the NTL instructions are encoded as ADDs, they can be used within
+LR/SC loops without voiding the forward-progress guarantee.#
 '''
 [NOTE]
 ====
-Since the NTL instructions are encoded as ADDs, they can be used within
-LR/SC loops without voiding the forward-progress guarantee. But, since
+But, since
 using other loads and stores within an LR/SC loop _does_ void the
 forward-progress guarantee, the only reason to use an NTL within such a
 loop is to modify the LR or the SC.
