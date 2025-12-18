@@ -114,5 +114,5 @@ normative_rule_definitions:
 
   # LR/SC exception
   - name: NTL-LR_SC_exception
-    summary: Since the NTL instructions are encoded as ADDs, they can be used within LR/SC loops without voiding the forward-progress guarantee.
+    summary: Since the NTL instructions are encoded as ADDs, they can be used within LR/SC loops without voiding the forward-progress guarantee
     tags: ["norm:NTL-LR_SC_exception"]
