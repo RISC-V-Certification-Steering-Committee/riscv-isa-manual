@@ -16,7 +16,7 @@ normative_rule_definitions:
       The target instruction of an NTL instruction SHALL be the instruction
       immediately following it in program order, and only the immediately
       preceding NTL instruction applies to any given memory-access instruction
-    clarification-link: https://github.com/RISC-V-Certification-Steering-Committee/riscv-isa-manual/issues/164
+    clarification-link: https://github.com/riscv/riscv-isa-manual/issues/164
     tags: ["norm:NTL-target_definition"]
 
   # NTL.P1
@@ -107,7 +107,8 @@ normative_rule_definitions:
   - name: NTL-trap_behavior
     kind: parameter
     summary: >
-      In the event that a trap is taken on the target instruction, implementations are discouraged from applying the NTL to the first instruction in the trap handler.
+      In the event that a trap is taken on the target instruction, implementations are discouraged from applying the NTL to the first instruction in the
+      trap handler.
       Instead, implementations are recommended to ignore the HINT in this case.
     tags: ["norm:NTL-trap_behavior"]
 
