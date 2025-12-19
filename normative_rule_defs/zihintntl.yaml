@@ -16,7 +16,7 @@ normative_rule_definitions:
       The target instruction of an NTL instruction SHALL be the instruction
       immediately following it in program order, and only the immediately
       preceding NTL instruction applies to any given memory-access instruction
-    clarification-link: https://github.com/riscv/riscv-isa-manual/issues/164
+    clarification-link: https://github.com/riscv/riscv-isa-manual/issues/2519
     tags: ["norm:NTL-target_definition"]
 
   # NTL.P1
