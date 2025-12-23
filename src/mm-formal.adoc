@@ -1345,6 +1345,7 @@ _deps_ and _reg_value_; and
 . update the state of _i_ to Plain(_next_state_).
 
 where _deps_ is a pair of the set of all _read_sources_ from
+where _deps_ is a pair of the set of all _read_sources_ from
 _i.reg_reads_, and a flag that is true iff
 _i_ is a load instruction instance that has already been
 entirely satisfied.
