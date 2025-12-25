@@ -53,389 +53,389 @@ along with their specific mapping:
 |Zbs
 
 |
-|{check}
+| {check}
 |add.uw _rd_, _rs1_, _rs2_
 |<<#insns-add_uw>>
-|{check}
+| {check}
 |
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |andn _rd_, _rs1_, _rs2_
 |<<#insns-andn>>
 |
-|{check}
+| {check}
 |
 |
 
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmul _rd_, _rs1_, _rs2_
 |<<#insns-clmul>>
 |
 |
-|{check}
+| {check}
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmulh _rd_, _rs1_, _rs2_
 |<<#insns-clmulh>>
 |
 |
-|{check}
+| {check}
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmulr _rd_, _rs1_, _rs2_
 |<<#insns-clmulr>>
 |
 |
-|{check}
+| {check}
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clz _rd_, _rs_
 |<<#insns-clz>>
 |
-|{check}
+| {check}
 |
 |
 
 |
-|{check}
+| {check}
 |clzw _rd_, _rs_
 |<<#insns-clzw>>
 |
-|{check}
+| {check}
 |
 |
-|{check}
-|{check}
+| {check}
+| {check}
 |cpop _rd_, _rs_
 |<<#insns-cpop>>
 |
-|{check}
+| {check}
 |
 |
 
 |
-|{check}
+| {check}
 |cpopw _rd_, _rs_
 |<<#insns-cpopw>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |ctz _rd_, _rs_
 |<<#insns-ctz>>
 |
-|{check}
+| {check}
 |
 |
 
 |
-|{check}
+| {check}
 |ctzw _rd_, _rs_
 |<<#insns-ctzw>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |max _rd_, _rs1_, _rs2_
 |<<#insns-max>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |maxu _rd_, _rs1_, _rs2_
 |<<#insns-maxu>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |min _rd_, _rs1_, _rs2_
 |<<#insns-min>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |minu _rd_, _rs1_, _rs2_
 |<<#insns-minu>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |orc.b _rd_, _rs_
 |<<#insns-orc_b>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |orn _rd_, _rs1_, _rs2_
 |<<#insns-orn>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |rev8 _rd_, _rs_
 |<<#insns-rev8>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |rol _rd_, _rs1_, _rs2_
 |<<#insns-rol>>
 |
-|{check}
+| {check}
 |
 |
 
 |
-|{check}
+| {check}
 |rolw _rd_, _rs1_, _rs2_
 |<<#insns-rolw>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |ror _rd_, _rs1_, _rs2_
 |<<#insns-ror>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |rori _rd_, _rs1_, _shamt_
 |<<#insns-rori>>
 |
-|{check}
+| {check}
 |
 |
 
 |
-|{check}
+| {check}
 |roriw _rd_, _rs1_, _shamt_
 |<<#insns-roriw>>
 |
-|{check}
+| {check}
 |
 |
 
 |
-|{check}
+| {check}
 |rorw _rd_, _rs1_, _rs2_
 |<<#insns-rorw>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bclr _rd_, _rs1_, _rs2_
 |<<#insns-bclr>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bclri _rd_, _rs1_, _imm_
 |<<#insns-bclri>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bext _rd_, _rs1_, _rs2_
 |<<#insns-bext>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bexti _rd_, _rs1_, _imm_
 |<<#insns-bexti>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |binv _rd_, _rs1_, _rs2_
 |<<#insns-binv>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |binvi _rd_, _rs1_, _imm_
 |<<#insns-binvi>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bset _rd_, _rs1_, _rs2_
 |<<#insns-bset>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bseti _rd_, _rs1_, _imm_
 |<<#insns-bseti>>
 |
 |
 |
-|{check}
+| {check}
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sext.b _rd_, _rs_
 |<<#insns-sext_b>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sext.h _rd_, _rs_
 |<<#insns-sext_h>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sh1add _rd_, _rs1_, _rs2_
 |<<#insns-sh1add>>
-|{check}
+| {check}
 |
 |
 |
 
 |
-|{check}
+| {check}
 |sh1add.uw _rd_, _rs1_, _rs2_
 |<<#insns-sh1add_uw>>
-|{check}
+| {check}
 |
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sh2add _rd_, _rs1_, _rs2_
 |<<#insns-sh2add>>
-|{check}
+| {check}
 |
 |
 |
 
 |
-|{check}
+| {check}
 |sh2add.uw _rd_, _rs1_, _rs2_
 |<<#insns-sh2add_uw>>
-|{check}
+| {check}
 |
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sh3add _rd_, _rs1_, _rs2_
 |<<#insns-sh3add>>
-|{check}
+| {check}
 |
 |
 |
 
 |
-|{check}
+| {check}
 |sh3add.uw _rd_, _rs1_, _rs2_
 |<<#insns-sh3add_uw>>
-|{check}
+| {check}
 |
 |
 |
 
 |
-|{check}
+| {check}
 |slli.uw _rd_, _rs1_, _imm_
 |<<#insns-slli_uw>>
-|{check}
+| {check}
 |
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |xnor _rd_, _rs1_, _rs2_
 |<<#insns-xnor>>
 |
-|{check}
+| {check}
 |
 |
 
-|{check}
-|{check}
+| {check}
+| {check}
 |zext.h _rd_, _rs_
 |<<#insns-zext_h>>
 |
-|{check}
+| {check}
 |
 |
 
@@ -460,42 +460,42 @@ The following instructions comprise the Zba extension:
 |Instruction
 
 |
-|{check}
+| {check}
 |add.uw _rd_, _rs1_, _rs2_
 |<<#insns-add_uw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sh1add _rd_, _rs1_, _rs2_
 |<<#insns-sh1add>>
 
 |
-|{check}
+| {check}
 |sh1add.uw _rd_, _rs1_, _rs2_
 |<<#insns-sh1add_uw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sh2add _rd_, _rs1_, _rs2_
 |<<#insns-sh2add>>
 
 |
-|{check}
+| {check}
 |sh2add.uw _rd_, _rs1_, _rs2_
 |<<#insns-sh2add_uw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sh3add _rd_, _rs1_, _rs2_
 |<<#insns-sh3add>>
 
 |
-|{check}
+| {check}
 |sh3add.uw _rd_, _rs1_, _rs2_
 |<<#insns-sh3add_uw>>
 
 |
-|{check}
+| {check}
 |slli.uw _rd_, _rs1_, _imm_
 |<<#insns-slli_uw>>
 
@@ -513,18 +513,18 @@ The following instructions comprise the Zba extension:
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |andn _rd_, _rs1_, _rs2_
 |<<#insns-andn>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |orn _rd_, _rs1_, _rs2_
 |<<#insns-orn>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |xnor _rd_, _rs1_, _rs2_
 |<<#insns-xnor>>
 |===
@@ -545,23 +545,23 @@ In some implementations, the inverter on rs2 used for subtraction can be reused 
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clz _rd_, _rs_
 |<<#insns-clz>>
 
 |
-|{check}
+| {check}
 |clzw _rd_, _rs_
 |<<#insns-clzw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |ctz _rd_, _rs_
 |<<#insns-ctz>>
 
 |
-|{check}
+| {check}
 |ctzw _rd_, _rs_
 |<<#insns-ctzw>>
 |===
@@ -578,13 +578,13 @@ commonly referred to as population count.
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |cpop _rd_, _rs_
 |<<#insns-cpop>>
 
 |
-|{check}
+| {check}
 |cpopw _rd_, _rs_
 |<<#insns-cpopw>>
 |===
@@ -601,23 +601,23 @@ instructions that return the smaller/larger of two operands.
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |max _rd_, _rs1_, _rs2_
 |<<#insns-max>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |maxu _rd_, _rs1_, _rs2_
 |<<#insns-maxu>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |min _rd_, _rs1_, _rs2_
 |<<#insns-min>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |minu _rd_, _rs1_, _rs2_
 |<<#insns-minu>>
 |===
@@ -635,18 +635,18 @@ These instructions replace the generalized idioms `slli rd,rs,(XLEN-<size>) + sr
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sext.b _rd_, _rs_
 |<<#insns-sext_b>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |sext.h _rd_, _rs_
 |<<#insns-sext_h>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |zext.h _rd_, _rs_
 |<<#insns-zext_h>>
 |===
@@ -666,33 +666,33 @@ Such operations are also referred to as ‘circular shifts’.
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |rol _rd_, _rs1_, _rs2_
 |<<#insns-rol>>
 
 |
-|{check}
+| {check}
 |rolw _rd_, _rs1_, _rs2_
 |<<#insns-rolw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |ror _rd_, _rs1_, _rs2_
 |<<#insns-ror>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |rori _rd_, _rs1_, _shamt_
 |<<#insns-rori>>
 
 |
-|{check}
+| {check}
 |roriw _rd_, _rs1_, _shamt_
 |<<#insns-roriw>>
 
 |
-|{check}
+| {check}
 |rorw _rd_, _rs1_, _rs2_
 |<<#insns-rorw>>
 |===
@@ -717,8 +717,8 @@ One use-case is string-processing functions, such as *strlen* and *strcpy*, whic
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |orc.b _rd_, _rs_
 |<<#insns-orc_b>>
 |===
@@ -734,8 +734,8 @@ One use-case is string-processing functions, such as *strlen* and *strcpy*, whic
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |rev8 _rd_, _rs_
 |<<#insns-rev8>>
 
@@ -757,18 +757,18 @@ Carry-less multiplication is the multiplication in the polynomial ring over GF(2
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmul _rd_, _rs1_, _rs2_
 |<<#insns-clmul>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmulh _rd_, _rs1_, _rs2_
 |<<#insns-clmulh>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmulr _rd_, _rs1_, _rs2_
 |<<#insns-clmulr>>
 
@@ -787,43 +787,43 @@ a single bit in a register. The bit is specified by its index.
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bclr _rd_, _rs1_, _rs2_
 |<<#insns-bclr>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bclri _rd_, _rs1_, _imm_
 |<<#insns-bclri>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bext _rd_, _rs1_, _rs2_
 |<<#insns-bext>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bexti _rd_, _rs1_, _imm_
 |<<#insns-bexti>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |binv _rd_, _rs1_, _rs2_
 |<<#insns-binv>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |binvi _rd_, _rs1_, _imm_
 |<<#insns-binvi>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bset _rd_, _rs1_, _rs2_
 |<<#insns-bset>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |bseti _rd_, _rs1_, _imm_
 |<<#insns-bseti>>
 
@@ -843,82 +843,82 @@ common operations in cryptographic workloads.
 |Instruction
 
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  rol
 | <<insns-rol>>
 
 |
-|{check}
+| {check}
 |  rolw
 | <<insns-rolw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  ror
 | <<insns-ror>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  rori
 | <<insns-rori>>
 
 |
-|{check}
+| {check}
 |  roriw
 | <<insns-roriw>>
 
 |
-|{check}
+| {check}
 |  rorw
 | <<insns-rorw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  andn
 | <<insns-andn>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  orn
 | <<insns-orn>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  xnor
 | <<insns-xnor>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  pack
 | <<insns-pack>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  packh
 | <<insns-packh>>
 
 |
-|{check}
+| {check}
 |  packw
 | <<insns-packw>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  brev8
 | <<insns-brev8>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |  rev8
 | <<insns-rev8>>
 
-|{check}
+| {check}
 |
 |  zip
 | <<insns-zip>>
 
-|{check}
+| {check}
 |
 |  unzip
 | <<insns-unzip>>
@@ -941,13 +941,13 @@ efficiently implement the GHASH operation, which is part of this workload.
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmul _rd_, _rs1_, _rs2_
 |<<#insns-clmul>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |clmulh _rd_, _rs1_, _rs2_
 |<<#insns-clmulh>>
 
@@ -975,13 +975,13 @@ latency does not depend on the (secret) data being operated on.
 |Mnemonic
 |Instruction
 
-|{check}
-|{check}
+| {check}
+| {check}
 |xperm4 _rd_, _rs1_, _rs2_
 |<<#insns-xperm4>>
 
-|{check}
-|{check}
+| {check}
+| {check}
 |xperm8 _rd_, _rs1_, _rs2_
 |<<#insns-xperm8>>
 
