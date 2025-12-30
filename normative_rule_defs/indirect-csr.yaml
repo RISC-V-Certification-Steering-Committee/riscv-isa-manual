@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=../docs-resources/schemas/defs-schema.json
+
+$schema: "../docs-resources/schemas/defs-schema.json#"
+
+chapter_name: Indirect CSR
+
+normative_rule_definitions:
+
+- name: csr_access
+  tag: "norm:csr_access"
+
+- name: csr_alias
+  tag: "norm:csr_alias"
+
+- name: miph_csr_number
+  tag: "norm:miph_csr_number"
+
+- name: miselect_op
+  tag: "norm:miselect_op"
+
+- name: miselect_WARL
+  tag: "norm:miselect_WARL"
+
+- name: miselect_sz
+  tag: "norm:miselect_sz"
+
+- name: miselect-msb_op
+  tag: "norm:miselect-msb_op"
+
+- name: mireg_acc
+  tag: "norm:mireg_acc"
+
+- name: mireg_op
+  tag: "norm:mireg_op"
+
+- name: siselect_min_range
+  tag: "norm:siselect_min_range"
+
+- name: siselect-msb_op
+  tag: "norm:siselect-msb_op"
+
+- name: sireg_acc
+  tag: "norm:sireg_acc"
+
+- name: sireg_op
+  tag: "norm:sireg_op"
+
+- name: supervisor_level_csr_sz
+  tag: "norm:supervisor_level_csr_sz"
+
+- name: viselect_sz
+  tag: "norm:viselect_sz"
+
+- name: viselect-msb_op
+  tag: "norm:viselect-msb_op"
+
+- name: virtual_inst_fault
+  tag: "norm:virtual_inst_fault"
+
+- name: vsireg_acc
+  tag: "norm:vsireg_acc"
+
+- name: vsireg_op
+  tag: "norm:vsireg_op"
+
+- name: VS_mode_virtual_inst_fault
+  tag: "norm:VS_mode_virtual_inst_fault"
+
+- name: csr_access_control
+  tag: "norm:csr_access_control"
+
+- name: hypervisor_impl_csr_access_control
+  tag: "norm:hypervisor_impl_csr_access_control"
+
+

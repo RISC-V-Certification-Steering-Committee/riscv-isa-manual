@@ -30,7 +30,7 @@ and indirectly accessible, the CSR's select value is unrelated to its
 CSR number.
 
 Further, Machine-level and Supervisor-level select values are separate
-address spaces from each other; however, [norm:csr_alias]#Machine-level and
+address spaces from each other; however, [#norm:csr_alias]#Machine-level and
 Supervisor-level CSRs with the same select value may be defined by an
 extension as partial or full aliases with respect to each other.# This
 typically would be done for CSRs that can be delegated from
@@ -67,7 +67,7 @@ The `mireg*` CSR numbers are not consecutive because miph is CSR number
 ====
 
 The CSRs listed in the table above provide a window for accessing
-register state indirectly. [#norm:csr_mapping]#The value of `miselect` determines which
+register state indirectly. [#norm:miselect_op]#The value of `miselect` determines which
 register is accessed upon read or write of each of the machine indirect alias
 CSRs (`mireg*`).# `miselect` value ranges are allocated to dependent
 extensions, which specify the register state accessible via each
@@ -203,7 +203,7 @@ Ordinarily, each `sireg`*_i_* will access register state, access
 read-only 0 state, or, unless executing in a virtual machine (covered in
 the next section), raise an illegal-instruction exception.
 ====
-[[norm:csr_sz]]
+[[norm:supervisor_level_csr_sz]]
 Note that the widths of `siselect` and `sireg*` are always the
 current XLEN rather than SXLEN. Hence, for example, if MXLEN = 64 and
 SXLEN = 32, then these registers are 64 bits when the current privilege
@@ -293,8 +293,7 @@ allocated.
 [%unbreakable]
 [NOTE]
 ====
-[[norm:vsireg_op]]
-Ordinarily, each `vsireg`*_i_* will access register state, access read-only 0 state, or raise an exception (either an illegal-instruction exception or, for select accesses from VS-mode, a virtual-instruction  exception).  When `vsiselect` holds a value that is implemented at HS level but not at VS level, attempts to access `sireg*` (really `vsireg*`) from VS-mode will typically raise a virtual-instruction  exception.  But there may be cases specific to an extension where different behavior is more appropriate.
+[#norm:vsireg_op]#Ordinarily, each `vsireg`*_i_* will access register state, access read-only 0 state, or raise an exception (either an illegal-instruction exception or, for select accesses from VS-mode, a virtual-instruction  exception).#  [#norm:VS_mode_virtual_inst_fault]#When `vsiselect` holds a value that is implemented at HS level but not at VS level, attempts to access `sireg*` (really `vsireg*`) from VS-mode will typically raise a virtual-instruction  exception.#  But there may be cases specific to an extension where different behavior is more appropriate.
 ====
 
 Like `siselect` and `sireg*`, the widths of `vsiselect` and `vsireg*` are always
@@ -305,7 +304,7 @@ VS-mode (RV32 code).
 
 === Access control by the state-enable CSRs
 
-[[norm:mstateen0-60_op]]
+[[norm:csr_access_control]]
 If extension Smstateen is implemented together with Smcsrind, bit 60 of
 state-enable register `mstateen0` controls access to `siselect`, `sireg*`,
 `vsiselect`, and `vsireg*`. When `mstateen0`[60]=0, an attempt to access one
@@ -324,7 +323,7 @@ described in the previous section for all attempts from VS-mode or
 VU-mode to directly access `vsiselect` or `vsireg*`, and for all attempts
 from VU-mode to access `siselect` or `sireg*`.
 
-[[norm:hstateen0-60_op]]
+[[norm:hypervisor_impl_csr_access_control]]
 If the hypervisor extension is implemented, the same bit is defined also
 in hypervisor CSR `hstateen0`, but controls access to only `siselect` and `sireg*`
 (really `vsiselect` and `vsireg*`), which is the state potentially
