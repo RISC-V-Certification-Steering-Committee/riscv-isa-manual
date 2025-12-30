@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=../docs-resources/schemas/defs-schema.json
+
+$schema: ../docs-resources/schemas/defs-schema.json#
+
+chapter_name: Sscofpmf Extension
+
+normative_rule_definitions:
+
+- name: mhpmevent-INH_op
+  tags: ["norm:mhpmevent-INH_op"]
+
+- name: mhpmevent-OF_op
+  tags: ["norm:mhpmevent-OF_op"]
+
+- name: hpmcounter_overflow
+  tags: ["norm:hpmcounter_overflow"]
+
+- name: count_overflow_interrupt
+  tags: ["norm:count_overflow_interrupt"]
+
+- name: count_overflow_trigger
+  tags: ["norm:count_overflow_trigger"]
+
+- names: [mip-LCOFIP_op, sip-LCOFIP_op]
+  tag: "norm:LCOFIP_op"
+
+- names: scountovf_op
+  tag: "norm:scountovf_op"
+
+- names: scountovf_acc
+  tag: "norm:scountovf_acc"
