@@ -2079,7 +2079,7 @@ the faulting instruction in memory). If `mtval` is written with a
 nonzero value when an illegal-instruction exception occurs, then `mtval`
 will contain the shortest of:#
 
-[[norm:mtval_inst_bits_list]]
+[[norm:mtval_instr_bits_list]]
 * the actual faulting instruction
 
 * the first ILEN bits of the faulting instruction
@@ -2113,7 +2113,7 @@ interrogated to install the appropriate trap handling before runtime).
 ====
 
 [#norm:mtval_swchk_lead-in]#On a trap caused by a software-check exception, the `mtval` register holds
-the cause for the exception. The following encodings are defined:
+the cause for the exception. The following encodings are defined:#
 
 [[norm:mtval_swchk_list]]
 * 0 - No information provided.
@@ -2168,12 +2168,12 @@ M-mode software towards the beginning of the boot process.
 [[sec:menvcfg]]
 ====  Machine Environment Configuration (`menvcfg`) Register
 
-The `menvcfg` CSR is a 64-bit read/write register, formatted
-as shown in <<menvcfgreg>>, that controls
-certain characteristics of the execution environment for modes less
-privileged than M.
+[#norm:menvcfg_sz_acc]#The `menvcfg` CSR is a 64-bit read/write register, formatted
+as shown in <<norm:menvcfg_enc_img>>#, that
+[#norm:menvcfg_op]#controls certain characteristics of the execution environment
+for modes less privileged than M.#
 
-[[menvcfgreg]]
+[[norm:menvcfg_enc_img]]
 .Machine environment configuration (`menvcfg`) register.
 include::images/wavedrom/menvcfgreg.edn[]
 

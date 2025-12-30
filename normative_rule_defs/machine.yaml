@@ -502,20 +502,6 @@ normative_rule_definitions:
     tag: "norm:msip_update_max_time"
     kind: parameter
 
-  # CSR menvcfg
-    # Sstc extension
-  - name: menvcfg-stce
-    tag: "norm:menvcfg-stce"
-    # Zicboz extension
-  - name: menvcfg-cbze
-    tag: "norm:menvcfg-cbze"
-  - name: menvcfg-cbcfe
-    tag: "norm:menvcfg-cbcfe"
-  - name: menvcfg-cbie
-    tag: "norm:menvcfg-cbie"
-  - name: cbo-inval_m-mode_op
-    tags: ["norm:cbo-inval_m-mode_op0", "norm:cbo-inval_m-mode_op1", "norm:cbo-inval_m-mode_op2"]
-
   # CSR mcycle
   - name: mcycle_op
     tag: "norm:mcycle_op"
@@ -859,6 +845,26 @@ normative_rule_definitions:
   - name: mconfigptr_zero
     tag: "norm:mconfigptr_zero"
     kind: parameter
+
+  # CSR menvcfg
+  - names: [menvcfg_sz, menvcfg_acc]
+    tag: "norm:menvcfg_sz_acc"
+  - name: menvcfg_op
+    tag: "norm:menvcfg_op"
+  - name: menvcfg_enc
+    tag: "norm:menvcfg_enc_img"
+    # Sstc extension
+  - name: menvcfg-stce
+    tag: "norm:menvcfg-stce"
+    # Zicboz extension
+  - name: menvcfg-cbze
+    tag: "norm:menvcfg-cbze"
+  - name: menvcfg-cbcfe
+    tag: "norm:menvcfg-cbcfe"
+  - name: menvcfg-cbie
+    tag: "norm:menvcfg-cbie"
+  - name: cbo-inval_m-mode_op
+    tags: ["norm:cbo-inval_m-mode_op0", "norm:cbo-inval_m-mode_op1", "norm:cbo-inval_m-mode_op2"]
 
   # Misc
   - names: [SXLEN, UXLEN]
