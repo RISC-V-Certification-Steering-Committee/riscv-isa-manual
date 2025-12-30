@@ -776,6 +776,8 @@ normative_rule_definitions:
     tag: "norm:mepc_op"
   - name: mepc_enc
     tag: "norm:mepc_enc_img"
+  - name: mepc_varlen_wr
+    tags: [{name: "norm:mtval_varlen_wr", context: true}, "norm:mepc_varlen_wr"]
 
   # CSR mcause
   - names: [mcause_sz, mcause_acc]
@@ -798,6 +800,65 @@ normative_rule_definitions:
     tag: "norm:mcause_exccode_st_sc_amo"
   - name: mcause_exccode_pri
     tags: ["norm:mcause_exccode_pri1", "norm:mcause_exccode_pri2"]
+
+  # CSR mtval
+  - names: [mtval_sz, mtval_acc]
+    tag: "norm:mtval_sz_acc"
+  - name: mtval_enc
+    tag: "norm:mtval_enc_img"
+  - name: mtval_vaddr_and_0_sz
+    tag: "norm:mtval_vaddr_and_0_sz"
+  - name: mtval_instr_bits_sz
+    tag: "norm:mtval_instr_bits_sz"
+  - name: mtval_op
+    tag: "norm:mtval_op"
+  - name: mtval_per_exc_behavior
+    tag: "norm:mtval_per_exc_behavior"
+    kind: parameter
+  - name: mtval_rdonly0
+    tag: "norm:mtval_rdonly0"
+    kind: parameter
+  - name: mtval_vaddr_wr1
+    tag: "norm:mtval_vaddr_wr1"
+  - name: mtval_vaddr_not_paddr
+    tag: "norm:mtval_vaddr_not_paddr"
+  - name: mtval_vaddr_wr2
+    tag: "norm:mtval_vaddr_wr2"
+  - name: mtval_varlen_wr
+    tag: "norm:mtval_varlen_wr"
+    kind: parameter
+  - name: mtval_instr_bits
+    tags:
+      - "norm:mtval_instr_bits_lead-in"
+      - "norm:mtval_instr_bits_list"
+  - name: mtval_ill_instr_exc_in_low_bits
+    tag: "norm:mtval_ill_instr_exc_in_low_bits"
+  - name: mtval_swchk
+    tags:
+      - "norm:mtval_swchk_lead-in"
+      - "norm:mtval_swchk_list"
+  - name: mtval_other_traps_zero
+    tag: "norm:mtval_other_traps_zero"
+  - name: mtval_warl
+    tag: "norm:mtval_warl"
+  - name: mtval_inv_addr_conv
+    tag: "norm:mtval_inv_addr_conv"
+    kind: parameter
+
+  # CSR mconfigptr
+  - names: [mconfigptr_sz, mconfigptr_acc]
+    tag: "norm:mconfigptr_sz_acc"
+  - name: mconfigptr_enc
+    tag: "norm:mconfigptr_enc_img"
+  - name: mconfigptr_op
+    tag: "norm:mconfigptr_op"
+  - name: mconfigptr_align
+    tag: "norm:mconfigptr_align"
+  - name: mconfigptr_mandatory
+    tag: "norm:mconfigptr_mandatory"
+  - name: mconfigptr_zero
+    tag: "norm:mconfigptr_zero"
+    kind: parameter
 
   # Misc
   - names: [SXLEN, UXLEN]
