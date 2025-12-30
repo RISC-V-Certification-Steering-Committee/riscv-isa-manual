@@ -507,6 +507,10 @@ normative_rule_definitions:
     summary: For pte.a and pte.d bits cleared, we get a page fault exception if svade is implemented.
     tags: ["norm:pte_ad_svade_fault"]
 
+  - name: pte_store_pma_pmp_check
+    tags: ["norm:pte_store_pma_pmp_check"]
+
+  
   - name: pte_ad_store_pma_pmp_fault
     summary: If a store to a pte violates pmp/pma check, raise access-fault.
     tags: ["norm:pte_ad_store_pma_pmp_fault"]
@@ -592,9 +596,9 @@ normative_rule_definitions:
     summary: Bit 63 must be zeroed by software if Svnapot is not implemented.
     tags: ["norm:svnapot_bit63_reserved"]
 
-  - name: svnapot_bit_62_61_reserved
-    summary: Bit 63 must be zeroed by software if Svnpbmt is not implemented.
-    tags: ["norm:svnapot_bit_62_61_reserved"]
+  - name: svpbmt_bit_62_61_reserved
+    summary: Bit 63 must be zeroed by software if Svpbmt is not implemented.
+    tags: ["norm:svpbmt_bit_62_61_reserved"]
 
   - name: pte_reserved_bits_60_54
     summary: Bit 54 to 60 are reserved for future use.
