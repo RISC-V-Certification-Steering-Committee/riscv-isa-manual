@@ -853,18 +853,185 @@ normative_rule_definitions:
     tag: "norm:menvcfg_op"
   - name: menvcfg_enc
     tag: "norm:menvcfg_enc_img"
-    # Sstc extension
-  - name: menvcfg-stce
-    tag: "norm:menvcfg-stce"
-    # Zicboz extension
-  - name: menvcfg-cbze
-    tag: "norm:menvcfg-cbze"
-  - name: menvcfg-cbcfe
-    tag: "norm:menvcfg-cbcfe"
-  - name: menvcfg-cbie
-    tag: "norm:menvcfg-cbie"
-  - name: cbo-inval_m-mode_op
-    tags: ["norm:cbo-inval_m-mode_op0", "norm:cbo-inval_m-mode_op1", "norm:cbo-inval_m-mode_op2"]
+  - name: menvcfg_fiom_fence_op
+    tag: "norm:menvcfg_fiom_fence_op"
+  - name: menvcfg_fiom_atomic_op
+    tag: "norm:menvcfg_fiom_atomic_op"
+  - name: menvcfg_fiom_fence_presuc_op
+    tag: "norm:menvcfg_fiom_fence_presuc_op"
+  - name: menvcfg_fiom_rdonly0_ok
+    tag: "norm:menvcfg_fiom_rdonly0_ok"
+    kind: parameter
+  - name: menvcfg_no_U-mode
+    tag: "norm:menvcfg_menvcfgh_no_U-mode"
+
+    # Svpbmt extension additions to menvcfg
+  - name: menvcfg_pbmte_op
+    tag: "norm:menvcfg_pbmte_op"
+  - name: menvcfg_pbmte_rdonly0
+    tag: "norm:menvcfg_pbmte_rdonly0"
+  - name: menvcfg_pbmte_henvcfg_pbmte_rdonly0
+    tag: "norm:menvcfg_pbmte_henvcfg_pbmte_rdonly0"
+  - name: menvcfg_pbmte_fence
+    tag: "norm:menvcfg_pbmte_fence"
+
+    # Svadu extension additions to menvcfg
+  - name: menvcfg_adue_op
+    tag: "norm:menvcfg_adue_op"
+  - name: menvcfg_adue_rdonly0
+    tag: "norm:menvcfg_adue_rdonly0"
+  - name: menvcfg_adue_henvcfg_adue_rdonly0
+    tag: "norm:menvcfg_adue_henvcfg_adue_rdonly0"
+  - name: menvcfg_adue_fence
+    tag: "norm:menvcfg_adue_fence"
+
+    # Smcdeleg extension additions to menvcfg
+  - name: menvcfg_cde_op
+    tag: "norm:menvcfg_cde_op"
+  - name: menvcfg_cde_rdonly0
+    tag: "norm:menvcfg_cde_rdonly0"
+
+    # Sstc extension additions to menvcfg
+  - name: menvcfg_stce_op
+    tags: ["norm:menvcfg_stce_op1", "norm:menvcfg_stce_op2"]
+  - name: menvcfg_stce_rdonly0
+    tag: "norm:menvcfg_stce_rdonly0"
+
+    # Zicboz extension additions to menvcfg
+  - name: menvcfg_cbze_op
+    tag: "norm:menvcfg_cbze_op"
+  - name: menvcfg_cbze_rdonly0
+    tag: "norm:menvcfg_cbze_rdonly0"
+
+    # Zicbom extension additions to menvcfg
+  - name: menvcfg_cbcfe_op
+    tag: "norm:menvcfg_cbcfe_op"
+  - name: menvcfg_cbcfe_rdonly0
+    tag: "norm:menvcfg_cbcfe_rdonly0"
+  - names: [menvcfg_cbie_warl, menvcfg_cbie_op]
+    tag: "norm:menvcfg_cbie_warl_op"
+  - name: menvcfg_cbie_rdonly0
+    tag: "norm:menvcfg_cbie_rdonly0"
+  - name: menvcfg_cbie_cbo-inval_op
+    tags:
+      - "norm:menvcfg_cbie_cbo-inval_op_lead-in"
+      - "norm:menvcfg_cbie_cbo-inval_op_list"
+
+    # Smnpm extension additions to menvcfg
+  - name: menvcfg_pmm_op
+    tag: "norm:menvcfg_pmm_op"
+  - name: menvcfg_pmm_rdonly0
+    tag: "norm:menvcfg_pmm_rdonly0"
+  - name: menvcfg_pmm_enc
+    tag: "norm:menvcfg_pmm_enc"
+
+    # Zicfilp extension additions to menvcfg
+  - name: menvcfg_lpe_op
+    tags:
+      - "norm:menvcfg_lpe_op_lead-in"
+      - "norm:menvcfg_lpe_op_list"
+
+    # Zicfiss extension additions to menvcfg
+  - name: menvcfg_sse_op
+    tags:
+      - "norm:menvcfg_sse_op_lead-in"
+      - "norm:menvcfg_sse_op_list"
+  - name: menvcfg_sse_rdonly0
+    tag: "norm:menvcfg_sse_rdonly0"
+
+    # Ssdbltrp extension additions to menvcfg
+  - name: menvcfg_dte_op
+    tag: "norm:menvcfg_dte_op"
+
+  # CSR menvcfgh
+  - names: [menvcfgh_sz, menvcfgh_acc, menvcfgh_op]
+    tag: "norm:menvcfgh_sz_acc_op"
+  - name: menvcfgh_no_U-mode
+    tag: "norm:menvcfg_menvcfgh_no_U-mode"
+
+  # CSR mseccfg
+  - names: [mseccfg_opt, mseccfg_sz, mseccfg_acc]
+    tag: "norm:mseccfg_opt_sz_acc"
+  - name: mseccfg_enc
+    tag: "norm:mseccfg_enc_img"
+
+    # Zkr extension additions to mseccfg
+  - names: [mseccfg_sseed_presence, mseccfg_useed_presence]
+    tag: "norm:mseccfg_sseed_useed_presence"
+  - name: mseccfg_useed_U-mode_op
+    tags:
+      - "norm:mseccfg_useed_U-mode_op"
+      - "norm:mseccfg_sseed_useed_op_tbl"
+  - name: mseccfg_useed_rdonly0
+    tag: "norm:mseccfg_useed_rdonly0"
+  - names: [mseccfg_sseed_S-mode_op, mseccfg_sseed_HS-mode_op]
+    tags:
+      - "norm:mseccfg_sseed_SorHS-mode_op"
+      - "norm:mseccfg_sseed_useed_op_tbl"
+  - name: mseccfg_sseed_rdonly0
+    tag: "norm:mseccfg_sseed_rdonly0"
+  - names: [mseccfg_sseed_VS-mode_op, mseccfg_sseed_VU-mode_op]
+    tags:
+      - "norm:mseccfg_sseed_VSorVU-mode_op"
+      - "norm:mseccfg_sseed_useed_op_tbl"
+
+    # Smepmp extension additions to mseccfg
+  - names: [mseccfg_rlb_presence, mseccfg_mmwp_presence, mseccfg_mml_presence]
+    tag: "norm:mseccfg_rlb_mmwp_mml_presence"
+  - names: [mseccfg_rlb_op, mseccfg_rlb_warl]
+    tag: "norm:mseccfg_rlb_op_warl"
+  - names: [mseccfg_mmwp_op, mseccfg_mmwp_warl]
+    tag: "norm:mseccfg_mmwp_op_warl"
+  - name: mseccfg_mml_warl
+    tag: "norm:mseccfg_mml_warl"
+  - name: mseccfg_mml_sticky
+    tag: "norm:mseccfg_mml_sticky"
+  - name: mseccfg_mml_pmpcfg_L_op
+    tags:
+      - {name: "norm:mseccfg_mml_set", context: true}
+      - "norm:mseccfg_mml_pmpcfg_L_op"
+  - name: mseccfg_mml_M_rule_op
+    tags:
+      - {name: "norm:mseccfg_mml_set", context: true}
+      - "norm:mseccfg_mml_M_rule_op"
+  - name: mseccfg_mml_SorU_rule_op
+    tags:
+      - {name: "norm:mseccfg_mml_set", context: true}
+      - "norm:mseccfg_mml_SorU_rule_op"
+  - name: mseccfg_mml_shared_rule_op
+    tags:
+      - {name: "norm:mseccfg_mml_set", context: true}
+      - "norm:mseccfg_mml_shared_rule_op"
+      - "norm:mseccfg_mml_shared_L0_op"
+      - "norm:mseccfg_mml_shared_L1_op"
+      - "norm:mseccfg_mml_shared_LRWX_1111_op"
+  - name: mseccfg_mml_X_restrict
+    tag: "norm:mseccfg_mml_X_restrict"
+  - name: mseccfg_mml_exec_code
+    tag: "norm:mseccfg_mml_exec_code"
+
+    # Smmpm extension additions to mseccfg
+  - names: [mseccfg_pmm_presence, mseccfg_pmm_op]
+    tag: "norm:mseccfg_pmm_presence_op"
+  - name: mseccfg_pmm_rdonly0
+    tag: "norm:mseccfg_pmm_rdonly0"
+  - names: [mseccfg_pmm_enc, mseccfg_pmm_warl]
+    tag: "norm:mseccfg_pmm_enc"
+
+    # Zicfilp extension additions to mseccfg
+  - name: mseccfg_mlpe_presence
+    tag: "norm:mseccfg_mlpe_presence"
+  - name: mseccfg_mlpe_set_op
+    tag: "norm:mseccfg_mlpe_set_op"
+  - name: mseccfg_mlpe_clr_op
+    tags:
+      - "norm:mseccfg_mlpe_clr_op_lead-in"
+      - "norm:mseccfg_mlpe_clr_op_list"
+
+  # CSR mseccfgh
+  - names: [mseccfgh_sz, mseccfgh_acc, mseccfgh_op]
+    tag: "norm:mseccfgh_sz_acc_op"
+
 
   # Misc
   - names: [SXLEN, UXLEN]
