@@ -711,6 +711,8 @@ normative_rule_definitions:
   # CSR time
   - names: [time_op, time_rdonly]
     tag: "norm:time_op_rdonly"
+  - name: time_visibility_mtime
+    tag: "norm:time_timeh_visibility_mtime"
 
   # CSR cycleh, instreth, hpmcounterh[31:3]
   - names:
@@ -725,6 +727,8 @@ normative_rule_definitions:
   # CSR timeh
   - names: [timeh_op, timeh_rdonly]
     tag: "norm:timeh_op_rdonly"
+  - name: timeh_visibility_mtime
+    tag: "norm:time_timeh_visibility_mtime"
 
   # CSR mcounterinhibit
   - name: mcounterinhibit_enc
@@ -1032,6 +1036,38 @@ normative_rule_definitions:
   - names: [mseccfgh_sz, mseccfgh_acc, mseccfgh_op]
     tag: "norm:mseccfgh_sz_acc_op"
 
+  # Memory-mapped register mtime
+  - name: mtime_acc
+    tag: "norm:mtime_acc"
+  - name: mtime_op
+    tag: "norm:mtime_op"
+  - name: mtime_tick_period
+    tag: "norm:mtime_tick_period"
+    kind: parameter
+  - name: mtime_wrap
+    tag: "norm:mtime_wrap"
+  - name: mtime_sz
+    tag: "norm:mtime_sz"
+  - name: mtime_intr_pending
+    tag: "norm:mtime_intr_pending"
+  - name: mtime_intr_taken
+    tag: "norm:mtime_intr_taken"
+  - name: mtime_intr_mtip_visibility
+    tag: "norm:mtime_intr_mtip_visibility"
+  - name: mtime_enc
+    tag: "norm:mtime_enc_img"
+  - name: mtime_rv64_wr
+    tag: "norm:mtime_mtimecmp_rv64_wr"
+
+  # Memory-mapped register mtimecmp
+  - name: mtimecmp_sz
+    tag: "norm:mtimecmp_sz"
+  - name: mtimecmp_enc
+    tag: "norm:mtimecmp_enc_img"
+  - name: mtimecmp_rv32_wr
+    tag: "norm:mtimecmp_rv32_wr"
+  - name: mtimecmp_rv64_wr
+    tag: "norm:mtime_mtimecmp_rv64_wr"
 
   # Misc
   - names: [SXLEN, UXLEN]

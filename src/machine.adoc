@@ -2541,24 +2541,29 @@ Register `mseccfgh` does not exist when XLEN=64.#
 
 ==== Machine Timer (`mtime` and `mtimecmp`) Registers
 
-Platforms provide a real-time counter, exposed as a memory-mapped
-machine-mode read-write register, `mtime`. `mtime` must increment at
-constant frequency, and the platform must provide a mechanism for
-determining the period of an `mtime` tick. The `mtime` register will
-wrap around if the count overflows.
+[#norm:mtime_acc]#Platforms provide a real-time counter, exposed as a memory-mapped
+machine-mode read-write register, `mtime`.#
+[#norm:mtime_op]#`mtime` must increment at constant frequency#, and
+[#norm:mtime_tick_period]#the platform must provide a mechanism for
+determining the period of an `mtime` tick.#
+[#norm:mtime_wrap]#The `mtime` register will wrap around if the count overflows.#
 
-The `mtime` register has a 64-bit precision on all RV32 and RV64
-systems. Platforms provide a 64-bit memory-mapped machine-mode timer
-compare register (`mtimecmp`). A machine timer interrupt becomes pending
+[#norm:mtime_sz]#The `mtime` register has a 64-bit precision on all RV32 and RV64 systems.#
+[#norm:mtimecmp_sz]#Platforms provide a 64-bit memory-mapped machine-mode timer
+compare register (`mtimecmp`).#
+[#norm:mtime_intr_pending]#A machine timer interrupt becomes pending
 whenever `mtime` contains a value greater than or equal to `mtimecmp`,
-treating the values as unsigned integers. The interrupt remains posted
-until `mtimecmp` becomes greater than `mtime` (typically as a result of
-writing `mtimecmp`). The interrupt will only be taken if interrupts are
-enabled and the MTIE bit is set in the `mie` register.
+treating the values as unsigned integers.
+The interrupt remains posted until `mtimecmp` becomes greater than `mtime`#
+(typically as a result of writing `mtimecmp`).
+[#norm:mtime_intr_taken]#The interrupt will only be taken if interrupts are
+enabled and the MTIE bit is set in the `mie` register.#
 
+[[norm:mtime_enc_img]]
 .Machine time register (memory-mapped control register).
 include::images/bytefield/mtime.edn[]
 
+[[norm:mtimecmp_enc_img]]
 .Machine time compare register (memory-mapped control register).
 include::images/bytefield/mtimecmp.edn[]
 
@@ -2587,9 +2592,8 @@ Simple fixed-frequency systems can use a single clock for both cycle
 counting and wall-clock time.
 ====
 
-If the result of the comparison between `mtime` and `mtimecmp` changes, it is
-guaranteed to be reflected in MTIP eventually, but not necessarily
-immediately.
+[#norm:mtime_intr_mtip_visibility]#If the result of the comparison between `mtime` and `mtimecmp`
+changes, it is guaranteed to be reflected in MTIP eventually, but not necessarily immediately.#
 
 [NOTE]
 ====
@@ -2601,13 +2605,13 @@ extremely unlikely. It is almost always more performant to incur an
 occasional spurious timer interrupt than to poll MTIP until it falls.
 ====
 
-In RV32, memory-mapped writes to `mtimecmp` modify only one 32-bit part
-of the register. The following code sequence sets a 64-bit `mtimecmp`
-value without spuriously generating a timer interrupt due to the
-intermediate value of the comparand:
+[#norm:mtimecmp_rv32_wr]#In RV32, memory-mapped writes to `mtimecmp` modify only one 32-bit part
+of the register.#
+The following code sequence sets a 64-bit `mtimecmp` value without spuriously generating a
+timer interrupt due to the intermediate value of the comparand:
 
-For RV64, naturally aligned 64-bit memory accesses to the `mtime` and
-`mtimecmp` registers are additionally supported and are atomic.
+[#norm:mtime_mtimecmp_rv64_wr]#For RV64, naturally aligned 64-bit memory accesses to the `mtime` and
+`mtimecmp` registers are additionally supported and are atomic.#
 
 .Sample code for setting the 64-bit time comparand in RV32 assuming a little-endian memory system and that the registers live in a strongly ordered I/O region.  Storing -1 to the low-order bits of `mtimecmp` prevents `mtimecmp` from temporarily becoming smaller than the lesser of the old and new values.
 ....
@@ -2624,9 +2628,8 @@ The `time` CSR is a read-only shadow of the memory-mapped `mtime` register.
 When XLEN=32, the `timeh` CSR is a read-only shadow of the upper 32 bits of the
 memory-mapped `mtime` register, while `time` shadows only the lower 32 bits of
 `mtime`.
-When `mtime` changes, it is guaranteed to be reflected in `time` and `timeh`
-eventually, but not necessarily immediately.
-
+[#norm:time_timeh_visibility_mtime]#When `mtime` changes, it is guaranteed to be reflected in `time`
+and `timeh` eventually, but not necessarily immediately.#
 
 === Machine-Mode Privileged Instructions
 
