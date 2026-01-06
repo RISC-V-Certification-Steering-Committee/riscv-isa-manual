@@ -1382,7 +1382,7 @@ number (VPN) and page offset, as shown in <<sv32va>>.
 `satp` register, supervisor virtual addresses are translated into
 supervisor physical addresses via a two-level page table.# [#norm:sv32-vpn_ppn_sz]#The 20-bit VPN
 is translated into a 22-bit physical page number (PPN)#,
-while [#norm:sv32_page_offset]#the 12-bit page offset is untranslated.# [#norm:sv32_pmp_check]#The resulting supervisor-level physical
+while [#norm:vm_page_offset]#the 12-bit page offset is untranslated.# [#norm:sv32_pmp_check]#The resulting supervisor-level physical
 addresses are then checked using any physical memory protection
 structures (<<pmp>>)#, before being directly
 converted to machine-level physical addresses. If necessary,
@@ -1472,7 +1472,7 @@ Read-write-execute page.
 execute permissions raises a fetch page-fault exception.# [#norm:sv32_page_fault_load]#Attempting to
 execute a load or load-reserved instruction whose effective address lies
 within a page without read permissions raises a load page-fault
-exception.# [norm:sv32_page_fault_store]#Attempting to execute a store, store-conditional, or AMO
+exception.# [#norm:sv32_page_fault_store]#Attempting to execute a store, store-conditional, or AMO
 instruction whose effective address lies within a page without write
 permissions raises a store page-fault exception.#
 
@@ -1484,7 +1484,7 @@ always raises a store page-fault exception.#
 ====
 
 [#norm:sv32_pte-u_op]#The U bit indicates whether the page is accessible to user mode. U-mode
-software may only access the page when U=1.# [#norm:sstatus-sum_op]#If the SUM bit in the
+software may only access the page when U=1.# [#norm:sstatus-sum_set_op]#If the SUM bit in the
 `sstatus` register is set, supervisor mode software may also access
 pages with U=1.# However, supervisor code normally operates with the SUM
 bit clear, in which case, supervisor code will fault on accesses to
@@ -1555,7 +1555,6 @@ Two schemes to manage the A and D bits are defined:
   implicit access to a VS-stage PTE, if the G-stage PTE provides write
   permission, before any speculative access to the VS-stage PTE.#        +
                                                                         +
-
   [#norm:sv32_pte_update_order]#The PTE update must appear in the global memory order before the
   memory access that caused the PTE update and before any subsequent
   explicit memory access to that virtual page by the local hart.# [#norm:sv32_pte_update_fence]#The
