@@ -954,10 +954,12 @@ normative_rule_definitions:
     tag: "norm:menvcfg_menvcfgh_no_U-mode"
 
   # CSR mseccfg
-  - names: [mseccfg_opt, mseccfg_sz, mseccfg_acc]
-    tag: "norm:mseccfg_opt_sz_acc"
+  - names: [mseccfg_sz, mseccfg_acc]
+    tag: "norm:mseccfg_sz_acc"
   - name: mseccfg_enc
     tag: "norm:mseccfg_enc_img"
+  - name: mseccfg_presence
+    tag: "norm:mseccfg_presence"
 
     # Zkr extension additions to mseccfg
   - names: [mseccfg_sseed_presence, mseccfg_useed_presence]
