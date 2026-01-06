@@ -1422,7 +1422,7 @@ The PTE format for Sv32 is shown in <<sv32pte>>.
 [#norm:sv32_pte-v_op]#The V bit indicates whether the PTE is valid; if it is 0, all other bits
 in the PTE are don’t-cares and may be used freely by software.# [#norm:sv32_pte-rwx_op]#The
 permission bits, R, W, and X, indicate whether the page is readable,
-writable, and executable, respectively.# 
+writable, and executable, respectively.#
 [#norm:sv32_pte_leaf_pointer]#When all three are zero, the PTE
 is a pointer to the next level of the page table; otherwise, it is a
 leaf PTE.# [#norm:sv32_pte_w_requires_r]#Writable pages must also be marked readable; the contrary
@@ -1798,7 +1798,7 @@ even further.
 
 Sv39 implementations support a 39-bit virtual address space, divided
 into pages. An Sv39 address is partitioned as shown in
-<<sv39va>>. [#norm:addr_sign_extension_violation]#Instruction fetch addresses and load and
+<<sv39va>>. [#norm:sv39_va_signext_fault]#Instruction fetch addresses and load and
 store effective addresses, which are 64 bits, must have bits 63–39 all
 equal to bit 38, or else a page-fault exception will occur.# The 27-bit
 VPN is translated into a 44-bit PPN via a three-level page table, while
@@ -1828,19 +1828,19 @@ include::images/bytefield/sv39pa.edn[]
 include::images/bytefield/sv39pte.edn[]
 
 Sv39 page tables contain 2^9^ page table entries (PTEs),
-eight bytes each. [#norm:page_table_alignment]#A page table is exactly the size of a page and must
+eight bytes each. [#norm:sv39_pt_alignment]#A page table is exactly the size of a page and must
 always be aligned to a page boundary.# The physical page number of the
 root page table is stored in the `satp` register's PPN field.
 
 The PTE format for Sv39 is shown in <<sv39pte>>.
 Bits 9-0 have the same meaning as for Sv32. Bit 63 is reserved for use
-by the Svnapot extension in <<svnapot>>. [#norm:svnapot_bit63_reserved]#If Svnapot is not
+by the Svnapot extension in <<svnapot>>. [#norm:sv39_pte_bit63_svnapot_rsv]#If Svnapot is not
 implemented, bit 63 remains reserved and must be zeroed by software for
 forward compatibility, or else a page-fault exception is raised.# Bits
 62-61 are reserved for use by the Svpbmt extension in
-<<svpbmt>>. [#norm:svpbmt_bit_62_61_reserved]#If Svpbmt is not implemented, bits 62-61 remain
+<<svpbmt>>. [#norm:sv39_pte_bits62_61_svpbmt_rsv]#If Svpbmt is not implemented, bits 62-61 remain
 reserved and must be zeroed by software for forward compatibility, or
-else a page-fault exception is raised.# [#norm:pte_reserved_bits_60_54]#Bits 60-54 are reserved for
+else a page-fault exception is raised.# [#norm:sv39_pte_bits60_54_rsv]#Bits 60-54 are reserved for
 future standard use and, until their use is defined by some standard
 extension, must be zeroed by software for forward compatibility.# If any
 of these bits are set, a page-fault exception is raised.
@@ -1856,7 +1856,7 @@ no longer suffices, the reserved bits that remain unallocated could be
 used to expand the physical address space.
 ====
 
-[[norm:sv39_page_alignment]]
+[[norm:sv39_leaf_page_sizes]]
 Any level of PTE may be a leaf PTE, so in addition to 4 KiB pages, Sv39
 supports 2 MiB _megapages_ and 1 GiB _gigapages_, each of which must be virtually and physically aligned to a boundary equal to its size. A page-fault exception is raised if the physical address is insufficiently aligned.
 
@@ -1873,7 +1873,7 @@ closely follows the design of Sv39, simply adding an additional level of
 page table, and so this chapter only details the differences between the
 two schemes.
 
-[#norm:sv48_support]#Implementations that support Sv48 must also support Sv39.#
+[#norm:sv48_requires_sv39]#Implementations that support Sv48 must also support Sv39.#
 
 [NOTE]
 ====
@@ -1887,7 +1887,7 @@ that assumes Sv39.
 
 Sv48 implementations support a 48-bit virtual address space, divided
 into pages. An Sv48 address is partitioned as shown in
-<<sv48va>>. [#norm:sv48_sign_extension_violation]#Instruction fetch addresses and load and
+<<sv48va>>. [#norm:sv48_va_signext]#Instruction fetch addresses and load and
 store effective addresses, which are 64 bits, must have bits 63–48 all
 equal to bit 47, or else a page-fault exception will occur.# The 36-bit
 VPN is translated into a 44-bit PPN via a four-level page table, while
@@ -1905,6 +1905,7 @@ include::images/bytefield/sv48pa.edn[]
 .Sv48 page table entry.
 include::images/bytefield/sv48pte.edn[]
 
+[[norm:sv48_leaf_page_sizes]]
 The PTE format for Sv48 is shown in <<sv48pte>>.
 Bits 63-54 and 9-0 have the same meaning as for Sv39. Any level of PTE
 may be a leaf PTE, so in addition to 4 KiB pages, Sv48 supports 2 MiB _megapages_,
@@ -1926,7 +1927,7 @@ insufficient. It closely follows the design of Sv48, simply adding an
 additional level of page table, and so this chapter only details the
 differences between the two schemes.
 
-[#norm:sv57_support]#Implementations that support Sv57 must also support Sv48.#
+[#norm:sv57_requires_sv48]#Implementations that support Sv57 must also support Sv48.#
 
 [NOTE]
 ====
@@ -1940,7 +1941,7 @@ that assumes Sv48.
 
 Sv57 implementations support a 57-bit virtual address space, divided
 into pages. An Sv57 address is partitioned as shown in
-<<sv57va>>. [#norm:sv57_sign_extension_violation]#Instruction fetch addresses and load and
+<<sv57va>>. [#norm:sv57_va_signext]#Instruction fetch addresses and load and
 store effective addresses, which are 64 bits, must have bits 63–57 all
 equal to bit 56, or else a page-fault exception will occur.# The 45-bit
 VPN is translated into a 44-bit PPN via a five-level page table, while
@@ -1958,6 +1959,7 @@ include::images/bytefield/sv57pa.edn[]
 .Sv57 page table entry.
 include::images/bytefield/sv57pte.edn[]
 
+[[norm:sv57_leaf_page_sizes]]
 The PTE format for Sv57 is shown in <<sv57pte>>.
 Bits 63–54 and 9–0 have the same meaning as for Sv39. Any level of PTE
 may be a leaf PTE, so in addition to 4 KiB pages, Sv57 supports 2 MiB _megapages_,

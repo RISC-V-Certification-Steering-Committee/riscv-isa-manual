@@ -231,38 +231,38 @@ normative_rule_definitions:
 
   - name: satp-mode_roz_sfence_illegal_param
     tags: ["norm:satp-mode_roz_sfence_illegal_param"]
- 
+
  # Sv32 mode selection
   - name: sv32_mode
     summary: Sv32 mode enables 32-bit paged virtual-memory system
     tags: ["norm:sv32_mode"]
-  
+
   # Sv32 support requirement
   - name: sv32_support
     summary: Sv32 supported when SXLEN=32
     tags: ["norm:sv32_support"]
-  
+
   # Virtual address space size
   - name: sv32_va_sz
     summary: Sv32 virtual address space is 32 bits
     tags: ["norm:sv32_va_sz"]
-  
+
   # Translation mechanism
   - name: sv32_translation
     summary: Sv32 uses two-level page table for address translation
     tags: ["norm:sv32_translation"]
-  
+
   # SV32 VPN-PPN size
   - name: sv32-vpn_ppn_sz
     summary: Sv32 VPN is 20 bits
     tags: ["norm:sv32-vpn_ppn_sz"]
-  
-  
+
+
   # Page offset handling
   - name: sv32_page_offset
     summary: Sv32 page offset is 12 bits and untranslated
     tags: ["norm:sv32_page_offset"]
-  
+
   # PMP check requirement
   - name: vm_pmp_check
     summary: Sv32 physical addresses checked using PMP structures
@@ -272,45 +272,45 @@ normative_rule_definitions:
   - name: sv32_pte_count
     summary: Sv32 page tables contain 1024 PTEs
     tags: ["norm:sv32_pte_count"]
-  
+
   - name: sv32_pte_sz
     summary: Sv32 PTE is 4 bytes
     tags: ["norm:sv32_pte_sz"]
-  
+
   - name: sv32_pt_alignment
     summary: Sv32 page table is page-sized and page-aligned
     tags: ["norm:sv32_pt_alignment"]
-  
+
   - name: sv32_satp_root
     summary: Root page table PPN stored in satp register
     tags: ["norm:sv32_satp_root"]
-  
+
   # PTE format and fields
   - name: pte-v_op
     summary: V bit indicates PTE validity
     tags: ["norm:sv32_pte-v_op"]
-  
+
   - name: pte-rwx_op
     summary: R, W, X bits indicate read, write, execute permissions
     tags: ["norm:sv32_pte-rwx_op"]
-  
+
   - name: pte_leaf_pointer
     summary: PTE with R=W=X=0 is pointer, otherwise leaf
     tags: ["norm:sv32_pte_leaf_pointer"]
-  
+
   - name: pte_w_requires_r
     summary: Writable pages must be marked readable
     tags: ["norm:sv32_pte_w_requires_r"]
-  
+
   # Page fault exceptions
   - name: page_fault_fetch
     summary: Fetch from non-executable page raises fetch page-fault
     tags: ["norm:sv32_page_fault_fetch"]
-  
+
   - name: page_fault_load
     summary: Load from non-readable page raises load page-fault
     tags: ["norm:sv32_page_fault_load"]
-  
+
   - name: page_fault_store
     summary: Store to non-writable page raises store page-fault
     tags: ["norm:sv32_page_fault_store"]
@@ -318,42 +318,42 @@ normative_rule_definitions:
   - name: page_fault_store_amo
     summary: Attempting AMO on unreadable page causes store page fault.
     tags: ["norm:page_fault_store_amo"]
-  
+
   # PTE U bit
   - name: pte-u_op
     summary: U bit controls user-mode page accessibility
     tags: ["norm:sv32_pte-u_op"]
-  
+
   # sstatus.SUM bit operation
   - name: sstatus-sum_op
     summary: SUM bit allows supervisor access to user pages
     tags: ["norm:sstatus-sum_op"]
-  
+
   # PTE G bit
   - name: pte-g_op
     summary: G bit designates global mappings in all address spaces
     tags: ["norm:sv32_pte-g_op"]
-  
+
   - name: pte-g_nonleaf
     summary: Non-leaf PTE G bit implies all subsequent mappings are global
     tags: ["norm:sv32_pte-g_nonleaf"]
-  
+
   # PTE RSW field
   - name: pte-rsw_op
     summary: RSW field reserved for supervisor software, ignored by implementation
     tags: ["norm:sv32_pte-rsw_op"]
-  
+
   # PTE A bit
   - name: pte-a_op
     summary: A bit indicates page has been read, written, or fetched from
     tags: ["norm:sv32_pte-a_op"]
-  
+
   # PTE D bit
   - name: pte-d_op
     summary: D bit indicates page has been written
     tags: ["norm:sv32_pte-d_op"]
-  
-  
+
+
   # A/D bit behavior when Svade is implemented
   - name: pte_ad_svade_param
     summary: With Svade, page-fault raised when A or D bit needs setting
@@ -367,109 +367,109 @@ normative_rule_definitions:
     tags: ["norm:norm:pte-a_update_nosvade_param]"]
     description: "When Svade extension is not implemented (SVADE=false)"
     kind: parameter
-  
+
   # A bit automatic update (when Svade not implemented)
   - name: pte-ad_update_nosvade_param
     summary: Without Svade, A and D bit set automatically on page access
     tags: ["norm:pte-a_update_nosvade_param"]
     description: "Applies when SVADE extension is disabled"
     kind: parameter
-    
+
   # G-stage implicit access
   - name: gstage_implicit_access
     summary: G-stage pages may be accessed by VS-level memory management accesses
     tags: ["norm:gstage_implicit_access"]
-    
+
   # Two-stage address translation PTE updates
   - name: gstage_vs_pte_update
     summary: Two-stage translation may update both VS-stage and G-stage PTEs
     tags: ["norm:gstage_vs_pte_update"]
-  
+
   # PTE update atomicity
   - name: pte_update_atomic
     summary: PTE updates must be atomic with respect to other PTE accesses
     tags: ["norm:sv32_pte_update_atomic"]
-  
+
   # A bit speculative updates
   - name: pte-a_speculative
     summary: A bit updates may be speculative
     tags: ["norm:sv32_pte-a_speculative"]
-  
+
   # D bit exact updates
   - name: pte-d_exact
     summary: D bit updates must be exact and non-speculative
     tags: ["norm:sv32_pte-d_exact"]
-  
+
   # G-stage D bit updates from VS access
   - name: gstage_pte-d_vs_access
     summary: G-stage D bit may be updated by VS-stage PTE access
     tags: ["norm:gstage_pte-d_vs_access"]
-  
+
   # PTE update memory ordering
   - name: sv32_pte_update_order
     summary: PTE update must appear before causing memory access in global order
     tags: ["norm:sv32_pte_update_order"]
-  
+
   # PTE update FENCE ordering
   - name: sv32_pte_update_fence
     summary: FENCE and acquire/release bits order PTE updates
     tags: ["norm:sv32_pte_update_fence"]
-  
+
   # PTE update not atomic with memory access
   - name: sv32_pte_update_not_atomic_access
     summary: PTE update not required to be atomic with causing memory access
     tags: ["norm:sv32_pte_update_not_atomic_access"]
-  
+
   # A/D bit updates with trap
   - name: sv32_pte_ad_trap
     summary: Trap may occur after A/D update but before memory access
     tags: ["norm:sv32_pte_ad_trap"]
-  
+
   # Memory access must follow PTE update
   - name: sv32_pte_update_before_access
     summary: Memory access must not occur before PTE update is globally visible
     tags: ["norm:sv32_pte_update_before_access"]
-  
+
   # Page table location requirements
   - name: sv32_pt_location
     summary: Page tables must be in memory with write access and RsrvEventual PMA
     tags: ["norm:sv32_pt_location"]
-  
+
   # Uniform PTE update scheme
   - name: multihart_pte_update_scheme
     summary: All harts must use same PTE-update scheme
     tags: ["norm:sv32_pte_update_scheme"]
-  
+
   # Megapage support
   - name: sv32_megapage_support
     summary: Sv32 supports 4 MiB megapages
     tags: ["norm:sv32_megapage_support"]
-  
+
   # Megapage alignment
   - name: sv32_megapage_alignment
     summary: Megapages must be aligned to 4 MiB boundary
     tags: ["norm:sv32_megapage_alignment"]
-  
+
   # Misaligned megapage page fault
   - name: sv32_page_fault_misaligned
     summary: Page-fault raised if physical address insufficiently aligned
     tags: ["norm:sv32_page_fault_misaligned"]
-  
+
   # Non-leaf PTE reserved bits
   - name: sv32_pte_nonleaf_rsv
     summary: Non-leaf PTE D, A, U bits reserved for future standard use
     tags: ["norm:sv32_pte_nonleaf_rsv"]
-  
+
   # Non-leaf PTE software clearing
   - name: sv32_pte_nonleaf_dauclear
     summary: Reserved non-leaf PTE D,A, and U bits must be cleared by software
     tags: ["norm:sv32_pte_nonleaf_clear"]
-  
+
   # LR/SC reservation within page
   - name: sv32_lrsc_reservation
     summary: LR/SC reservation must lie within single 4 KiB physical page
     tags: ["norm:sv32_lrsc_reservation"]
-  
+
   - name: sv32_pte_access_fault_pma_pmp
     summary: Access fault exception on violation of pma/pmp check.
     tags: ["norm:sv32_pte_access_fault_pma_pmp"]
@@ -510,7 +510,7 @@ normative_rule_definitions:
   - name: pte_store_pma_pmp_check
     tags: ["norm:pte_store_pma_pmp_check"]
 
-  
+
   - name: pte_ad_store_pma_pmp_fault
     summary: If a store to a pte violates pmp/pma check, raise access-fault.
     tags: ["norm:pte_ad_store_pma_pmp_fault"]
@@ -531,22 +531,22 @@ normative_rule_definitions:
   - name: sv32_translation_success
     summary: Translation successful after all checks pass
     tags: ["norm:sv32_translation_success"]
-  
+
   # Page offset translation
   - name: sv32_pa_pgoff
     summary: Physical page offset equals virtual page offset
     tags: ["norm:sv32_pa_pgoff"]
-  
+
   # Superpage address construction
   - name: sv32_pa_superpage
     summary: Superpage lower PPN bits come from VPN
     tags: ["norm:sv32_pa_superpage"]
-  
+
   # PPN translation
   - name: sv32_pa_ppn
     summary: Physical PPN comes from PTE PPN
     tags: ["norm:sv32_pa_ppn"]
-  
+
   # Implicit access width
   - name: sv32_implicit_access_width
     summary: Implicit accesses to page tables use width PTESIZE
@@ -571,55 +571,62 @@ normative_rule_definitions:
   - name: sv32_speculative_behavior
     summary: Speculative executions behave like non-speculative with exceptions
     tags: ["norm:sv32_speculative_behavior"]
-  
+
   - name: sv32_speculative_no_d
     summary: Speculative execution must not set dirty bit
     tags: ["norm:sv32_speculative_no_d"]
-  
+
   - name: sv32_speculative_no_exception
     summary: Speculative execution must not trigger exception
     tags: ["norm:sv32_speculative_no_exception"]
-  
+
   - name: sv32_speculative_no_invalid_cache
     summary: Speculative execution must not create cache entries that would be invalidated by prior SFENCE.VMA
     tags: ["norm:sv32_speculative_no_invalid_cache"]
 
-  - name: addr_sign_extension_violation
+  - name: sv39_va_signext_fault
     summary: Instruction fetch and memory access addresses must have bits 63–39 equal to bit 38 or cause a page-fault exception.
-    tags: ["norm:addr_sign_extension_violation"]
+    tags: ["norm:sv39_va_signext_fault"]
 
-  - name: page_table_alignment
-    summary: Page table must be aligned to a page boundary.
-    tags: ["norm:page_table_alignment"]
+  - name: sv39_pt_alignment
+    tags: ["norm:sv39_pt_alignment"]
 
-  - name: svnapot_bit63_reserved
+  - name: sv39_pte_bit63_svnapot_rsv
     summary: Bit 63 must be zeroed by software if Svnapot is not implemented.
-    tags: ["norm:svnapot_bit63_reserved"]
+    tags: ["norm:sv39_pte_bit63_svnapot_rsv"]
 
-  - name: svpbmt_bit_62_61_reserved
+  - name: sv39_pte_bits62_61_svpbmt_rsv
     summary: Bit 63 must be zeroed by software if Svpbmt is not implemented.
-    tags: ["norm:svpbmt_bit_62_61_reserved"]
+    tags: ["norm:sv39_pte_bits62_61_svpbmt_rsv"]
 
-  - name: pte_reserved_bits_60_54
+  - name: sv39_pte_bits60_54_rsv
     summary: Bit 54 to 60 are reserved for future use.
-    tags: ["norm:pte_reserved_bits_60_54"]
+    tags: ["norm:sv39_pte_bits60_54_rsv"]
 
-  - name: sv39_page_alignment
+  - name: sv39_leaf_page_sizes
     summary: Pages must be virtually and physically aligned to boundary equal to its size.
-    tags: ["norm:sv39_page_alignment"]
+    tags: ["norm:sv39_leaf_page_sizes"]
 
-  - name: sv48_support
+  - name: sv48_requires_sv39
     summary: sv48 cannot be implemented without implementing sv39.
-    tags: ["norm:sv48_support"]
+    tags: ["norm:sv48_requires_sv39"]
 
-  - name: sv48_sign_extension_violation
+  - name: sv48_va_signext
     summary: Bits 48 to 63 must be equal to bit 47.
-    tags: ["norm:sv48_sign_extension_violation"]
+    tags: ["norm:sv48_va_signext"]
 
-  - name: sv57_support
+  - name: sv48_leaf_page_sizes
+    summary: Sv48 supports 4 KiB, 2 MiB, 1 GiB, and 512 GiB leaf pages with size alignment
+    tags: ["norm:sv48_leaf_page_sizes"]
+
+  - name: sv57_requires_sv48
     summary: sv 57 cannot be implemented without implementing sv48.
-    tags: ["norm:sv57_support"]
+    tags: ["norm:sv57_requires_sv48"]
 
-  - name: sv57_sign_extension_violation
+  - name: sv57_leaf_page_sizes
+    summary: Sv57 supports 4 KiB, 2 MiB, 1 GiB, 512 GiB, and 256 TiB leaf pages with size alignment
+    tags: ["norm:sv57_leaf_page_sizes"]
+
+  - name: sv57_va_signext
     summary: Bits 57 to 63 must be equal to bit 56.
-    tags: ["norm:sv57_sign_extension_violation"]
+    tags: ["norm:sv57_va_signext"]
