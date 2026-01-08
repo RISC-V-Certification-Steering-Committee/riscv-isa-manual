@@ -11,8 +11,6 @@ normative_rule_definitions:
   # M-mode general
   - name: M_highest_priv_mode
     tag: "norm:M_highest_priv_mode"
-  - name: M_mode_at_reset
-    tag: "norm:M_mode_at_reset"
   - name: M_access_all_lower_priv_CSRs
     tag: "norm:M_access_all_lower_priv_CSRs"
 
@@ -50,7 +48,7 @@ normative_rule_definitions:
     tag: "norm:misa_extensions_warl_op"
     kind: parameter
   - name: misa_extensions_rst
-    tag: "norm:misa_extensions_rst"
+    tags: ["norm:misa_extensions_rst1", "norm:misa_extensions_rst2"]
   - name: misa_extensions_disabling
     tag: "norm:misa_extensions_disabling"
   - name: misa_extensions_impl_def
@@ -138,6 +136,8 @@ normative_rule_definitions:
     tag: "norm:mstatush_enc"
   - names: [mstatus_mie_op, mstatus_sie_op]
     tags: ["norm:mstatus_mie_sie_op1", "norm:mstatus_mie_sie_op2"]
+  - names: [mstatus_mie_rst, mstatus_mprv_rst]
+    tag: "norm:mstatus_mie_mprv_rst"
   - name: mstatus_mie_clr_by_mdt
     tag: "norm:mstatus_mie_clr_by_mdt"
   - name: mstatus_mie_clr_by_mdt_rv64
@@ -230,6 +230,8 @@ normative_rule_definitions:
     tag: "norm:mstatus_mstatush_xbe_warl"
   - name: mstatus_mbe_op
     tag: "norm:mstatus_mbe_op"
+  - names: [mstatus_mbe_rst, mstatush_mbe_rst]
+    tag: "norm:mstatus_mstatush_mbe_rst"
   - name: mstatus_sbe_op
     tag: "norm:mstatus_sbe_op"
   - name: mstatus_sbe_implicit
@@ -1071,23 +1073,89 @@ normative_rule_definitions:
   - name: mtimecmp_rv64_wr
     tag: "norm:mtime_mtimecmp_rv64_wr"
 
-  # Misc
-  - names: [SXLEN, UXLEN]
-    tags: ["norm:sxlen_uxlen", "norm:mstatus_sxl_uxl_sxlen_uxlen_mxlen32"]
+  # ECALL/EBREAK instruction
+  - names: [ecall_epc_value, ebreak_epc_value]
+    tag: "norm:ecall_ebreak_epc_value"
+  - names: [ecall_no_minstret_inc, ebreak_no_minstret_inc]
+    tag: "norm:ecall_ebreak_no_minstret_inc"
+
+  # MRET/SRET instructions (xRET refers to either)
+  - names: [mret_enc, sret_enc]
+    tag: "norm:xret_enc_img"
+  - name: mret_presence
+    tag: "norm:mret_presence"
+  - name: sret_presence
+    tag: "norm:sret_presence"
+  - name: sret_ill_inst_exc_rst
+    tag: "norm:sret_ill_inst_exc_rst"
+  - name: sret_in_M-mode
+    tag: "norm:xret_in_higher_mode"
+  - names: [mret_in_S-mode, mret_in_U-mode, sret_in_U-mode]
+    tag: "norm:xret_in_lower_mode"
+  - names: [mret_op, sret_op]
+    tag: "norm:xret_op"
+  - names: [mret_clr_lr_resv, sret_clr_lr_resv]
+    tag: "norm:xret_clr_lr_resv"
     kind: parameter
-  - name: xlen_reduction_op
-    tag: "norm:xlen_reduction_op"
-  - name: xlen_reduction_hint_op
-    tags: ["norm:xlen_reduction_hint_op1", "norm:xlen_reduction_hint_op2"]
+
+  # WFI instruction
+  - name: wfi_op
+    tag: "norm:wfi_op"
+  - name: wfi_enc
+    tag: "norm:wfi_enc_img"
+  - name: wfi_all_privileged_modes
+    tag: "norm:wfi_all_privileged_modes"
+  - name: wfi_opt_U-mode
+    tag: "norm:wfi_opt_U-mode"
     kind: parameter
-  - name: endianness_inst_fetch_little
-    tag: "norm:endianness_inst_fetch_little"
-  - name: reset_addr
-    tag: "norm:reset_nmi_addr"
+  - name: wfi_ill_exc
+    tag: "norm:wfi_ill_exc"
+  - name: wfi_mepc_val
+    tag: "norm:wfi_mepc_val"
+  - name: wfi_resume_reason
+    tag: "norm:wfi_resume_reason"
     kind: parameter
-  - name: nmi_addr
-    tag: "norm:reset_nmi_addr"
+  - name: wfi_intr_dis
+    tag: "norm:wfi_intr_dis"
+  - name: wfi_unaffected_conditions
+    tag: "norm:wfi_unaffected_conditions"
+  - name: wfi_no_intr_pc
+    tag: "norm:wfi_no_intr_pc"
+
+  # Reset (not defined elsewhere)
+  - name: M-mode_at_rst
+    tags: ["norm:M-mode_at_rst1", "norm:M-mode_at_rst2"]
+  - name: ld_rsv_rst
+    tag: "norm:ld_rsv_rst"
+  - name: pc_rst
+    tag: "norm:pc_rst"
+  - name: mcause_rst_val
+    tags: ["norm:mcause_rst1_val", "norm:mcause_rst2_val"]
     kind: parameter
+  - name: mcause_rst_zero
+    tag: "norm:mcause_rst_zero"
+  - name: pmp_A_L_rst
+    tag: "norm:pmp_A_L_rst"
+    kind: parameter
+  - name: hgatp_vsatp_mode_rst
+    tag: "norm:hgatp_vsatp_mode_rst"
+  - name: mnstatus_nmie_rst
+    tag: "norm:mnstatus_nmie_rst"
+  - name: warl_rst
+    tag: "norm:warl_rst"
+  - name: mseccfg_mlpe_rst
+    tag: "norm:mseccfg_mlpe_rst"
+  - name: mseccfg_mml_mmwp_rlb_rst
+    tag: "norm:mseccfg_mml_mmwp_rlb_rst"
+    kind: parameter
+  - name: mseccfg_useed_sseed_rst
+    tag: "norm:mseccfg_useed_sseed_rst"
+    kind: parameter
+  - name: mcause_rst_alias_ok
+    tag: "norm:mcause_rst_alias_ok"
+    kind: parameter
+
+  # PMAs (Physical Memory Attributes)
 
   # Traps - Mechanism for handling exceptions and interrupts)
   - name: trap_exp
@@ -1143,3 +1211,29 @@ normative_rule_definitions:
     tag: "norm:intr_sei_op"
   - name: intr_M-mode_pri
     tag: "norm:intr_M-mode_pri"
+
+  # Non-maskable interrupts (NMI)
+  - name: nmi_op
+    tag: "norm:nmi_op"
+  - name: nmi_mcause_val
+    tags: ["norm:nmi_mcause_val1", "norm:nmi_mcause_val2"]
+    kind: parameter
+  - name: nmi_mcause_restrictions
+    tag: "norm:nmi_mcause_restrictions"
+  - name: nmi_no_rst
+    tag: "norm:nmi_no_rst"
+
+  # Misc
+  - names: [SXLEN, UXLEN]
+    tags: ["norm:sxlen_uxlen", "norm:mstatus_sxl_uxl_sxlen_uxlen_mxlen32"]
+    kind: parameter
+  - name: xlen_reduction_op
+    tag: "norm:xlen_reduction_op"
+  - name: xlen_reduction_hint_op
+    tags: ["norm:xlen_reduction_hint_op1", "norm:xlen_reduction_hint_op2"]
+    kind: parameter
+  - name: endianness_inst_fetch_little
+    tag: "norm:endianness_inst_fetch_little"
+  - names: [rst_addr, nmi_addr]
+    tag: "norm:rst_and_nmi_addr"
+    kind: parameter

@@ -3,7 +3,7 @@
 
 This chapter describes the machine-level operations available in
 [#norm:M_highest_priv_mode]#machine-mode (M-mode), which is the highest privilege mode in a RISC-V
-hart.# [#norm:M_mode_at_reset]#M-mode is used for low-level access to a hardware platform and
+hart.# [#norm:M-mode_at_rst1]#M-mode is used for low-level access to a hardware platform and
 is the first mode entered at reset.# M-mode can also be used to implement
 features that are too difficult or expensive to implement in hardware
 directly. The RISC-V machine-level ISA contains a common core that is
@@ -70,7 +70,7 @@ bit 25 which encodes "Z").#
 and [#norm:misa_e_op]#the "E" bit will be set for RV32E and RV64E.#
 [#norm:misa_extensions_warl_op]#The Extensions field is a *WARL* field that can contain writable bits where the
 implementation allows the supported ISA to be modified.#
-[#norm:misa_extensions_rst]#At reset, the Extensions field shall contain the maximal set of supported extensions,
+[#norm:misa_extensions_rst1]#At reset, the Extensions field shall contain the maximal set of supported extensions,
 and "I" shall be selected over "E" if both are available.#
 
 [[norm:misa_extensions_disabling]]
@@ -1269,7 +1269,7 @@ implemented without a hardware adder circuit.
 
 ***
 
-[#norm:reset_nmi_addr]#Reset and NMI vector locations are given in a platform specification.#
+[#norm:rst_and_nmi_addr]#Reset and NMI vector locations are given in a platform specification.#
 ====
 
 ==== Machine Trap Delegation (`medeleg` and `mideleg`) Registers
@@ -2638,6 +2638,7 @@ and `timeh` eventually, but not necessarily immediately.#
 
 include::images/wavedrom/mm-env-call.edn[]
 
+[[norm:ecall_op2]]
 The ECALL instruction is used to make a request to the supporting
 execution environment. When executed in U-mode, S-mode, or M-mode, it
 generates an environment-call-from-U-mode exception,
@@ -2652,6 +2653,7 @@ typical use case for Unix-like operating systems is to delegate to
 S-mode the environment-call-from-U-mode exception but not the others.
 ====
 
+[[norm:ebreak_op2]]
 The EBREAK instruction is used by debuggers to cause control to be
 transferred back to a debugging environment.
 Unless overridden by an external debug environment, EBREAK raises
@@ -2664,11 +2666,12 @@ in Volume I of this manual, the C.EBREAK instruction performs the same
 operation as the EBREAK instruction.
 ====
 
-ECALL and EBREAK cause the receiving privilege mode’s `epc` register to
+[#norm:ecall_ebreak_epc_value]#ECALL and EBREAK cause the receiving privilege mode’s `epc` register to
 be set to the address of the ECALL or EBREAK instruction itself, _not_
-the address of the following instruction. As ECALL and EBREAK cause
+the address of the following instruction.#
+[#norm:ecall_ebreak_no_minstret_inc]#As ECALL and EBREAK cause
 synchronous exceptions, they are not considered to retire, and should
-not increment the `minstret` CSR.
+not increment the `minstret` CSR.#
 
 [[otherpriv]]
 ==== Trap-Return Instructions
@@ -2676,24 +2679,28 @@ not increment the `minstret` CSR.
 Instructions to return from trap are encoded under the PRIV minor
 opcode.
 
+[[norm:xret_enc_img]]
 include::images/wavedrom/trap-return.edn[]
 
 To return after handling a trap, there are separate trap return
-instructions per privilege level, MRET and SRET. MRET is always
-provided. SRET must be provided if supervisor mode is supported, and
-should raise an illegal-instruction exception otherwise. SRET should
-also raise an illegal-instruction exception when TSR=1 in `mstatus`, as
-described in <<virt-control>>. An __x__RET instruction
-can be executed in privilege mode _x_ or higher, where executing a
-lower-privilege __x__RET instruction will pop the relevant lower-privilege
-interrupt enable and privilege mode stack. Attempting to execute an __x__RET
+instructions per privilege level, MRET and SRET.
+[#norm:mret_presence]#MRET is always provided.#
+[#norm:sret_presence]#SRET must be provided if supervisor mode is supported, and
+should raise an illegal-instruction exception otherwise.#
+[#norm:sret_ill_inst_exc_rst]#SRET should also raise an illegal-instruction exception when TSR=1
+in `mstatus`, as described in <<virt-control>>.#
+[#norm:xret_in_higher_mode]#An __x__RET instruction can be executed in privilege mode _x_ or higher,
+where executing a lower-privilege __x__RET instruction will pop the relevant lower-privilege
+interrupt enable and privilege mode stack.#
+[#norm:xret_in_lower_mode]#Attempting to execute an __x__RET
 instruction in a mode less privileged than _x_ will raise an
-illegal-instruction exception. In addition to manipulating
-the privilege stack as described in <<privstack>>,
-__x__RET sets the `pc` to the value stored in the `__x__epc` register.
+illegal-instruction exception.#
 
-If the A extension is supported, the __x__RET instruction is allowed to
-clear any outstanding LR address reservation but is not required to.
+[#norm:xret_op]#In addition to manipulating the privilege stack as described in <<privstack>>,
+__x__RET sets the `pc` to the value stored in the `__x__epc` register.#
+
+[#norm:xret_clr_lr_resv]#If the A extension is supported, the __x__RET instruction is allowed to
+clear any outstanding LR address reservation but is not required to.#
 Trap handlers should explicitly clear the reservation if required (e.g.,
 by using a dummy SC) before executing the __x__RET.
 
@@ -2706,21 +2713,22 @@ impossible to single-step through LR/SC sequences using a debugger.
 [[wfi]]
 ==== Wait for Interrupt
 
-The Wait for Interrupt instruction (WFI) informs the
+[#norm:wfi_op]#The Wait for Interrupt instruction (WFI) informs the
 implementation that the current hart can be stalled until an interrupt
 might need servicing. Execution of the WFI instruction can also be used
 to inform the hardware platform that suitable interrupts should
-preferentially be routed to this hart. WFI is available in all
-privileged modes, and optionally available to U-mode. This instruction
-may raise an illegal-instruction exception when TW=1 in `mstatus`, as
-described in <<virt-control>>.
+preferentially be routed to this hart.#
+[#norm:wfi_all_privileged_modes]#WFI is available in all privileged modes#, and
+[#norm:wfi_opt_U-mode]#optionally available to U-mode.#
+[#norm:wfi_ill_exc]#This instruction may raise an illegal-instruction exception when TW=1 in `mstatus`, as
+described in <<virt-control>>.#
 
+[[norm:wfi_enc_img]]
 include::images/wavedrom/wfi.edn[]
 
-If an enabled interrupt is present or later becomes present while the
+[#norm:wfi_mepc_val]#If an enabled interrupt is present or later becomes present while the
 hart is stalled, the interrupt trap will be taken on the following
-instruction, i.e., execution resumes in the trap handler and `mepc` =
-`pc` + 4.
+instruction, i.e., execution resumes in the trap handler and `mepc` = `pc` + 4.#
 
 [NOTE]
 ====
@@ -2729,9 +2737,9 @@ return from the trap handler will execute code after the WFI
 instruction.
 ====
 
-Implementations are permitted to resume execution for any reason, even if an
-enabled interrupt has not become pending.  Hence, a legal implementation is to
-simply implement the WFI instruction as a NOP.
+[#norm:wfi_resume_reason]#Implementations are permitted to resume execution for any reason, even if an
+enabled interrupt has not become pending.
+Hence, a legal implementation is to simply implement the WFI instruction as a NOP.#
 
 [NOTE]
 ====
@@ -2741,8 +2749,8 @@ idle loop containing the WFI, and on a simple return from the handler,
 the idle loop will resume execution.
 ====
 
-The WFI instruction can also be executed when interrupts are disabled.
-The operation of WFI must be unaffected by the global interrupt bits in
+[#norm:wfi_intr_dis]#The WFI instruction can also be executed when interrupts are disabled.#
+[#norm:wfi_unaffected_conditions]#The operation of WFI must be unaffected by the global interrupt bits in
 `mstatus` (MIE and SIE) and the delegation register `mideleg` (i.e.,
 the hart must resume if a locally enabled interrupt becomes pending,
 even if it has been delegated to a less-privileged mode), but should
@@ -2750,12 +2758,12 @@ honor the individual interrupt enables (e.g, MTIE) (i.e.,
 implementations should avoid resuming the hart if the interrupt is
 pending but not individually enabled). WFI is also required to resume
 execution for locally enabled interrupts pending at any privilege level,
-regardless of the global interrupt enable at each privilege level.
+regardless of the global interrupt enable at each privilege level.#
 
-If the event that causes the hart to resume execution does not cause an
-interrupt to be taken, execution will resume at `pc` + 4, and software
-must determine what action to take, including looping back to repeat the
-WFI if there was no actionable event.
+[#norm:wfi_no_intr_pc]#If the event that causes the hart to resume execution
+does not cause an interrupt to be taken, execution will resume at `pc` + 4#,
+and software must determine what action to take, including looping back
+to repeat the WFI if there was no actionable event.
 
 [NOTE]
 ====
@@ -2796,35 +2804,37 @@ include::images/bytefield/cust-sys-instr.edn[]
 [[reset]]
 === Reset
 
-Upon reset, a hart’s privilege mode is set to M. The `mstatus` fields
-MIE and MPRV are reset to 0. If little-endian memory accesses are
-supported, the `mstatus`/`mstatush` field MBE is reset to 0. The `misa`
-register is reset to enable the maximal set of supported extensions,
-as described in <<misa>>.  For
-implementations with the "A" standard extension, there is no valid
-load reservation. The `pc` is set to an implementation-defined reset
-vector. The `mcause` register is set to a value indicating the cause of
-the reset. Writable PMP registers’ A and L fields are set to 0, unless
+[#norm:M-mode_at_rst2]#Upon reset, a hart’s privilege mode is set to M.#
+[#norm:mstatus_mie_mprv_rst]#The `mstatus` fields MIE and MPRV are reset to 0.#
+[#norm:mstatus_mstatush_mbe_rst]#If little-endian memory accesses are supported, the `mstatus`/`mstatush` field MBE is reset to 0.#
+[#norm:misa_extensions_rst2]#The `misa` register is reset to enable the maximal set of supported
+extensions, as described in <<misa>>.#
+[#norm:ld_rsv_rst]#For implementations with the "A" standard extension, there is no valid
+load reservation.#
+[#norm:pc_rst]#The `pc` is set to an implementation-defined reset vector.#
+[#norm:mcause_rst1_val]#The `mcause` register is set to a value indicating the cause of the reset.#
+[#norm:pmp_A_L_rst]#Writable PMP registers’ A and L fields are set to 0, unless
 the platform mandates a different reset value for some PMP registers’ A
-and L fields. If the hypervisor extension is implemented, the
-`hgatp`.MODE and `vsatp`.MODE fields are reset to 0. If the Smrnmi
-extension is implemented, the `mnstatus`.NMIE field is reset to 0. No
- *WARL* field contains an illegal value. If the Zicfilp extension is
-implemented, the `mseccfg`.MLPE field is reset to 0. All other hart
-state is UNSPECIFIED.
+and L fields.#
+[#norm:hgatp_vsatp_mode_rst]#If the hypervisor extension is implemented, the
+`hgatp`.MODE and `vsatp`.MODE fields are reset to 0.#
+[#norm:mnstatus_nmie_rst]#If the Smrnmi extension is implemented, the `mnstatus`.NMIE field is reset to 0.#
+[#norm:warl_rst]#No *WARL* field contains an illegal value.#
+[#norm:mseccfg_mlpe_rst]#If the Zicfilp extension is implemented, the `mseccfg`.MLPE field is reset to 0.#
+All other hart state is UNSPECIFIED.
 
-The `MML`, `MMWP`, and `RLB` fields of the `mseccfg` register are set to 0,
-unless the platform mandates a different reset value.
+[#norm:mseccfg_mml_mmwp_rlb_rst]#The `MML`, `MMWP`, and `RLB` fields of the `mseccfg` register
+are set to 0, unless the platform mandates a different reset value.#
 
-The `mcause` values after reset have implementation-specific
-interpretation, but the value 0 should be returned on implementations
+[#norm:mcause_rst2_val]#The `mcause` values after reset have implementation-specific
+interpretation#, but [#norm:mcause_rst_zero]#the value 0 should be returned on implementations
 that do not distinguish different reset conditions. Implementations that
 distinguish different reset conditions should only use 0 to indicate the
-most complete reset.
+most complete reset.#
 
-The `USEED` and `SSEED` fields of the `mseccfg` CSR must have defined
-reset values. The system must not allow them to be in an undefined state
-after reset.
+[#norm:mseccfg_useed_sseed_rst]#The `USEED` and `SSEED` fields of the `mseccfg` CSR
+must have defined reset values. The system must not allow them to be in an undefined state
+after reset.#
 
 [NOTE]
 ====
@@ -2833,8 +2843,8 @@ external hard reset, brownout detected, watchdog timer elapse,
 sleep-mode wake-up), which machine-mode software and debuggers may wish
 to distinguish.
 
-`mcause` reset values may alias `mcause` values following synchronous
-exceptions. There should be no ambiguity in this overlap, since on reset
+To avoid ambiguity, [#norm:mcause_rst_alias_ok]#`mcause` reset values may alias `mcause` values
+following synchronous exceptions#. There should be no ambiguity in this overlap, since on reset
 the `pc` is typically set to a different value than on other traps.
 ====
 
@@ -2842,20 +2852,20 @@ the `pc` is typically set to a different value than on other traps.
 === Non-Maskable Interrupts
 
 Non-maskable interrupts (NMIs) are only used for hardware error
-conditions, and cause an immediate jump to an implementation-defined NMI
+conditions, and [#norm:nmi_op]#cause an immediate jump to an implementation-defined NMI
 vector running in M-mode regardless of the state of a hart’s interrupt
 enable bits. The `mepc` register is written with the virtual address of
-the instruction that was interrupted, and `mcause` is set to a value
-indicating the source of the NMI. The NMI can thus overwrite state in an
+the instruction that was interrupted,# and [#norm:nmi_mcause_val1]#`mcause` is set to a value
+indicating the source of the NMI.# The NMI can thus overwrite state in an
 active machine-mode interrupt handler.
 
-The values written to `mcause` on an NMI are implementation-defined. The
-high Interrupt bit of `mcause` should be set to indicate that this was
-an interrupt. An Exception Code of 0 is reserved to mean "unknown
+[#norm:nmi_mcause_val2]#The values written to `mcause` on an NMI are implementation-defined.#
+[#norm:nmi_mcause_restrictions]#The high Interrupt bit of `mcause` should be set to indicate
+that this was an interrupt. An Exception Code of 0 is reserved to mean "unknown
 cause" and implementations that do not distinguish sources of NMIs via
-the `mcause` register should return 0 in the Exception Code.
+the `mcause` register should return 0 in the Exception Code.#
 
-Unlike resets, NMIs do not reset processor state, enabling diagnosis,
+Unlike resets, [#norm:nmi_no_rst]#NMIs do not reset processor state#, enabling diagnosis,
 reporting, and possible containment of the hardware error.
 
 [[pma]]
