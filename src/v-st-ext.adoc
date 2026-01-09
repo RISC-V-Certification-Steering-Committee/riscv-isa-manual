@@ -11,6 +11,7 @@ domains._
 
 === Introduction
 
+
 <<sec-vector-extensions>> lists the standard
 vector extensions and which instructions and element widths are
 supported by each extension.
