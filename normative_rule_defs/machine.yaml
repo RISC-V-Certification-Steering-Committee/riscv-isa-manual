@@ -1237,3 +1237,149 @@ normative_rule_definitions:
   - names: [rst_addr, nmi_addr]
     tag: "norm:rst_and_nmi_addr"
     kind: parameter
+
+  # Physical Memory Protection (PMP)
+  - name: pmp_granularity_param
+    summary: Minimum PMP region granularity supported by the platform
+    tags: ["norm:pmp_granularity_param"]
+    kind: parameter
+    instances: [PMP_GRANULARITY_PARAM]
+
+  - name: pmp_mmode_only_regions
+    tags: ["norm:pmp_mmode_only_regions"]
+
+  - name: pmp_check_priv_modes
+    tags: ["norm:pmp_check_priv_modes"]
+
+  - name: pmp_check_pagetable_access
+    tags: ["norm:pmp_check_pagetable_access"]
+
+  - name: pmp_mmode_locking
+    tags: ["norm:pmp_mmode_locking"]
+
+  - name: pmp_violation_precise_trap
+    tags: ["norm:pmp_violation_precise_trap"]
+
+  - name: pmp_entry_structure
+    tags: ["norm:pmp_entry_structure"]
+
+  - name: pmp_csr_mode
+    tags: ["norm:pmp_csr_mode"]
+
+  - name: pmp_entry_count
+    summary: PMP supports up to 64 entries with allowed implementation counts and ordering rules
+    tags: ["norm:pmp_entry_count"]
+
+  - name: pmp_csrs_warl_access
+    summary: PMP CSRs are WARL, may read as zero, and are accessible only in M-mode
+    tags: ["norm:pmp_csrs_warl_access"]
+
+  - name: pmp_cfg_packing
+    summary: PMP configuration registers must be densely packed into CSRs
+    tags: ["norm:pmp_cfg_packing"]
+
+  - name: pmp_cfg_rv32_layout
+    summary: RV32 PMP configuration CSRs layout and mapping
+    tags: ["norm:pmp_cfg_rv32_layout"]
+
+  - name: pmp_cfg_rv64_layout
+    summary: RV64 PMP configuration CSRs layout using even-numbered CSRs
+    tags: ["norm:pmp_cfg_rv64_layout"]
+
+  - name: pmp_cfg_rv64_illegal
+    summary: Odd-numbered PMP configuration CSRs are illegal in RV64
+    tags: ["norm:pmp_cfg_rv64_illegal"]
+
+  - name: pmp_addr_registers
+    summary: PMP address registers are named pmpaddr0 through pmpaddr63
+    tags: ["norm:pmp_addr_registers"]
+
+  - name: pmp_addr_encoding
+    summary: PMP address registers encode physical address bits depending on XLEN
+    tags: ["norm:pmp_addr_encoding"]
+
+  - name: pmp_addr_warl
+    summary: PMP address registers are WARL due to optional physical address bits
+    tags: ["norm:pmp_addr_warl"]
+
+  - name: pmp_cfg_permissions
+    summary: PMP R, W, and X bits control read, write, and execute permissions
+    tags: ["norm:pmp_cfg_permissions"]
+
+  - name: pmp_rwx_warl
+    tags: ["norm:pmp_rwx_warl"]
+
+  - name: pmp_exec_fault
+    tags: ["norm:pmp_exec_fault"]
+
+  - name: pmp_load_fault
+    tags: ["norm:pmp_load_fault"]
+
+  - name: pmp_store_fault
+    tags: ["norm:pmp_store_fault"]
+
+  - name: pmp_a_field_encoding
+    tags: ["norm:pmp_a_field_encoding"]
+
+  - name: pmp_a_field_off
+    tags: ["norm:pmp_a_field_off"]
+
+  - name: pmp_a_field_napot_na4
+    tags: ["norm:pmp_a_field_napot_na4"]
+
+  - name: pmp_a_field_tor
+    tags: ["norm:pmp_a_field_tor"]
+
+  - name: pmp_napot_encoding_low_bits
+    tags: ["norm:pmp_napot_encoding_low_bits"]
+
+  - name: pmp_region_granularity_g
+    tags: ["norm:pmp_region_granularity_g"]
+
+  - name: pmp_na4_select_restriction
+    tags: ["norm:pmp_na4_select_restriction"]
+
+  - name: pmp_napot_addr_read_mask
+    tags: ["norm:pmp_napot_addr_read_mask"]
+
+  - name: pmp_tor_off_addr_read_mask
+    tags: ["norm:pmp_tor_off_addr_read_mask"]
+
+  - name: pmp_addr_retention_on_mode_change
+    tags: ["norm:pmp_addr_retention_on_mode_change"]
+
+  - name: pmp_l_bit_function
+    tags: ["norm:pmp_l_bit_function"]
+
+  - name: pmp_l_bit_write_protection
+    tags: ["norm:pmp_l_bit_write_protection"]
+
+  - name: pmp_l_bit_m_mode_enforcement
+    tags: ["norm:pmp_l_bit_m_mode_enforcement"]
+
+  - name: pmp_misaligned_access_behavior
+    tags: ["norm:pmp_misaligned_access_behavior"]
+
+  - name: pmp_entry_priority
+    tags: ["norm:pmp_entry_priority"]
+
+  - name: pmp_full_match_required
+    tags: ["norm:pmp_full_match_required"]
+
+  - name: pmp_rwx_check
+    tags: ["norm:pmp_rwx_check"]
+
+  - name: pmp_no_entry_match
+    tags: ["norm:pmp_no_entry_match"]
+
+  - name: pmp_access_fault_exception
+    tags: ["norm:pmp_access_fault_exception"]
+
+  - name: pmp_with_paging
+    tags: ["norm:pmp_with_paging"]
+
+  - name: pmp_speculative_translations
+    tags: ["norm:pmp_speculative_translations"]
+
+  - name: pmp_sfence_required
+    tags: ["norm:pmp_sfence_required"]
