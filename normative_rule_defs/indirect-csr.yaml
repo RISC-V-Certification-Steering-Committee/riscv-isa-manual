@@ -10,6 +10,12 @@ normative_rule_definitions:
 - name: csr_access
   tag: "norm:csr_access"
 
+- name: select_value_separate_address_space
+  tag: "norm:select_value_separate_address_space"
+
+- name: select_value_unrelated
+  tag: "norm:select_value_unrelated"
+
 - name: csr_alias
   tag: "norm:csr_alias"
 
@@ -18,6 +24,9 @@ normative_rule_definitions:
 
 - name: miselect_op
   tag: "norm:miselect_op"
+
+- name: miselect_value_range
+  tag: "norm:miselect_value_range"
 
 - name: miselect_WARL
   tag: "norm:miselect_WARL"
@@ -67,8 +76,11 @@ normative_rule_definitions:
 - name: VS_mode_virtual_inst_fault
   tag: "norm:VS_mode_virtual_inst_fault"
 
-- name: csr_access_control
-  tag: "norm:csr_access_control"
+- name: virtual_supervisor_level_csr_sz
+  tag: "norm:virtual_supervisor_level_csr_sz"
+
+- name: VS_S_csrs_access_control
+  tag: "norm:VS_S_csrs_access_control"
 
 - name: hypervisor_impl_csr_access_control
   tag: "norm:hypervisor_impl_csr_access_control"
