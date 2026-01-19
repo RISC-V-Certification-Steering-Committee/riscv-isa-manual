@@ -21,11 +21,23 @@ normative_rule_definitions:
 - name: count_overflow_trigger
   tags: ["norm:count_overflow_trigger"]
 
+- name: mhpmevent-OF_bit_Set
+  tags: ["norm:mhpmevent-OF_bit_Set"]
+
 - names: [mip-LCOFIP_op, sip-LCOFIP_op]
   tag: "norm:LCOFIP_op"
 
 - names: scountovf_op
   tag: "norm:scountovf_op"
 
-- names: scountovf_acc
-  tag: "norm:scountovf_acc"
+- names: scountovf_smode_read_access_control
+  tag: "norm:scountovf_smode_read_access_control"
+
+- names: scountovf_mmode_read_access
+  tag: "norm:scountovf_mmode_read_access"
+
+- names: scountovf_smode_read_access
+  tag: "norm:scountovf_smode_read_access"
+
+- names: scountovf_vsmode_read_access
+  tag: "norm:scountovf_vsmode_read_access"

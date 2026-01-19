@@ -82,8 +82,8 @@ The `mip`/`sip` LCOFIP and `mie`/`sie` LCOFIE bits are, respectively, the
 interrupt-pending and interrupt-enable bits for this interrupt.
 ('LCOFI' represents 'Local Count Overflow Interrupt'.)
 
-Generation of a count-overflow-interrupt request by an `hpmcounter` sets the
-associated OF bit.
+[#norm:mhpmevent-OF_bit_Set]#Generation of a count-overflow-interrupt request by an `hpmcounter` sets the
+associated OF bit.#
 [#norm:LCOFIP_op]#When an OF bit is set, it eventually, but not necessarily immediately, sets
 the LCOFIP bit in the `mip`/`sip` registers.#
 The LCOFIP bit is cleared by software before servicing the count overflow
@@ -122,10 +122,9 @@ quickly and easily determine which counter(s) have overflowed (without needing
 to make an execution environment call or series of calls ultimately up to
 M-mode).
 
-[[norm:scountovf_acc]]
-Read access to bit _X_ is subject to the same mcounteren (or mcounteren and
+[#norm:scountovf_smode_read_access_control]#Read access to bit _X_ is subject to the same mcounteren (or mcounteren and
 hcounteren) CSRs that mediate access to the hpmcounter CSRs by S-mode (or
-VS-mode). In M-mode, scountovf bit _X_ is always readable. In S/HS-mode, scountovf bit _X_ is readable when mcounteren bit
-_X_ is set, and otherwise reads as zero. Similarly, in VS mode, scountovf bit
+VS-mode).# [#norm:scountovf_mmode_read_access]#In M-mode, scountovf bit _X_ is always readable.# [#norm:scountovf_smode_read_access]#In S/HS-mode, scountovf bit _X_ is readable when mcounteren bit
+_X_ is set, and otherwise reads as zero.# [#norm:scountovf_vsmode_read_access]#Similarly, in VS mode, scountovf bit
 _X_ is readable when mcounteren bit _X_ and hcounteren bit _X_ are both set,
-and otherwise reads as zero.
+and otherwise reads as zero.#
