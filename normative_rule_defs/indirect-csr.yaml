@@ -8,81 +8,84 @@ chapter_name: Indirect CSR
 normative_rule_definitions:
 
 - name: csr_access
-  tag: "norm:csr_access"
+  tags: ["norm:csr_access"]
 
 - name: select_value_separate_address_space
-  tag: "norm:select_value_separate_address_space"
+  tags: ["norm:select_value_separate_address_space"]
 
 - name: select_value_unrelated
-  tag: "norm:select_value_unrelated"
+  tags: ["norm:select_value_unrelated"]
 
-- name: csr_alias
-  tag: "norm:csr_alias"
+- name: csrs_alias
+  tags: ["norm:csrs_alias"]
 
 - name: miph_csr_number
-  tag: "norm:miph_csr_number"
+  tags: ["norm:miph_csr_number"]
 
 - name: miselect_op
-  tag: "norm:miselect_op"
+  tags: ["norm:miselect_op"]
 
 - name: miselect_value_range
-  tag: "norm:miselect_value_range"
+  tags: ["norm:miselect_value_range"]
 
 - name: miselect_WARL
-  tag: "norm:miselect_WARL"
+  tags: ["norm:miselect_WARL"]
 
-- name: miselect_sz
-  tag: "norm:miselect_sz"
+- name: miselect_min_sz
+  tags: ["norm:miselect_min_sz"]
 
 - name: miselect-msb_op
-  tag: "norm:miselect-msb_op"
+  tags: ["norm:miselect-msb_op"]
 
-- name: mireg_acc
-  tag: "norm:mireg_acc"
+- name: mireg_access_on_legal_miselect
+  tags: ["norm:mireg_access_on_legal_miselect"]
 
-- name: mireg_op
-  tag: "norm:mireg_op"
+- name: mireg_access_behaviour
+  tags: ["norm:mireg_access_behaviour"]
 
 - name: siselect_min_range
-  tag: "norm:siselect_min_range"
+  tags: ["norm:siselect_min_range"]
 
 - name: siselect-msb_op
-  tag: "norm:siselect-msb_op"
+  tags: ["norm:siselect-msb_op"]
 
-- name: sireg_acc
-  tag: "norm:sireg_acc"
+- name: sireg_access_on_illegal_siselect
+  tags: ["norm:sireg_access_on_illegal_siselect"]
 
-- name: sireg_op
-  tag: "norm:sireg_op"
+- name: sireg_access_on_legal_siselect
+  tags: ["norm:sireg_access_on_legal_siselect"]
 
-- name: supervisor_level_csr_sz
-  tag: "norm:supervisor_level_csr_sz"
+- name: sireg_access_behaviour
+  tags: ["norm:sireg_access_behaviour"]
 
-- name: viselect_sz
-  tag: "norm:viselect_sz"
+- name: sscsrind_smode_csrs_sz
+  tags: ["norm:sscsrind_smode_csrs_sz"]
 
-- name: viselect-msb_op
-  tag: "norm:viselect-msb_op"
+- name: vsiselect_min_range
+  tags: ["norm:vsiselect_min_range"]
 
-- name: virtual_inst_fault
-  tag: "norm:virtual_inst_fault"
+- name: vsiselect-msb_op
+  tags: ["norm:vsiselect-msb_op"]
 
-- name: vsireg_acc
-  tag: "norm:vsireg_acc"
+- name: sscsrind_virtual_inst_fault
+  tags: ["norm:sscsrind_virtual_inst_fault"]
 
-- name: vsireg_op
-  tag: "norm:vsireg_op"
+- name: vsireg_access_on_legal_vsiselect
+  tags: ["norm:vsireg_access_on_legal_vsiselect"]
 
-- name: VS_mode_virtual_inst_fault
-  tag: "norm:VS_mode_virtual_inst_fault"
+- name: vsireg_access_behaviour
+  tags: ["norm:vsireg_access_behaviour"]
 
-- name: virtual_supervisor_level_csr_sz
-  tag: "norm:virtual_supervisor_level_csr_sz"
+- name: vsmode_virtual_inst_fault
+  tags: ["norm:vsmode_virtual_inst_fault"]
 
-- name: VS_S_csrs_access_control
-  tag: "norm:VS_S_csrs_access_control"
+- name: sscsrind_vsmode_csrs_sz
+  tags: ["norm:sscsrind_vsmode_csrs_sz"]
 
-- name: hypervisor_impl_csr_access_control
-  tag: "norm:hypervisor_impl_csr_access_control"
+- name: sscsrind_csrs_access_control
+  tags: ["norm:sscsrind_csrs_access_control"]
+
+- name: hypervisor_impl_csrs_access_control
+  tags: ["norm:hypervisor_impl_csrs_access_control"]
 
 
