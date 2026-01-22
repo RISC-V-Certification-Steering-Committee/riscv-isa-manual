@@ -25,19 +25,19 @@ normative_rule_definitions:
   tags: ["norm:mhpmevent-OF_bit_Set"]
 
 - names: [mip-LCOFIP_op, sip-LCOFIP_op]
-  tag: "norm:LCOFIP_op"
+  tags: ["norm:LCOFIP_op"]
 
 - names: scountovf_op
-  tag: "norm:scountovf_op"
+  tags: ["norm:scountovf_op"]
 
 - names: scountovf_smode_read_access_control
-  tag: "norm:scountovf_smode_read_access_control"
+  tags: "[norm:scountovf_smode_read_access_control"]
 
 - names: scountovf_mmode_read_access
-  tag: "norm:scountovf_mmode_read_access"
+  tags: ["norm:scountovf_mmode_read_access"]
 
 - names: scountovf_smode_read_access
-  tag: "norm:scountovf_smode_read_access"
+  tags: ["norm:scountovf_smode_read_access"]
 
 - names: scountovf_vsmode_read_access
-  tag: "norm:scountovf_vsmode_read_access"
+  tags: ["norm:scountovf_vsmode_read_access"]
