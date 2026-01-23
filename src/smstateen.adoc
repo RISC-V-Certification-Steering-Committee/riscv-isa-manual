@@ -257,7 +257,7 @@ floating-point instructions cause an illegal-instruction exception (or virtual-i
 exception, if relevant), as though they all access `fcsr`, regardless of
 whether they really do.#
 
-[[norm:stateen-jvt_op]]
+[[norm:stateen0-jvt_op]]
 The JVT bit controls access to the `jvt` CSR provided by the Zcmt extension.
 
 [#norm:mstateen0-se0_op]#The SE0 bit in `mstateen0` controls access to the `hstateen0`, `hstateen0h`,

@@ -92,8 +92,8 @@ normative_rule_definitions:
   - name: stateen0-fcsr0_misa-f0_illegal_fpu_instr
     tags: ["norm:stateen0-fcsr0_misa-f0_illegal_fpu_instr"]
 
-  - name: stateen-jvt_op
-    tags: ["norm:stateen-jvt_op"]
+  - name: stateen0-jvt_op
+    tags: ["norm:stateen0-jvt_op"]
 
   - name: mstateen0-se0_op
     tags: ["norm:mstateen0-se0_op"]
