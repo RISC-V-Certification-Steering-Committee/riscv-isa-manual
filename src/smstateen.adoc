@@ -138,13 +138,13 @@ one, subject to the following conditions.
 implement are read-only zeros for that hart.# [#norm:stateen-reserved_roz]#Likewise, all reserved bits not
 yet given a defined meaning are also read-only zeros.# For every bit in an
 `mstateen` CSR that is zero (whether read-only zero or set to zero), the same bit
-appears as read-only zero in the matching `hstateen` and `sstateen` CSRs. [#norm:sstateen_vsmode_roz]#For every
+appears as read-only zero in the matching `hstateen` and `sstateen` CSRs. [#norm:sstateen_vsmode_access_roz]#For every
 bit in an `hstateen` CSR that is zero (whether read-only zero or set to zero),
 the same bit appears as read-only zero in `sstateen` when accessed in VS-mode.#
 
-[#norm:sstateen_ro1]#A bit in a supervisor-level `sstateen` CSR cannot be read-only one unless the
+[#norm:sstateen_ro1_bits]#A bit in a supervisor-level `sstateen` CSR cannot be read-only one unless the
 same bit is read-only one in the matching `mstateen` CSR and, if it exists, in
-the matching `hstateen` CSR.# [#norm:hstateen_ro1]#A bit in an `hstateen` CSR cannot be read-only one
+the matching `hstateen` CSR.# [#norm:hstateen_ro1_bits]#A bit in an `hstateen` CSR cannot be read-only one
 unless the same bit is read-only one in the matching `mstateen` CSR.#
 
 [#norm:mstateen_zero_initialization]#On reset, all writable `mstateen` bits are initialized by the hardware to zeros.#
