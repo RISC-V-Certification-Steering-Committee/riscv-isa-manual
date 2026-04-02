@@ -1190,6 +1190,12 @@ read of a *WARL* field when the last write was of an illegal value, but the
 legal value returned should deterministically depend on the illegal
 written value and the architectural state of the hart.
 
+If the CSR field type is not otherwise mentioned, it is *WARL*.  
+Some *WARL* fields specify constraints, such as being read-only 0
+if a certain extension is not supported.  If constraints are unspecified,
+the implmentation may choose any range of supported values, including
+all values, read-only 0, read-only nonzero, etc.
+
 === CSR Field Modulation
 
 If a write to one CSR changes the set of legal values allowed for a
